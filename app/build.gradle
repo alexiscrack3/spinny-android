@@ -14,15 +14,18 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        buildConfigField "String", "BASE_URL", "\"http://localhost:3000/\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"http://localhost:3000\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL', "\"http://localhost:3000\""
         }
     }
 

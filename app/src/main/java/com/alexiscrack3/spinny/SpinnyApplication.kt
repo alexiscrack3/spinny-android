@@ -20,6 +20,7 @@ class SpinnyApplication : MultiDexApplication() {
             // use the Android context given there
             androidContext(this@SpinnyApplication)
         }
+        NetworkModule.init()
         SpinnyModule.init()
     }
 }

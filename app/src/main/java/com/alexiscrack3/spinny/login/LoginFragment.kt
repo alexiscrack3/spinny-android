@@ -22,7 +22,7 @@ class LoginFragment : Fragment() {
             inflater,
             R.layout.fragment_login,
             container,
-            true
+            false
         ).apply {
             lifecycleOwner = this@LoginFragment
             viewModel = loginViewModel

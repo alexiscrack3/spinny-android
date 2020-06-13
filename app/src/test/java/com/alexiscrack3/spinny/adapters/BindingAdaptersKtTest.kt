@@ -17,21 +17,21 @@ class BindingAdaptersKtTest {
     }
 
     @Test
-    fun `visibility is set to visible when resource is loading`() {
-        val view = mock<View>()
-        setGoneUnless(view, Resource.Loading<Int>())
-
-        verify(view).visibility = View.VISIBLE
-    }
-
-    @Test
-    fun `visibility is set to visible when resource is failure`() {
+    fun `visibility is set to gone when resource is failure`() {
         val view = mock<View>()
         setGoneUnless(
             view, Resource.Failure<Any>(
                 Throwable()
             )
         )
+
+        verify(view).visibility = View.GONE
+    }
+
+    @Test
+    fun `visibility is set to visible when resource is loading`() {
+        val view = mock<View>()
+        setGoneUnless(view, Resource.Loading<Int>())
 
         verify(view).visibility = View.VISIBLE
     }

@@ -6,9 +6,9 @@ import com.alexiscrack3.spinny.api.Resource
 
 @BindingAdapter("app:goneUnless")
 fun setGoneUnless(view: View, resource: Resource<*>) {
-    view.visibility = if (resource is Resource.Success) {
-        View.GONE
-    } else {
+    view.visibility = if (resource is Resource.Loading) {
         View.VISIBLE
+    } else {
+        View.GONE
     }
 }

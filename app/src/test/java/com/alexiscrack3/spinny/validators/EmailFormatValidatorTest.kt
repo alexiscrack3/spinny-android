@@ -14,7 +14,7 @@ class EmailFormatValidatorTest : SpinnyTest() {
 
         val result = testObject.validate("example@mail.com")
 
-        assertThat(result, instanceOf(ValidatorResult.VALID::class.java))
+        assertThat(result, instanceOf(ValidatorResult.Valid::class.java))
     }
 
     @Test
@@ -23,11 +23,11 @@ class EmailFormatValidatorTest : SpinnyTest() {
 
         val result = testObject.validate("Not An Email!")
 
-        assertThat(result, instanceOf(ValidatorResult.INVALID::class.java))
+        assertThat(result, instanceOf(ValidatorResult.Invalid::class.java))
 
         when (result) {
-            ValidatorResult.INVALID -> {
-                when (ValidatorResult.INVALID.error) {
+            ValidatorResult.Invalid -> {
+                when (ValidatorResult.Invalid.error) {
 
                     ValidatorError("%s is invalid") -> assert(true)
                     else -> fail()

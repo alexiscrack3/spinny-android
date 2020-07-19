@@ -12,27 +12,27 @@ class CompositeValidatorTest {
     fun `validate should return valid when there are no validator errors`() {
         val emptyTextValidator = mock<EmptyTextValidator>()
         val text = "text"
-        whenever(emptyTextValidator.validate(text)).thenReturn(ValidatorResult.VALID)
+        whenever(emptyTextValidator.validate(text)).thenReturn(ValidatorResult.Valid)
         val emailFormatValidator = mock<EmailFormatValidator>()
-        whenever(emailFormatValidator.validate(text)).thenReturn(ValidatorResult.VALID)
+        whenever(emailFormatValidator.validate(text)).thenReturn(ValidatorResult.Valid)
         val testObject = CompositeValidator(emptyTextValidator, emailFormatValidator)
 
         val actual = testObject.validate(text)
 
-        assertThat(actual, instanceOf(ValidatorResult.VALID::class.java))
+        assertThat(actual, instanceOf(ValidatorResult.Valid::class.java))
     }
 
     @Test
     fun `validate should return invalid when there is at least one validator error`() {
         val emptyTextValidator = mock<EmptyTextValidator>()
         val text = "text"
-        whenever(emptyTextValidator.validate(text)).thenReturn(ValidatorResult.VALID)
+        whenever(emptyTextValidator.validate(text)).thenReturn(ValidatorResult.Valid)
         val emailFormatValidator = mock<EmailFormatValidator>()
-        whenever(emailFormatValidator.validate(text)).thenReturn(ValidatorResult.INVALID)
+        whenever(emailFormatValidator.validate(text)).thenReturn(ValidatorResult.Invalid)
         val testObject = CompositeValidator(emptyTextValidator, emailFormatValidator)
 
         val actual = testObject.validate(text)
 
-        assertThat(actual, instanceOf(ValidatorResult.INVALID::class.java))
+        assertThat(actual, instanceOf(ValidatorResult.Invalid::class.java))
     }
 }

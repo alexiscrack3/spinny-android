@@ -60,6 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/standard_margin"
                 android:hint="@string/email"
+                app:errorEnabled="true"
+                app:error="@{viewModel.emailError}"
                 app:layout_constraintBottom_toTopOf="@id/login_center_guideline"
                 app:layout_constraintEnd_toEndOf="@id/login_end_guideline"
                 app:layout_constraintStart_toStartOf="@id/login_begin_guideline">
@@ -67,7 +69,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.email}" />
+                    android:text="@={viewModel.emailLiveData}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -77,6 +79,7 @@
                 android:layout_marginTop="@dimen/standard_margin"
                 android:hint="@string/password"
                 app:endIconMode="password_toggle"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="@id/login_end_guideline"
                 app:layout_constraintStart_toStartOf="@id/login_begin_guideline"
                 app:layout_constraintTop_toBottomOf="@id/login_center_guideline">
@@ -85,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:text="@{viewModel.password}" />
+                    android:text="@={viewModel.passwordLiveData}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

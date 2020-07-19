@@ -1,15 +1,15 @@
 package com.alexiscrack3.spinny.validators
 
-import android.util.Patterns
+import androidx.core.util.PatternsCompat
 
 class EmailFormatValidator(
-    private val errorString: String
+    private val errorString: String? = null
 ) : TextValidator {
 
     override fun validate(text: String): ValidatorResult {
-        return if (Patterns.EMAIL_ADDRESS.matcher(text).matches())
-            ValidatorResult.VALID
+        return if (PatternsCompat.EMAIL_ADDRESS.matcher(text).matches())
+            ValidatorResult.Valid
         else
-            ValidatorResult.INVALID.apply { error = ValidatorError(errorString) }
+            ValidatorResult.Invalid.apply { error = ValidatorError(errorString) }
     }
 }

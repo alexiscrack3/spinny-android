@@ -12,7 +12,7 @@ class EmptyTextValidatorTest {
 
         val result = testObject.validate("Not Empty!")
 
-        assertThat(result, instanceOf(ValidatorResult.VALID::class.java))
+        assertThat(result, instanceOf(ValidatorResult.Valid::class.java))
     }
 
     @Test
@@ -21,7 +21,7 @@ class EmptyTextValidatorTest {
 
         val result = testObject.validate("")
 
-        assertThat(result, instanceOf(ValidatorResult.INVALID::class.java))
+        assertThat(result, instanceOf(ValidatorResult.Invalid::class.java))
     }
 
     @Test
@@ -30,6 +30,6 @@ class EmptyTextValidatorTest {
 
         val result = testObject.validate("   ")
 
-        assertThat(result, instanceOf(ValidatorResult.INVALID::class.java))
+        assertThat(result, instanceOf(ValidatorResult.Invalid::class.java))
     }
 }

@@ -5,10 +5,10 @@ class CompositeValidator(private vararg var validators: TextValidator) : TextVal
     override fun validate(text: String): ValidatorResult {
         for (validator in validators) {
             val result = validator.validate(text)
-            if (result == ValidatorResult.INVALID) {
+            if (result == ValidatorResult.Invalid) {
                 return result
             }
         }
-        return ValidatorResult.VALID
+        return ValidatorResult.Valid
     }
 }

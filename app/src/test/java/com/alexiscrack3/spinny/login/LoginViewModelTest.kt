@@ -8,6 +8,7 @@ import com.alexiscrack3.spinny.api.UserResponse
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import io.reactivex.Single
 import org.hamcrest.CoreMatchers.equalTo
@@ -17,22 +18,57 @@ import org.junit.Rule
 import org.junit.Test
 
 class LoginViewModelTest {
-    private val email = ""
-    private val password = ""
+    private val email = "email@spinny.io"
+    private val password = "password"
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
     @Test
-    fun `onSignInClicked should invoke signIn on LoginRepository`() {
+    fun `onSignInClicked should invoke signIn on LoginRepository when email and password are valid`() {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.never()
         }
-        val testObject = LoginViewModel(loginRepository)
+        val testObject = LoginViewModel(loginRepository).apply {
+            emailLiveData.value = email
+            passwordLiveData.value = password
+        }
 
         testObject.onSignInClicked()
 
         verify(loginRepository).signIn(email, password)
+    }
+
+    @Test
+    fun `onSignInClicked should not invoke signIn on LoginRepository when email is not valid`() {
+        val email = ""
+        val loginRepository = mock<LoginRepository> {
+            on { this.signIn(email, password) } doReturn Single.never()
+        }
+        val testObject = LoginViewModel(loginRepository).apply {
+            emailLiveData.value = email
+            passwordLiveData.value = password
+        }
+
+        testObject.onSignInClicked()
+
+        verify(loginRepository, never()).signIn(email, password)
+    }
+
+    @Test
+    fun `onSignInClicked should not invoke signIn on LoginRepository when password is not valid`() {
+        val email = ""
+        val loginRepository = mock<LoginRepository> {
+            on { this.signIn(email, password) } doReturn Single.never()
+        }
+        val testObject = LoginViewModel(loginRepository).apply {
+            emailLiveData.value = email
+            passwordLiveData.value = password
+        }
+
+        testObject.onSignInClicked()
+
+        verify(loginRepository, never()).signIn(email, password)
     }
 
     @Test
@@ -51,7 +87,10 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.just(signInResponse)
         }
-        val testObject = LoginViewModel(loginRepository)
+        val testObject = LoginViewModel(loginRepository).apply {
+            emailLiveData.value = email
+            passwordLiveData.value = password
+        }
 
         testObject.onSignInClicked()
 
@@ -65,7 +104,10 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.error(throwable)
         }
-        val testObject = LoginViewModel(loginRepository)
+        val testObject = LoginViewModel(loginRepository).apply {
+            emailLiveData.value = email
+            passwordLiveData.value = password
+        }
 
         testObject.onSignInClicked()
 
@@ -78,7 +120,10 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.never()
         }
-        val testObject = LoginViewModel(loginRepository)
+        val testObject = LoginViewModel(loginRepository).apply {
+            emailLiveData.value = email
+            passwordLiveData.value = password
+        }
 
         testObject.onSignInClicked()
 

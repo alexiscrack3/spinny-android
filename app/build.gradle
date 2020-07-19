@@ -101,6 +101,9 @@ dependencies {
     // JUnit 4 framework
     testImplementation 'junit:junit:4.12'
 
+    // FragmentScenario
+    debugImplementation 'androidx.fragment:fragment-testing:1.2.5'
+
     // Mockito
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 

@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.alexiscrack3.spinny.api.Resource
 
 @BindingAdapter("app:goneUnless")
-fun setGoneUnless(view: View, resource: Resource<*>) {
+fun setGoneUnless(view: View, resource: Resource<*>?) {
     view.visibility = if (resource is Resource.Loading) {
         View.VISIBLE
     } else {

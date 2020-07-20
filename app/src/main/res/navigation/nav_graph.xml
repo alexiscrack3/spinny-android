@@ -11,7 +11,7 @@
         android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_container_nav_graph"
-            app:destination="@id/container_nav_graph" />
+            app:destination="@id/main_nav_graph" />
     </fragment>
-    <include app:graph="@navigation/container_nav_graph" />
+    <include app:graph="@navigation/main_nav_graph" />
 </navigation>

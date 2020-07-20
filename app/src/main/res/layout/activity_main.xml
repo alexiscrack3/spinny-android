@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ContainerActivity">
+    tools:context=".MainActivity">
 
     <fragment
-        android:id="@+id/container_nav_host_fragment"
+        android:id="@+id/main_nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -16,5 +16,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/container_nav_graph" />
+        app:navGraph="@navigation/main_nav_graph" />
 </androidx.constraintlayout.widget.ConstraintLayout>

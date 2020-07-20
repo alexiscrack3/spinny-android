@@ -1,6 +1,8 @@
 package com.alexiscrack3.spinny
 
+import android.app.Application
 import android.os.Build
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.After
 import org.junit.Before
@@ -20,7 +22,7 @@ import org.robolectric.annotation.Config
 )
 @RunWith(AndroidJUnit4::class)
 abstract class SpinnyTest : AutoCloseKoinTest() {
-//    protected val context by lazy { ApplicationProvider.getApplicationContext<Application>() }
+    protected val context by lazy { ApplicationProvider.getApplicationContext<Application>() }
 
     @get:Rule
     val mockProvider = MockProviderRule.create { clazz ->

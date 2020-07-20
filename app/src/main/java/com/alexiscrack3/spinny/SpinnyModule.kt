@@ -1,6 +1,7 @@
 package com.alexiscrack3.spinny
 
 import com.alexiscrack3.spinny.login.loginModule
+import com.alexiscrack3.spinny.security.securityModule
 import org.koin.core.context.loadKoinModules
 
 object SpinnyModule {
@@ -9,6 +10,7 @@ object SpinnyModule {
         NetworkModule.init()
 
         val moduleList = listOf(
+            securityModule,
             loginModule
         )
         loadKoinModules(moduleList)

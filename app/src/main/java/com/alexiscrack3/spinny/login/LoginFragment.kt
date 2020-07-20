@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.databinding.LoginFragmentBinding
@@ -23,7 +24,12 @@ class LoginFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val observer = Observer<Resource<String>> { resource ->
             when (resource) {
-                is Resource.Success -> securePreferences.setAccessToken(resource.data.orEmpty())
+                is Resource.Success -> {
+                    val accessToken = resource.data.orEmpty()
+                    securePreferences.setAccessToken(accessToken)
+                    view?.findNavController()
+                        ?.navigate(R.id.action_loginFragment_to_container_nav_graph)
+                }
                 is Resource.Failure -> Timber.e(resource.error)
             }
         }

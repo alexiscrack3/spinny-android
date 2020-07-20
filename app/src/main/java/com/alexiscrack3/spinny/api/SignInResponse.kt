@@ -13,7 +13,3 @@ data class UserResponse(
     val user: PlayerResponse,
     val token: String
 )
-
-data class SignInResponse(
-    val data: UserResponse
-)

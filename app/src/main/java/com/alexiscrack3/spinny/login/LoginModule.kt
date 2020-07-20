@@ -8,6 +8,9 @@ val loginModule = module {
     factory { NetworkModule.createService(LoginService::class.java) }
     factory { LoginRepository(loginService = get()) }
     viewModel {
-        LoginViewModel(loginRepository = get())
+        LoginViewModel(
+            loginRepository = get(),
+            securePreferences = get()
+        )
     }
 }

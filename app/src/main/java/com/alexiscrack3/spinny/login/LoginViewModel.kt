@@ -4,13 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alexiscrack3.spinny.SpinnyViewModel
 import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.validators.CompositeValidator
 import com.alexiscrack3.spinny.validators.EmailFormatValidator
 import com.alexiscrack3.spinny.validators.EmptyTextValidator
 import com.alexiscrack3.spinny.validators.ValidatorResult
 
 class LoginViewModel(
-    private val loginRepository: LoginRepository
+    private val loginRepository: LoginRepository,
+    private val securePreferences: SecurePreferences
 ) : SpinnyViewModel() {
     private val _tokenLiveData = MutableLiveData<Resource<String>>()
     val emailLiveData = MutableLiveData<String>()
@@ -28,6 +30,9 @@ class LoginViewModel(
             loginRepository.signIn(email, password)
                 .doOnSubscribe {
                     _tokenLiveData.postValue(Resource.Loading())
+                }
+                .doOnSuccess {
+                    securePreferences.setAccessToken(it.data.token)
                 }
                 .subscribe({
                     _tokenLiveData.postValue(Resource.Success(it.data.token))

@@ -5,6 +5,7 @@ import com.alexiscrack3.spinny.api.PlayerResponse
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.api.Response
 import com.alexiscrack3.spinny.api.SignInResponse
+import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -29,7 +30,7 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.never()
         }
-        val testObject = LoginViewModel(loginRepository).apply {
+        val testObject = LoginViewModel(loginRepository, mock()).apply {
             emailLiveData.value = email
             passwordLiveData.value = password
         }
@@ -45,7 +46,7 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.never()
         }
-        val testObject = LoginViewModel(loginRepository).apply {
+        val testObject = LoginViewModel(loginRepository, mock()).apply {
             emailLiveData.value = email
             passwordLiveData.value = password
         }
@@ -61,7 +62,7 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.never()
         }
-        val testObject = LoginViewModel(loginRepository).apply {
+        val testObject = LoginViewModel(loginRepository, mock()).apply {
             emailLiveData.value = email
             passwordLiveData.value = password
         }
@@ -78,16 +79,16 @@ class LoginViewModelTest {
             email = "",
             rating = 0
         )
-        val token = "token"
+        val accessToken = "accessToken"
         val signInResponse = SignInResponse(
             user = playerResponse,
-            token = token
+            token = accessToken
         )
         val response = Response(signInResponse)
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.just(response)
         }
-        val testObject = LoginViewModel(loginRepository).apply {
+        val testObject = LoginViewModel(loginRepository, mock()).apply {
             emailLiveData.value = email
             passwordLiveData.value = password
         }
@@ -95,7 +96,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.tokenLiveData.getOrAwaitValue() as Resource.Success
-        assertThat(actual.data, equalTo(token))
+        assertThat(actual.data, equalTo(accessToken))
     }
 
     @Test
@@ -104,7 +105,7 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.error(throwable)
         }
-        val testObject = LoginViewModel(loginRepository).apply {
+        val testObject = LoginViewModel(loginRepository, mock()).apply {
             emailLiveData.value = email
             passwordLiveData.value = password
         }
@@ -120,7 +121,7 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.never()
         }
-        val testObject = LoginViewModel(loginRepository).apply {
+        val testObject = LoginViewModel(loginRepository, mock()).apply {
             emailLiveData.value = email
             passwordLiveData.value = password
         }
@@ -129,5 +130,32 @@ class LoginViewModelTest {
 
         val actual = testObject.tokenLiveData.getOrAwaitValue()
         assertThat(actual, instanceOf(Resource.Loading::class.java))
+    }
+
+    @Test
+    fun `access token should be stored on successful authentication`() {
+        val playerResponse = PlayerResponse(
+            id = "",
+            email = "",
+            rating = 0
+        )
+        val accessToken = "accessToken"
+        val signInResponse = SignInResponse(
+            user = playerResponse,
+            token = accessToken
+        )
+        val response = Response(signInResponse)
+        val loginRepository = mock<LoginRepository> {
+            on { this.signIn(email, password) } doReturn Single.just(response)
+        }
+        val securePreferences = mock<SecurePreferences>()
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailLiveData.value = email
+            passwordLiveData.value = password
+        }
+
+        testObject.onSignInClicked()
+
+        verify(securePreferences).setAccessToken(accessToken)
     }
 }

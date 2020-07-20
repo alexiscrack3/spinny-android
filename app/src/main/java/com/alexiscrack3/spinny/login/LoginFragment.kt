@@ -23,7 +23,7 @@ class LoginFragment : Fragment() {
             when (resource) {
                 is Resource.Success -> {
                     view?.findNavController()
-                        ?.navigate(R.id.action_loginFragment_to_container_nav_graph)
+                        ?.navigate(R.id.action_loginFragment_to_main_nav_graph)
                 }
                 is Resource.Failure -> Timber.e(resource.error)
             }

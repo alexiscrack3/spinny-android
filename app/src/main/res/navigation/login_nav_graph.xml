@@ -9,7 +9,7 @@
         android:name="com.alexiscrack3.spinny.login.LoginFragment"
         android:label="LoginFragment">
         <action
-            android:id="@+id/action_loginFragment_to_container_nav_graph"
+            android:id="@+id/action_loginFragment_to_main_nav_graph"
             app:destination="@id/main_nav_graph" />
     </fragment>
     <include app:graph="@navigation/main_nav_graph" />

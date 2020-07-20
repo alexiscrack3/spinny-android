@@ -3,8 +3,8 @@ package com.alexiscrack3.spinny.login
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.alexiscrack3.spinny.api.PlayerResponse
 import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.api.Response
 import com.alexiscrack3.spinny.api.SignInResponse
-import com.alexiscrack3.spinny.api.UserResponse
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -79,13 +79,13 @@ class LoginViewModelTest {
             rating = 0
         )
         val token = "token"
-        val userResponse = UserResponse(
+        val signInResponse = SignInResponse(
             user = playerResponse,
             token = token
         )
-        val signInResponse = SignInResponse(userResponse)
+        val response = Response(signInResponse)
         val loginRepository = mock<LoginRepository> {
-            on { this.signIn(email, password) } doReturn Single.just(signInResponse)
+            on { this.signIn(email, password) } doReturn Single.just(response)
         }
         val testObject = LoginViewModel(loginRepository).apply {
             emailLiveData.value = email

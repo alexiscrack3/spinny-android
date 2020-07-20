@@ -9,7 +9,7 @@ data class PlayerResponse(
     val rating: Int
 )
 
-data class UserResponse(
+data class SignInResponse(
     val user: PlayerResponse,
     val token: String
 )

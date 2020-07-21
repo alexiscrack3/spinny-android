@@ -6,32 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.alexiscrack3.spinny.R
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.databinding.ClubsFragmentBinding
+import com.alexiscrack3.spinny.models.Club
+import kotlinx.android.synthetic.main.fragment_clubs.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class ClubsFragment : Fragment() {
     private val clubsViewModel by viewModel<ClubsViewModel>()
+    private val clubsAdapter = ClubsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        clubsViewModel.getClubs()
-            .subscribe({
-                Timber.d(it.toString())
-            }, {
-                Timber.e(it)
-            })
-//        val observer = Observer<Resource<String>> { resource ->
-//            when (resource) {
-//                is Resource.Success -> {
-//                    val accessToken = resource.data.orEmpty()
-//                    securePreferences.setAccessToken(accessToken)
-//                }
-//                is Resource.Failure -> Timber.e(resource.error)
-//            }
-//        }
-//        loginViewModel.tokenLiveData.observe(this, observer)
+        val observer = Observer<Resource<List<Club>>> { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    clubsAdapter.swap(resource.data.orEmpty())
+                }
+                is Resource.Failure -> Timber.e(resource.error)
+            }
+        }
+        clubsViewModel.clubsLiveData.observe(this, observer)
     }
 
     override fun onCreateView(
@@ -45,9 +43,19 @@ class ClubsFragment : Fragment() {
             container,
             false
         ).apply {
-//            lifecycleOwner = this@LoginFragment
+            lifecycleOwner = this@ClubsFragment
             viewModel = clubsViewModel
         }
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        clubs_list.adapter = clubsAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        clubsViewModel.getClubs()
     }
 }

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 29
@@ -20,6 +21,7 @@ android {
 
     buildTypes {
         debug {
+            testCoverageEnabled true
             buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:3000\""
         }
         release {
@@ -43,6 +45,7 @@ android {
     }
 
     testOptions {
+        animationsDisabled true
         unitTests {
             includeAndroidResources = true
         }
@@ -116,6 +119,57 @@ dependencies {
     // Robolectric
     testImplementation 'org.robolectric:robolectric:4.3.1'
 
+//    // Espresso
+//    testImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+//    androidTestImplementation 'androidx.test:runner:1.2.0'
+}
+
+jacoco {
+    toolVersion = "$jacoco_version"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: [
+        'testDebugUnitTest',
+]) {
+    // Define which type of report you want to generate
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    // define which classes to exclude
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*'
+    ]
+
+    // Define your source and your classes: we want to test the production code
+    def mainSrc = "$project.projectDir/src/main/java"
+    def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def dataTree = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec',
+            'outputs/code-coverage/connected/*coverage.ec'
+    ])
+
+    // Explain to Jacoco where is your source code
+    getSourceDirectories().setFrom(mainSrc)
+
+    // Explain to Jacoco where are you .class file
+    getClassDirectories().setFrom(debugTree)
+
+    // As you want to gather all your tests reports, add the ec and exec you want to be took into
+    // account when generating the report
+    getExecutionData().setFrom(dataTree)
 }

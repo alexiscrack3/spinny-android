@@ -6,9 +6,9 @@ import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
-import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.api.Result
+import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
@@ -19,13 +19,14 @@ import org.koin.test.mock.declareMock
 
 class LoginFragmentTest : SpinnyTest() {
     private val loginViewModel by inject<LoginViewModel>()
-    private val tokenLiveData = MutableLiveData<Resource<String>>()
+    private val tokenLiveData = MutableLiveData<Result<String>>()
 
     @Before
     override fun setUp() {
         super.setUp()
-        declareMock<LoginViewModel>()
-        whenever(loginViewModel.tokenLiveData).thenReturn(tokenLiveData)
+        declareMock<LoginViewModel> {
+            given(this.tokenLiveData).willReturn(tokenLiveData)
+        }
     }
 
     @Test
@@ -53,7 +54,7 @@ class LoginFragmentTest : SpinnyTest() {
             }
         }
         fragmentScenario.onFragment {
-            tokenLiveData.value = Resource.Success("")
+            tokenLiveData.value = Result.Success("")
 
             assertThat(
                 navController.currentDestination?.id,

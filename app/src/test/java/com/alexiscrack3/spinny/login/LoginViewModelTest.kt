@@ -2,7 +2,7 @@ package com.alexiscrack3.spinny.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.alexiscrack3.spinny.api.PlayerResponse
-import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.api.Response
 import com.alexiscrack3.spinny.api.SignInResponse
 import com.alexiscrack3.spinny.security.SecurePreferences
@@ -73,7 +73,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `successful resource with token is emitted when authenticating user`() {
+    fun `successful result with token is emitted when authenticating user`() {
         val playerResponse = PlayerResponse(
             id = "",
             email = "",
@@ -95,12 +95,12 @@ class LoginViewModelTest {
 
         testObject.onSignInClicked()
 
-        val actual = testObject.tokenLiveData.getOrAwaitValue() as Resource.Success
+        val actual = testObject.tokenLiveData.getOrAwaitValue() as Result.Success
         assertThat(actual.data, equalTo(accessToken))
     }
 
     @Test
-    fun `failing resource is emitted when authenticating user`() {
+    fun `failing result is emitted when authenticating user`() {
         val throwable = Throwable()
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.error(throwable)
@@ -112,12 +112,12 @@ class LoginViewModelTest {
 
         testObject.onSignInClicked()
 
-        val actual = testObject.tokenLiveData.getOrAwaitValue() as Resource.Failure
+        val actual = testObject.tokenLiveData.getOrAwaitValue() as Result.Failure
         assertThat(actual.error, equalTo(throwable))
     }
 
     @Test
-    fun `loading resource is emitted when authenticating user`() {
+    fun `loading result is emitted when authenticating user`() {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.never()
         }
@@ -129,7 +129,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.tokenLiveData.getOrAwaitValue()
-        assertThat(actual, instanceOf(Resource.Loading::class.java))
+        assertThat(actual, instanceOf(Result.Loading::class.java))
     }
 
     @Test

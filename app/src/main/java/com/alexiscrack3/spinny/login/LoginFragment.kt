@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.alexiscrack3.spinny.R
-import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.databinding.LoginFragmentBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -19,12 +19,12 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val observer = Observer<Resource<String>> { resource ->
-            when (resource) {
-                is Resource.Success -> {
+        val observer = Observer<Result<String>> { result ->
+            when (result) {
+                is Result.Success -> {
                     findNavController().navigate(R.id.action_loginFragment_to_main_nav_graph)
                 }
-                is Resource.Failure -> Timber.e(resource.error)
+                is Result.Failure -> Timber.e(result.error)
             }
         }
         loginViewModel.tokenLiveData.observe(this, observer)

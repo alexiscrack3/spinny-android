@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.alexiscrack3.spinny.R
-import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.databinding.ClubsFragmentBinding
 import com.alexiscrack3.spinny.models.Club
 import kotlinx.android.synthetic.main.fragment_clubs.*
@@ -21,12 +21,12 @@ class ClubsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val observer = Observer<Resource<List<Club>>> { resource ->
-            when (resource) {
-                is Resource.Success -> {
-                    clubsAdapter.swap(resource.data.orEmpty())
+        val observer = Observer<Result<List<Club>>> { result ->
+            when (result) {
+                is Result.Success -> {
+                    clubsAdapter.swap(result.data.orEmpty())
                 }
-                is Resource.Failure -> Timber.e(resource.error)
+                is Result.Failure -> Timber.e(result.error)
             }
         }
         clubsViewModel.clubsLiveData.observe(this, observer)

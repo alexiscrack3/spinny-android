@@ -3,7 +3,7 @@ package com.alexiscrack3.spinny.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alexiscrack3.spinny.SpinnyViewModel
-import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.validators.CompositeValidator
 import com.alexiscrack3.spinny.validators.EmailFormatValidator
@@ -14,13 +14,13 @@ class LoginViewModel(
     private val loginRepository: LoginRepository,
     private val securePreferences: SecurePreferences
 ) : SpinnyViewModel() {
-    private val _tokenLiveData = MutableLiveData<Resource<String>>()
+    private val _tokenLiveData = MutableLiveData<Result<String>>()
     val emailLiveData = MutableLiveData<String>()
     val emailError = MutableLiveData<String>()
 
     val passwordLiveData = MutableLiveData<String>()
 
-    val tokenLiveData: LiveData<Resource<String>>
+    val tokenLiveData: LiveData<Result<String>>
         get() = _tokenLiveData
 
     fun onSignInClicked() {
@@ -29,15 +29,15 @@ class LoginViewModel(
         if (isFormValid(email, password)) {
             loginRepository.signIn(email, password)
                 .doOnSubscribe {
-                    _tokenLiveData.postValue(Resource.Loading())
+                    _tokenLiveData.postValue(Result.Loading())
                 }
                 .doOnSuccess {
                     securePreferences.setAccessToken(it.data.token)
                 }
                 .subscribe({
-                    _tokenLiveData.postValue(Resource.Success(it.data.token))
+                    _tokenLiveData.postValue(Result.Success(it.data.token))
                 }, {
-                    _tokenLiveData.postValue(Resource.Failure(it))
+                    _tokenLiveData.postValue(Result.Failure(it))
                 })
                 .autoDispose()
         }

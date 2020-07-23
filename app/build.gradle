@@ -116,7 +116,7 @@ dependencies {
     testImplementation 'androidx.test:core:1.2.0'
 
     // JUnit 4 framework
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 
     // FragmentScenario
     debugImplementation 'androidx.fragment:fragment-testing:1.2.5'

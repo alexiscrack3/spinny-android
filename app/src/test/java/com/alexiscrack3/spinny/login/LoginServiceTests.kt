@@ -1,7 +1,7 @@
 package com.alexiscrack3.spinny.login
 
-import com.alexiscrack3.spinny.api.*
-import com.google.gson.Gson
+import com.alexiscrack3.spinny.api.ServicesFactory
+import com.alexiscrack3.spinny.api.SignInRequest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.hamcrest.CoreMatchers.equalTo
@@ -25,12 +25,13 @@ class LoginServiceTests {
     }
 
     @Test
-    fun `signIn should return signInResponse`() {
+    fun `signIn should return sign in response`() {
         val playerId = "123"
         val email = "foo@spinny.io"
         val rating = 100
         val accessToken = "accessToken"
-        val jsonData = "{\"data\":{\"user\":{\"_id\":\"${playerId}\",\"email\":\"${email}\",\"rating\":${rating}},\"token\":\"${accessToken}\"}}"
+        val jsonData =
+            "{\"data\":{\"user\":{\"_id\":\"${playerId}\",\"email\":\"${email}\",\"rating\":${rating}},\"token\":\"${accessToken}\"}}"
         val mockResponse = MockResponse()
             .addHeader("Content-Type", "application/json; charset=utf-8")
             .setResponseCode(HttpURLConnection.HTTP_OK)

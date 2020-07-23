@@ -40,7 +40,6 @@ class LoginFragmentTest : SpinnyTest() {
         }
     }
 
-
     @Test
     fun `navigate to clubs screen when clicking on sign in`() {
         val navController = TestNavHostController(context).apply {

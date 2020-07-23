@@ -1,12 +1,14 @@
 package com.alexiscrack3.spinny.clubs
 
-import com.alexiscrack3.spinny.NetworkModule
+import com.alexiscrack3.spinny.api.ServicesFactory
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val clubsModule = module {
-    factory { NetworkModule.createService(ClubsService::class.java) }
-    factory { ClubsRepository(clubsService = get()) }
+    factory {
+        val serviceFactory = get<ServicesFactory>()
+        serviceFactory.createService(ClubsService::class.java)
+    }
     viewModel {
         ClubsViewModel(clubsRepository = get())
     }

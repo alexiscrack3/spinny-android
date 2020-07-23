@@ -23,7 +23,7 @@ class ClubsRepositoryTest {
             id = id,
             name = name
         )
-        val testObject = ClubsRepository(clubsService)
+        val testObject = ClubsRepository(clubsService, mock())
 
         testObject.getClubs()
             .test()

@@ -10,6 +10,7 @@ object SpinnyModule {
 
     fun init() {
         val moduleList = listOf(
+            storageModule,
             servicesModule,
             securityModule,
             loginModule,

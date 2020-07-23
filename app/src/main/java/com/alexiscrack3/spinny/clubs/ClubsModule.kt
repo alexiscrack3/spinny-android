@@ -9,6 +9,12 @@ val clubsModule = module {
         val serviceFactory = get<ServicesFactory>()
         serviceFactory.createService(ClubsService::class.java)
     }
+    factory {
+        ClubsRepository(
+            clubsService = get(),
+            clubsDao = get()
+        )
+    }
     viewModel {
         ClubsViewModel(clubsRepository = get())
     }

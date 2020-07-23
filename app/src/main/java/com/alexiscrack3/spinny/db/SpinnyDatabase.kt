@@ -1,4 +1,4 @@
-package com.alexiscrack3.spinny
+package com.alexiscrack3.spinny.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

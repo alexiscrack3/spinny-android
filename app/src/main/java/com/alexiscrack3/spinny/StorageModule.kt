@@ -1,6 +1,7 @@
 package com.alexiscrack3.spinny
 
 import androidx.room.Room
+import com.alexiscrack3.spinny.db.SpinnyDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

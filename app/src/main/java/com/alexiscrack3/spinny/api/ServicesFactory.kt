@@ -28,7 +28,9 @@ class ServicesFactory(
                 Timber.tag("OkHttp").d(message)
             }
         }
-        val httpLoggingInterceptor = HttpLoggingInterceptor(logger)
+        val httpLoggingInterceptor = HttpLoggingInterceptor(logger).apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
         return OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)

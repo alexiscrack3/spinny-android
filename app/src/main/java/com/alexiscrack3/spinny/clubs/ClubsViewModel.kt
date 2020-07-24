@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.alexiscrack3.spinny.SpinnyViewModel
 import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.models.Club
+import io.reactivex.schedulers.Schedulers
 
 class ClubsViewModel(
     private val clubsRepository: ClubsRepository
@@ -16,6 +17,7 @@ class ClubsViewModel(
 
     fun getClubs() {
         clubsRepository.getClubs()
+            .subscribeOn(Schedulers.io())
             .doOnSubscribe {
                 _clubsLiveData.postValue(Result.Loading())
             }

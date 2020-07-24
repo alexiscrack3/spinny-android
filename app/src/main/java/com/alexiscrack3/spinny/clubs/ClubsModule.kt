@@ -12,7 +12,8 @@ val clubsModule = module {
     factory {
         ClubsRepository(
             clubsService = get(),
-            clubsDao = get()
+            clubsDao = get(),
+            transactionLogsDao = get()
         )
     }
     viewModel {

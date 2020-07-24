@@ -17,4 +17,8 @@ val storageModule = module {
         val spinnyDatabase = get<SpinnyDatabase>()
         spinnyDatabase.clubsDao()
     }
+    factory {
+        val spinnyDatabase = get<SpinnyDatabase>()
+        spinnyDatabase.transactionLogsDao()
+    }
 }

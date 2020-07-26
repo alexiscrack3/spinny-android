@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.OrientationHelper
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.databinding.ClubsFragmentBinding
@@ -51,6 +53,10 @@ class ClubsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        val dividerItemDecoration = DividerItemDecoration(
+            requireContext(), OrientationHelper.VERTICAL
+        )
+        clubs_list.addItemDecoration(dividerItemDecoration)
         clubs_list.adapter = clubsAdapter
     }
 

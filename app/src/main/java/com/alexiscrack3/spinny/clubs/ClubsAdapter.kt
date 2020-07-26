@@ -3,7 +3,7 @@ package com.alexiscrack3.spinny.clubs
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.alexiscrack3.spinny.R
+import com.alexiscrack3.spinny.databinding.ClubItemBinding
 import com.alexiscrack3.spinny.models.Club
 
 class ClubsAdapter(
@@ -12,9 +12,8 @@ class ClubsAdapter(
     private val clubs = clubs.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClubViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_club, parent, false)
-        return ClubViewHolder(view)
+        val binding = ClubItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ClubViewHolder(binding)
     }
 
     override fun getItemCount() = clubs.size

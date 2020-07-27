@@ -14,12 +14,13 @@ import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.databinding.ClubsFragmentBinding
 import com.alexiscrack3.spinny.models.Club
 import kotlinx.android.synthetic.main.fragment_clubs.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class ClubsFragment : Fragment() {
     private val clubsViewModel by viewModel<ClubsViewModel>()
-    private val clubsAdapter = ClubsAdapter()
+    private val clubsAdapter by inject<ClubsAdapter>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

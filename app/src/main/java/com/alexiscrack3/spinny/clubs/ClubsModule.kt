@@ -10,6 +10,9 @@ val clubsModule = module {
         serviceFactory.createService(ClubsService::class.java)
     }
     factory {
+        ClubsAdapter()
+    }
+    factory {
         ClubsRepository(
             clubsService = get(),
             clubsDao = get(),

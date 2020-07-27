@@ -2,22 +2,27 @@ package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
+import com.alexiscrack3.spinny.databinding.ClubItemBinding
 import com.alexiscrack3.spinny.models.Club
-import kotlinx.android.synthetic.main.item_club.view.*
-import org.hamcrest.CoreMatchers.equalTo
-import org.junit.Assert.assertThat
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
 
 class ClubViewHolderTest : SpinnyTest() {
     private val view = inflateView(R.layout.item_club)
 
     @Test
-    fun `when bound title text is set`() {
+    fun `club is bound to view`() {
         val club = Club("1", "name")
-        val testObject = ClubViewHolder(view)
+        val clubItemBinding = mock<ClubItemBinding> {
+            on { this.root } doReturn view
+        }
+        val testObject = ClubViewHolder(clubItemBinding)
 
         testObject.bind(club)
 
-        assertThat(view.club_name_text_view.text.toString(), equalTo(club.name))
+        verify(clubItemBinding).club = club
+        verify(clubItemBinding).executePendingBindings()
     }
 }

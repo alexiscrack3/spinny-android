@@ -7,8 +7,10 @@ import androidx.navigation.testing.TestNavHostController
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.api.Result
+import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
@@ -24,9 +26,8 @@ class LoginFragmentTest : SpinnyTest() {
     @Before
     override fun setUp() {
         super.setUp()
-        declareMock<LoginViewModel> {
-            given(this.tokenLiveData).willReturn(tokenLiveData)
-        }
+        declareMock<LoginViewModel>()
+        whenever(loginViewModel.tokenLiveData).doReturn(tokenLiveData)
     }
 
     @Test

@@ -7,6 +7,7 @@ import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import io.reactivex.Single
+import io.reactivex.schedulers.TestScheduler
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
@@ -25,9 +26,14 @@ class ClubsViewModelTest {
         val clubsRepository = mock<ClubsRepository> {
             on { this.getClubs() } doReturn Single.just(clubs)
         }
-        val testObject = ClubsViewModel(clubsRepository)
+        val testScheduler = TestScheduler()
+        val testObject = ClubsViewModel(
+            clubsRepository = clubsRepository,
+            scheduler = testScheduler
+        )
 
         testObject.getClubs()
+        testScheduler.triggerActions()
 
         val actual = testObject.clubsLiveData.getOrAwaitValue() as Result.Success
         assertThat(actual.data, equalTo(clubs))
@@ -39,9 +45,14 @@ class ClubsViewModelTest {
         val clubsRepository = mock<ClubsRepository> {
             on { this.getClubs() } doReturn Single.error(throwable)
         }
-        val testObject = ClubsViewModel(clubsRepository)
+        val testScheduler = TestScheduler()
+        val testObject = ClubsViewModel(
+            clubsRepository = clubsRepository,
+            scheduler = testScheduler
+        )
 
         testObject.getClubs()
+        testScheduler.triggerActions()
 
         val actual = testObject.clubsLiveData.getOrAwaitValue() as Result.Failure
         assertThat(actual.error, equalTo(throwable))
@@ -52,9 +63,14 @@ class ClubsViewModelTest {
         val clubsRepository = mock<ClubsRepository> {
             on { this.getClubs() } doReturn Single.never()
         }
-        val testObject = ClubsViewModel(clubsRepository)
+        val testScheduler = TestScheduler()
+        val testObject = ClubsViewModel(
+            clubsRepository = clubsRepository,
+            scheduler = testScheduler
+        )
 
         testObject.getClubs()
+        testScheduler.triggerActions()
 
         val actual = testObject.clubsLiveData.getOrAwaitValue()
         assertThat(actual, instanceOf(Result.Loading::class.java))

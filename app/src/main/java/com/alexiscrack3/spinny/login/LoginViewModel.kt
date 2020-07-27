@@ -43,8 +43,17 @@ class LoginViewModel(
         }
     }
 
+    private fun isEmailValid(email: String): Boolean {
+        val validatorResult = CompositeValidator(EmailFormatValidator()).validate(email)
+        return validatorResult == ValidatorResult.Valid
+    }
+
+    private fun isPasswordValid(password: String): Boolean {
+        val validatorResult = CompositeValidator(EmptyTextValidator()).validate(password)
+        return validatorResult == ValidatorResult.Valid
+    }
+
     private fun isFormValid(email: String, password: String): Boolean {
-        return CompositeValidator(EmailFormatValidator()).validate(email) == ValidatorResult.Valid
-                && CompositeValidator(EmptyTextValidator()).validate(password) == ValidatorResult.Valid
+        return isEmailValid(email) && isPasswordValid(password)
     }
 }

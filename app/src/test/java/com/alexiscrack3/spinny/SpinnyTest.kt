@@ -42,7 +42,7 @@ abstract class SpinnyTest : AutoCloseKoinTest() {
     }
 
     @After
-    fun tearDown() {
+    open fun tearDown() {
         stopKoin()
     }
 

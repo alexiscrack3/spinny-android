@@ -1,5 +1,8 @@
 package com.alexiscrack3.spinny.login
 
+import android.content.DialogInterface
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
@@ -12,13 +15,13 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.android.synthetic.main.fragment_login.view.*
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
+import org.robolectric.shadows.ShadowDialog
 
 class LoginFragmentTest : SpinnyTest() {
     private val loginViewModel by inject<LoginViewModel>()
@@ -122,6 +125,30 @@ class LoginFragmentTest : SpinnyTest() {
             passwordError.value = ValidatorResult.Valid
 
             assertThat(passwordLayout.error, nullValue())
+        }
+    }
+
+    @Test
+    fun `show alert dialog when authentication fails`() {
+        val fragmentScenario = launchFragmentInContainer<LoginFragment>()
+        fragmentScenario.onFragment {
+            tokenLiveData.value = Result.Failure(Throwable())
+
+            val alertDialog = ShadowDialog.getLatestDialog() as? AlertDialog
+            assertThat("Alert dialog should be displayed", alertDialog, notNullValue())
+
+            alertDialog as AlertDialog
+
+            assertThat(alertDialog.isShowing, equalTo(true))
+
+            val alertTitle = alertDialog.findViewById<TextView>(R.id.alertTitle)
+            assertThat(alertTitle?.text.toString(), equalTo("Login Failed"))
+
+            val alertMessage = alertDialog.findViewById<TextView>(android.R.id.message)
+            assertThat(alertMessage?.text.toString(), equalTo("There was an issue logging in. Please try again."))
+
+            val positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+            assertThat(positiveButton.text.toString(), equalTo("OK"))
         }
     }
 }

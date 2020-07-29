@@ -18,6 +18,8 @@ class LoginActivityTest : SpinnyTest() {
         super.setUp()
         declareMock<LoginViewModel> {
             given(this.tokenLiveData).willReturn(MutableLiveData())
+            given(this.emailError).willReturn(MutableLiveData())
+            given(this.passwordError).willReturn(MutableLiveData())
         }
     }
 

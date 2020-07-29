@@ -60,7 +60,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/standard_margin"
                 android:hint="@string/email"
-                app:error="@{viewModel.emailError}"
                 app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@id/login_center_guideline"
                 app:layout_constraintEnd_toEndOf="@id/login_end_guideline"

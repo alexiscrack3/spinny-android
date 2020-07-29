@@ -11,15 +11,17 @@ import androidx.navigation.fragment.findNavController
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.databinding.LoginFragmentBinding
+import com.alexiscrack3.spinny.validators.ValidatorResult
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class LoginFragment : Fragment() {
     private val loginViewModel by viewModel<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val observer = Observer<Result<String>> { result ->
+        val tokenObserver = Observer<Result<String>> { result ->
             when (result) {
                 is Result.Success -> {
                     findNavController().navigate(R.id.action_loginFragment_to_main_nav_graph)
@@ -27,7 +29,25 @@ class LoginFragment : Fragment() {
                 is Result.Failure -> Timber.e(result.error)
             }
         }
-        loginViewModel.tokenLiveData.observe(this, observer)
+        loginViewModel.tokenLiveData.observe(this, tokenObserver)
+
+        val emailObserver = Observer<ValidatorResult> { result ->
+            login_email_layout.error = if (result == ValidatorResult.Valid) {
+                null
+            } else {
+                context?.getString(R.string.email_error)
+            }
+        }
+        loginViewModel.emailError.observe(this, emailObserver)
+
+        val passwordObserver = Observer<ValidatorResult> { result ->
+            login_password_layout.error = if (result == ValidatorResult.Valid) {
+                null
+            } else {
+                context?.getString(R.string.password_error)
+            }
+        }
+        loginViewModel.passwordError.observe(this, passwordObserver)
     }
 
     override fun onCreateView(

@@ -15,10 +15,14 @@ class LoginViewModel(
     private val securePreferences: SecurePreferences
 ) : SpinnyViewModel() {
     private val _tokenLiveData = MutableLiveData<Result<String>>()
-    val emailLiveData = MutableLiveData<String>()
-    val emailError = MutableLiveData<String>()
+    val emailLiveData = MutableLiveData<String>("asdf@gmail.com")
+    val passwordLiveData = MutableLiveData<String>("asdf")
 
-    val passwordLiveData = MutableLiveData<String>()
+    private val _emailError = MutableLiveData<ValidatorResult>()
+    val emailError: LiveData<ValidatorResult> = _emailError
+
+    private val _passwordError = MutableLiveData<ValidatorResult>()
+    val passwordError: LiveData<ValidatorResult> = _passwordError
 
     val tokenLiveData: LiveData<Result<String>>
         get() = _tokenLiveData
@@ -44,12 +48,16 @@ class LoginViewModel(
     }
 
     private fun isEmailValid(email: String): Boolean {
-        val validatorResult = CompositeValidator(EmailFormatValidator()).validate(email)
+        val validatorResult = CompositeValidator(EmailFormatValidator()).validate(email).also {
+            _emailError.value = it
+        }
         return validatorResult == ValidatorResult.Valid
     }
 
     private fun isPasswordValid(password: String): Boolean {
-        val validatorResult = CompositeValidator(EmptyTextValidator()).validate(password)
+        val validatorResult = CompositeValidator(EmptyTextValidator()).validate(password).also {
+            _passwordError.value = it
+        }
         return validatorResult == ValidatorResult.Valid
     }
 

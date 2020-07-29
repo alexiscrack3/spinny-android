@@ -25,14 +25,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/standard_margin" />
+                app:layout_constraintGuide_begin="@dimen/horizontal_margin" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/login_end_guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/standard_margin" />
+                app:layout_constraintGuide_end="@dimen/horizontal_margin" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/login_center_guideline"
@@ -58,7 +58,7 @@
                 android:id="@+id/login_email_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/vertical_margin"
                 android:hint="@string/email"
                 app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@id/login_center_guideline"
@@ -76,7 +76,7 @@
                 android:id="@+id/login_password_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/vertical_margin"
                 android:hint="@string/password"
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
@@ -126,7 +126,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/vertical_margin"
                 android:text="@string/sign_up"
                 android:textAllCaps="false"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -1,5 +1,7 @@
 package com.alexiscrack3.spinny.clubs
 
+import com.alexiscrack3.spinny.api.ClubResponse
+import com.alexiscrack3.spinny.api.Response
 import com.alexiscrack3.spinny.db.TransactionLogsDao
 import com.alexiscrack3.spinny.models.Club
 import com.alexiscrack3.spinny.models.TransactionLog
@@ -36,6 +38,10 @@ class ClubsRepository(
                     clubsDao.getClubs()
                 }
             }
+    }
+
+    fun getClubById(id: String): Single<Response<ClubResponse>> {
+        return clubsService.getClubById(id)
     }
 
     private fun shouldRefresh(transactionLog: TransactionLog): Boolean {

@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/clubsFragment"
         android:name="com.alexiscrack3.spinny.clubs.ClubsFragment"
-        android:label="ClubsFragment" />
+        android:label="ClubsFragment" >
+        <action
+            android:id="@+id/action_clubsFragment_to_clubFragment"
+            app:destination="@id/clubFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clubFragment"
+        android:name="com.alexiscrack3.spinny.clubs.details.ClubFragment"
+        android:label="ClubFragment" />
 </navigation>

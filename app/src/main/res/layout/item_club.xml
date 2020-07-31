@@ -31,12 +31,11 @@
             tools:text="@tools:sample/first_names" />
 
         <TextView
-            android:id="@+id/club_members_text_view"
+            android:id="@+id/club_number_of_members_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/horizontal_margin"
             android:layout_marginBottom="@dimen/vertical_margin"
-            android:text="Members: 3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

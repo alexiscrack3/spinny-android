@@ -9,6 +9,7 @@ import com.alexiscrack3.spinny.models.Club
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
+import kotlinx.android.synthetic.main.item_club.view.*
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
@@ -27,6 +28,60 @@ class ClubViewHolderTest : SpinnyTest() {
         testObject.bind(club)
 
         verify(clubItemBinding).club = club
+    }
+
+    @Test
+    fun `number of members view should display 0 members when list is empty`() {
+        val club = Club("1", "name").apply { members = emptyList() }
+        val clubItemBinding = mock<ClubItemBinding> {
+            on { this.root } doReturn view
+        }
+        val testObject = ClubViewHolder(clubItemBinding)
+        val numberOfMembersTextView = view.club_number_of_members_text_view
+
+        testObject.bind(club)
+
+        assertThat(numberOfMembersTextView.text.toString(), equalTo("0 members"))
+    }
+
+    @Test
+    fun `number of members view should display 1 member when list contains one player`() {
+        val club = Club("1", "name").apply { members = listOf("") }
+        val clubItemBinding = mock<ClubItemBinding> {
+            on { this.root } doReturn view
+        }
+        val testObject = ClubViewHolder(clubItemBinding)
+        val numberOfMembersTextView = view.club_number_of_members_text_view
+
+        testObject.bind(club)
+
+        assertThat(numberOfMembersTextView.text.toString(), equalTo("1 member"))
+    }
+
+    @Test
+    fun `number of members view should display 2 members when list contains one player`() {
+        val club = Club("1", "name").apply { members = listOf("", "") }
+        val clubItemBinding = mock<ClubItemBinding> {
+            on { this.root } doReturn view
+        }
+        val testObject = ClubViewHolder(clubItemBinding)
+        val numberOfMembersTextView = view.club_number_of_members_text_view
+
+        testObject.bind(club)
+
+        assertThat(numberOfMembersTextView.text.toString(), equalTo("2 members"))
+    }
+
+    @Test
+    fun `pending bindings are executed when club is bound to view`() {
+        val club = Club("1", "name")
+        val clubItemBinding = mock<ClubItemBinding> {
+            on { this.root } doReturn view
+        }
+        val testObject = ClubViewHolder(clubItemBinding)
+
+        testObject.bind(club)
+
         verify(clubItemBinding).executePendingBindings()
     }
 

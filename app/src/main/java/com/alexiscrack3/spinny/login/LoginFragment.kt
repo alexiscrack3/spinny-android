@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
+import com.alexiscrack3.spinny.MainActivity
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyFragment
 import com.alexiscrack3.spinny.api.Result
@@ -24,7 +24,8 @@ class LoginFragment : SpinnyFragment() {
         val tokenObserver = Observer<Result<String>> { result ->
             when (result) {
                 is Result.Success -> {
-                    findNavController().navigate(R.id.action_loginFragment_to_main_nav_graph)
+                    val intent = MainActivity.getIntent(requireContext())
+                    startActivity(intent)
                 }
                 is Result.Failure -> showLoginError()
             }

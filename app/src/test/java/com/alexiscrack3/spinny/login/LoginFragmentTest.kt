@@ -1,12 +1,17 @@
 package com.alexiscrack3.spinny.login
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import com.alexiscrack3.spinny.MainActivity
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.api.Result
@@ -51,26 +56,40 @@ class LoginFragmentTest : SpinnyTest() {
     }
 
     @Test
-    fun `navigate to clubs screen when clicking on sign in`() {
-        val navController = TestNavHostController(context).apply {
-            setGraph(R.navigation.login_nav_graph)
-        }
-        val fragmentScenario = launchFragmentInContainer {
-            LoginFragment().also { fragment ->
-                fragment.viewLifecycleOwnerLiveData.observeForever {
-                    Navigation.setViewNavController(fragment.requireView(), navController)
-                }
-            }
-        }
+    fun `main screen is launched on successful authentication`() {
+        Intents.init()
+
+        val fragmentScenario = launchFragmentInContainer<LoginFragment>()
         fragmentScenario.onFragment {
             tokenLiveData.value = Result.Success("")
 
-            assertThat(
-                navController.currentDestination?.id,
-                equalTo(R.id.clubsFragment)
-            )
+            intended(hasComponent(MainActivity::class.java.name))
         }
+
+        Intents.release()
     }
+
+//    @Test
+//    fun `navigate to clubs screen on successful authentication`() {
+//        val navController = TestNavHostController(context).apply {
+//            setGraph(R.navigation.login_nav_graph)
+//        }
+//        val fragmentScenario = launchFragmentInContainer {
+//            LoginFragment().also { fragment ->
+//                fragment.viewLifecycleOwnerLiveData.observeForever {
+//                    Navigation.setViewNavController(fragment.requireView(), navController)
+//                }
+//            }
+//        }
+//        fragmentScenario.onFragment {
+//            tokenLiveData.value = Result.Success("")
+//
+//            assertThat(
+//                navController.currentDestination?.id,
+//                equalTo(R.id.clubsFragment)
+//            )
+//        }
+//    }
 
     @Test
     fun `email error should be shown if email is not valid`() {

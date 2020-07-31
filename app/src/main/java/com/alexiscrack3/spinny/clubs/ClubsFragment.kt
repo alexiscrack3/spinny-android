@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.OrientationHelper
 import com.alexiscrack3.spinny.R
+import com.alexiscrack3.spinny.SpinnyFragment
 import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.databinding.ClubsFragmentBinding
 import com.alexiscrack3.spinny.models.Club
@@ -18,7 +18,7 @@ import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class ClubsFragment : Fragment() {
+class ClubsFragment : SpinnyFragment() {
     private val clubsViewModel by viewModel<ClubsViewModel>()
     private val clubsAdapter by inject<ClubsAdapter>()
 

@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.alexiscrack3.spinny.R
+import com.alexiscrack3.spinny.SpinnyFragment
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.item_club.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class ClubFragment : Fragment() {
+class ClubFragment : SpinnyFragment() {
     private val clubViewModel by viewModel<ClubViewModel>()
 
     companion object {

@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.alexiscrack3.spinny.R
+import com.alexiscrack3.spinny.SpinnyFragment
 import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.databinding.LoginFragmentBinding
 import com.alexiscrack3.spinny.validators.ValidatorResult
@@ -16,7 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class LoginFragment : Fragment() {
+class LoginFragment : SpinnyFragment() {
     private val loginViewModel by viewModel<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

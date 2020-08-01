@@ -1,7 +1,10 @@
 package com.alexiscrack3.spinny.login
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
+import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyViewModel
 import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.security.SecurePreferences
@@ -15,8 +18,8 @@ class LoginViewModel(
     private val securePreferences: SecurePreferences
 ) : SpinnyViewModel() {
     private val _tokenLiveData = MutableLiveData<Result<String>>()
-    val emailLiveData = MutableLiveData<String>("asdf@gmail.com")
-    val passwordLiveData = MutableLiveData<String>("asdf")
+    val emailLiveData = MutableLiveData<String>()
+    val passwordLiveData = MutableLiveData<String>()
 
     private val _emailError = MutableLiveData<ValidatorResult>()
     val emailError: LiveData<ValidatorResult> = _emailError
@@ -45,6 +48,10 @@ class LoginViewModel(
                 })
                 .autoDispose()
         }
+    }
+
+    fun onSignUpClicked(view: View) {
+        view.findNavController().navigate(R.id.action_loginFragment_to_enrollmentFragment)
     }
 
     private fun isEmailValid(email: String): Boolean {

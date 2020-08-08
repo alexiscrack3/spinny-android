@@ -19,6 +19,7 @@ import org.junit.Test
 
 class LoginViewModelTest {
     private val loginRepository = mock<LoginRepository>()
+    private val securePreferences = mock<SecurePreferences>()
     private val email = "email@spinny.io"
     private val password = "password"
 
@@ -31,10 +32,10 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `onSignInClicked should invoke signIn on LoginRepository when email and password are valid`() {
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+    fun `authentication should be attempted when email and password are valid`() {
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()
@@ -43,11 +44,11 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `onSignInClicked should not invoke signIn on LoginRepository when email is not valid`() {
+    fun `authentication should not be attempted when email is not valid`() {
         val email = ""
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()
@@ -56,74 +57,74 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `onSignInClicked should not invoke signIn on LoginRepository when password is not valid`() {
-        val email = ""
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+    fun `authentication should not be attempted when password is not valid`() {
+        val password = ""
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()
 
         verify(loginRepository, never()).signIn(email, password)
+    }
+
+    @Test
+    fun `valid object should be emitted when email is valid`() {
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
+        }
+
+        testObject.onSignInClicked()
+
+        val actual = testObject.emailErrorState.getOrAwaitValue()
+        assertThat(actual, instanceOf(ValidatorResult.Valid::class.java))
     }
 
     @Test
     fun `invalid object should be emitted when email is not valid`() {
         val email = ""
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()
 
-        val actual = testObject.emailError.getOrAwaitValue()
+        val actual = testObject.emailErrorState.getOrAwaitValue()
         assertThat(actual, instanceOf(ValidatorResult.Invalid::class.java))
     }
 
     @Test
-    fun `valid object should be emitted when email is valid`() {
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+    fun `valid object should be emitted when password is valid`() {
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()
 
-        val actual = testObject.emailError.getOrAwaitValue()
+        val actual = testObject.passwordErrorState.getOrAwaitValue()
         assertThat(actual, instanceOf(ValidatorResult.Valid::class.java))
     }
 
     @Test
     fun `invalid object should be emitted when password is not valid`() {
         val password = ""
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()
 
-        val actual = testObject.passwordError.getOrAwaitValue()
+        val actual = testObject.passwordErrorState.getOrAwaitValue()
         assertThat(actual, instanceOf(ValidatorResult.Invalid::class.java))
     }
 
     @Test
-    fun `valid object should be emitted when password is valid`() {
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
-        }
-
-        testObject.onSignInClicked()
-
-        val actual = testObject.passwordError.getOrAwaitValue()
-        assertThat(actual, instanceOf(ValidatorResult.Valid::class.java))
-    }
-
-    @Test
-    fun `successful result with token is emitted when authenticating user`() {
+    fun `successful resource with token is emitted when authenticating user`() {
         val playerResponse = PlayerResponse(
             id = "",
             email = "",
@@ -138,49 +139,49 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.just(response)
         }
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()
 
-        val actual = testObject.tokenLiveData.getOrAwaitValue() as Result.Success
+        val actual = testObject.authenticationState.getOrAwaitValue() as Result.Success
         assertThat(actual.data, equalTo(accessToken))
     }
 
     @Test
-    fun `failing result is emitted when authenticating user`() {
+    fun `failure resource is emitted when authenticating user`() {
         val throwable = Throwable()
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.error(throwable)
         }
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()
 
-        val actual = testObject.tokenLiveData.getOrAwaitValue() as Result.Failure
+        val actual = testObject.authenticationState.getOrAwaitValue() as Result.Failure
         assertThat(actual.error, equalTo(throwable))
     }
 
     @Test
-    fun `loading result is emitted when authenticating user`() {
-        val testObject = LoginViewModel(loginRepository, mock()).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+    fun `loading resource is emitted when authenticating user`() {
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()
 
-        val actual = testObject.tokenLiveData.getOrAwaitValue()
+        val actual = testObject.authenticationState.getOrAwaitValue()
         assertThat(actual, instanceOf(Result.Loading::class.java))
     }
 
     @Test
-    fun `access token should be stored on successful authentication`() {
+    fun `access token should be stored when authentication is successful`() {
         val playerResponse = PlayerResponse(
             id = "",
             email = "",
@@ -195,10 +196,9 @@ class LoginViewModelTest {
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.just(response)
         }
-        val securePreferences = mock<SecurePreferences>()
         val testObject = LoginViewModel(loginRepository, securePreferences).apply {
-            emailLiveData.value = email
-            passwordLiveData.value = password
+            emailState.value = email
+            passwordState.value = password
         }
 
         testObject.onSignInClicked()

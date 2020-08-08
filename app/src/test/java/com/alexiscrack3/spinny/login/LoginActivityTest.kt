@@ -17,9 +17,9 @@ class LoginActivityTest : SpinnyTest() {
     override fun setUp() {
         super.setUp()
         declareMock<LoginViewModel> {
-            given(this.tokenLiveData).willReturn(MutableLiveData())
-            given(this.emailError).willReturn(MutableLiveData())
-            given(this.passwordError).willReturn(MutableLiveData())
+            given(this.authenticationState).willReturn(MutableLiveData())
+            given(this.emailErrorState).willReturn(MutableLiveData())
+            given(this.passwordErrorState).willReturn(MutableLiveData())
         }
     }
 

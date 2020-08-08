@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@={viewModel.emailLiveData}" />
+                    android:text="@={viewModel.emailState}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:text="@={viewModel.passwordLiveData}" />
+                    android:text="@={viewModel.passwordState}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -137,7 +137,7 @@
             <com.alexiscrack3.spinny.views.LoadingView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:goneUnless="@{viewModel.tokenLiveData}"
+                app:goneUnless="@{viewModel.authenticationState}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

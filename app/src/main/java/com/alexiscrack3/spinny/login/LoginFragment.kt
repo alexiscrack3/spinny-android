@@ -30,7 +30,7 @@ class LoginFragment : SpinnyFragment() {
                 is Result.Failure -> showLoginError()
             }
         }
-        loginViewModel.tokenLiveData.observe(this, tokenObserver)
+        loginViewModel.authenticationState.observe(this, tokenObserver)
 
         val emailObserver = Observer<ValidatorResult> { result ->
             login_email_layout.error = if (result == ValidatorResult.Valid) {
@@ -39,7 +39,7 @@ class LoginFragment : SpinnyFragment() {
                 context?.getString(R.string.email_error)
             }
         }
-        loginViewModel.emailError.observe(this, emailObserver)
+        loginViewModel.emailErrorState.observe(this, emailObserver)
 
         val passwordObserver = Observer<ValidatorResult> { result ->
             login_password_layout.error = if (result == ValidatorResult.Valid) {
@@ -48,7 +48,7 @@ class LoginFragment : SpinnyFragment() {
                 context?.getString(R.string.password_error)
             }
         }
-        loginViewModel.passwordError.observe(this, passwordObserver)
+        loginViewModel.passwordErrorState.observe(this, passwordObserver)
     }
 
     private fun showLoginError() {

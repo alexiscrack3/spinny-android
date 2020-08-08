@@ -1,13 +1,10 @@
 package com.alexiscrack3.spinny.login
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.Navigation
-import androidx.navigation.testing.TestNavHostController
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
@@ -38,9 +35,9 @@ class LoginFragmentTest : SpinnyTest() {
     override fun setUp() {
         super.setUp()
         declareMock<LoginViewModel>()
-        whenever(loginViewModel.tokenLiveData).doReturn(tokenLiveData)
-        whenever(loginViewModel.emailError).doReturn(emailError)
-        whenever(loginViewModel.passwordError).doReturn(passwordError)
+        whenever(loginViewModel.authenticationState).doReturn(tokenLiveData)
+        whenever(loginViewModel.emailErrorState).doReturn(emailError)
+        whenever(loginViewModel.passwordErrorState).doReturn(passwordError)
     }
 
     @Test

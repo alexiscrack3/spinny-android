@@ -18,7 +18,8 @@ val loginModule = module {
     }
     viewModel {
         EnrollmentViewModel(
-            loginRepository = get()
+            loginRepository = get(),
+            securePreferences = get()
         )
     }
 }

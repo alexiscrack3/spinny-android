@@ -1,0 +1,10 @@
+package com.alexiscrack3.spinny.api
+
+import com.google.gson.annotations.SerializedName
+
+data class PlayerResponse(
+    @SerializedName("_id")
+    val id: String,
+    val email: String,
+    val rating: Int
+)

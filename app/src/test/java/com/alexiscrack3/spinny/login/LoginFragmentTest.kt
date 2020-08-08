@@ -13,12 +13,11 @@ import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.validators.ValidatorResult
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.android.synthetic.main.fragment_login.view.*
-import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
@@ -96,7 +95,7 @@ class LoginFragmentTest : SpinnyTest() {
 
             emailError.value = ValidatorResult.Invalid
 
-            assertThat(emailLayout.error.toString(), equalTo("Email is invalid"))
+            assertThat(emailLayout.error.toString()).isEqualTo("Email is invalid")
         }
     }
 
@@ -108,11 +107,11 @@ class LoginFragmentTest : SpinnyTest() {
 
             emailError.value = ValidatorResult.Invalid
 
-            assertThat(emailLayout.error?.isNotEmpty(), equalTo(true))
+            assertThat(emailLayout.error?.isNotEmpty()).isEqualTo(true)
 
             emailError.value = ValidatorResult.Valid
 
-            assertThat(emailLayout.error, nullValue())
+            assertThat(emailLayout.error).isNull()
         }
     }
 
@@ -124,7 +123,7 @@ class LoginFragmentTest : SpinnyTest() {
 
             passwordError.value = ValidatorResult.Invalid
 
-            assertThat(passwordLayout.error.toString(), equalTo("Password is invalid"))
+            assertThat(passwordLayout.error.toString()).isEqualTo("Password is invalid")
         }
     }
 
@@ -136,11 +135,11 @@ class LoginFragmentTest : SpinnyTest() {
 
             passwordError.value = ValidatorResult.Invalid
 
-            assertThat(passwordLayout.error?.isNotEmpty(), equalTo(true))
+            assertThat(passwordLayout.error?.isNotEmpty()).isEqualTo(true)
 
             passwordError.value = ValidatorResult.Valid
 
-            assertThat(passwordLayout.error, nullValue())
+            assertThat(passwordLayout.error).isNull()
         }
     }
 
@@ -151,20 +150,20 @@ class LoginFragmentTest : SpinnyTest() {
             tokenLiveData.value = Result.Failure(Throwable())
 
             val alertDialog = ShadowDialog.getLatestDialog() as? AlertDialog
-            assertThat("Alert dialog should be displayed", alertDialog, notNullValue())
+            assertThat(alertDialog).isNotNull()
 
             alertDialog as AlertDialog
 
-            assertThat(alertDialog.isShowing, equalTo(true))
+            assertThat(alertDialog.isShowing).isEqualTo(true)
 
             val alertTitle = alertDialog.findViewById<TextView>(R.id.alertTitle)
-            assertThat(alertTitle?.text.toString(), equalTo("Login Failed"))
+            assertThat(alertTitle?.text.toString()).isEqualTo("Login Failed")
 
             val alertMessage = alertDialog.findViewById<TextView>(android.R.id.message)
-            assertThat(alertMessage?.text.toString(), equalTo("There was an issue logging in. Please try again."))
+            assertThat(alertMessage?.text.toString()).isEqualTo("There was an issue logging in. Please try again.")
 
             val positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-            assertThat(positiveButton.text.toString(), equalTo("OK"))
+            assertThat(positiveButton.text.toString()).isEqualTo("OK")
         }
     }
 }

@@ -8,11 +8,9 @@ import com.alexiscrack3.spinny.api.SignInResponse
 import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.alexiscrack3.spinny.validators.ValidatorResult
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.Single
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.CoreMatchers.instanceOf
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -79,7 +77,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.emailErrorState.getOrAwaitValue()
-        assertThat(actual, instanceOf(ValidatorResult.Valid::class.java))
+        assertThat(actual).isInstanceOf(ValidatorResult.Valid::class.java)
     }
 
     @Test
@@ -93,7 +91,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.emailErrorState.getOrAwaitValue()
-        assertThat(actual, instanceOf(ValidatorResult.Invalid::class.java))
+        assertThat(actual).isInstanceOf(ValidatorResult.Invalid::class.java)
     }
 
     @Test
@@ -106,7 +104,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.passwordErrorState.getOrAwaitValue()
-        assertThat(actual, instanceOf(ValidatorResult.Valid::class.java))
+        assertThat(actual).isInstanceOf(ValidatorResult.Valid::class.java)
     }
 
     @Test
@@ -120,7 +118,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.passwordErrorState.getOrAwaitValue()
-        assertThat(actual, instanceOf(ValidatorResult.Invalid::class.java))
+        assertThat(actual).isInstanceOf(ValidatorResult.Invalid::class.java)
     }
 
     @Test
@@ -147,7 +145,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.authenticationState.getOrAwaitValue() as Result.Success
-        assertThat(actual.data, equalTo(accessToken))
+        assertThat(actual.data).isEqualTo(accessToken)
     }
 
     @Test
@@ -164,7 +162,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.authenticationState.getOrAwaitValue() as Result.Failure
-        assertThat(actual.error, equalTo(throwable))
+        assertThat(actual.error).isEqualTo(throwable)
     }
 
     @Test
@@ -177,7 +175,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.authenticationState.getOrAwaitValue()
-        assertThat(actual, instanceOf(Result.Loading::class.java))
+        assertThat(actual).isInstanceOf(Result.Loading::class.java)
     }
 
     @Test

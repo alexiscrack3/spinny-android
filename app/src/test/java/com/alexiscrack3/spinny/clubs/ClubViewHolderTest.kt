@@ -6,12 +6,11 @@ import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.databinding.ClubItemBinding
 import com.alexiscrack3.spinny.models.Club
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.android.synthetic.main.item_club.view.*
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class ClubViewHolderTest : SpinnyTest() {
@@ -41,7 +40,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
         testObject.bind(club)
 
-        assertThat(numberOfMembersTextView.text.toString(), equalTo("0 members"))
+        assertThat(numberOfMembersTextView.text.toString()).isEqualTo("0 members")
     }
 
     @Test
@@ -55,7 +54,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
         testObject.bind(club)
 
-        assertThat(numberOfMembersTextView.text.toString(), equalTo("1 member"))
+        assertThat(numberOfMembersTextView.text.toString()).isEqualTo("1 member")
     }
 
     @Test
@@ -69,7 +68,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
         testObject.bind(club)
 
-        assertThat(numberOfMembersTextView.text.toString(), equalTo("2 members"))
+        assertThat(numberOfMembersTextView.text.toString()).isEqualTo("2 members")
     }
 
     @Test
@@ -100,14 +99,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
         testObject.itemView.performClick()
 
-        assertThat(
-            navController.currentDestination?.id,
-            equalTo(R.id.clubFragment)
-        )
-
-        assertThat(
-            navController.backStack.last().arguments?.getString("CLUB_ID"),
-            equalTo(club.id)
-        )
+        assertThat(navController.currentDestination?.id).isEqualTo(R.id.clubFragment)
+        assertThat(navController.backStack.last().arguments?.getString("CLUB_ID")).isEqualTo(club.id)
     }
 }

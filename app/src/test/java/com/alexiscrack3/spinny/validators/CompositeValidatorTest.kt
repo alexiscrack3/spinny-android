@@ -1,9 +1,8 @@
 package com.alexiscrack3.spinny.validators
 
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import org.hamcrest.CoreMatchers.instanceOf
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class CompositeValidatorTest {
@@ -19,7 +18,7 @@ class CompositeValidatorTest {
 
         val actual = testObject.validate(text)
 
-        assertThat(actual, instanceOf(ValidatorResult.Valid::class.java))
+        assertThat(actual).isInstanceOf(ValidatorResult.Valid::class.java)
     }
 
     @Test
@@ -33,6 +32,6 @@ class CompositeValidatorTest {
 
         val actual = testObject.validate(text)
 
-        assertThat(actual, instanceOf(ValidatorResult.Invalid::class.java))
+        assertThat(actual).isInstanceOf(ValidatorResult.Invalid::class.java)
     }
 }

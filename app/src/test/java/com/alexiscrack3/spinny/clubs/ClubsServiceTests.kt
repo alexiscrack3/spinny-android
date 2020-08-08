@@ -1,12 +1,11 @@
 package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ServicesFactory
+import com.google.common.truth.Truth.assertThat
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -55,9 +54,10 @@ class ClubsServiceTests {
 
         val actual = testObject.getClubs().blockingGet()
         val data = actual.data.first()
-        assertThat(data.id, equalTo(id))
-        assertThat(data.name, equalTo(name))
+        assertThat(data.id).isEqualTo(id)
+        assertThat(data.name).isEqualTo(name)
     }
+
     @Test
     fun `getClubById should return club response`() {
         val id = "123"
@@ -88,7 +88,7 @@ class ClubsServiceTests {
 
         val actual = testObject.getClubById(id).blockingGet()
         val data = actual.data
-        assertThat(data.id, equalTo(id))
-        assertThat(data.name, equalTo(name))
+        assertThat(data.id).isEqualTo(id)
+        assertThat(data.name).isEqualTo(name)
     }
 }

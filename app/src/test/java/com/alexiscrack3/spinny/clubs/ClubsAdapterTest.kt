@@ -3,12 +3,10 @@ package com.alexiscrack3.spinny.clubs
 import android.widget.LinearLayout
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.models.Club
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.CoreMatchers.instanceOf
-import org.junit.Assert.assertThat
 import org.junit.Test
 
 class ClubsAdapterTest : SpinnyTest() {
@@ -19,7 +17,7 @@ class ClubsAdapterTest : SpinnyTest() {
 
         val viewHolder = testObject.onCreateViewHolder(LinearLayout(context), 0)
 
-        assertThat(viewHolder, instanceOf(ClubViewHolder::class.java))
+        assertThat(viewHolder).isInstanceOf(ClubViewHolder::class.java)
     }
 
     @Test
@@ -37,7 +35,7 @@ class ClubsAdapterTest : SpinnyTest() {
     @Test
     fun `count is initially 0`() {
         val testObject = ClubsAdapter()
-        assertThat(testObject.itemCount, equalTo(0))
+        assertThat(testObject.itemCount).isEqualTo(0)
     }
 
     @Test
@@ -46,6 +44,6 @@ class ClubsAdapterTest : SpinnyTest() {
         val clubs = listOf(club)
         val testObject = ClubsAdapter(clubs)
 
-        assertThat(testObject.itemCount, equalTo(clubs.size))
+        assertThat(testObject.itemCount).isEqualTo(clubs.size)
     }
 }

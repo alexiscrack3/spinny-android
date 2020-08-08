@@ -4,13 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.models.Club
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import io.reactivex.Single
 import io.reactivex.schedulers.TestScheduler
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.CoreMatchers.instanceOf
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Rule
 import org.junit.Test
 
@@ -36,7 +34,7 @@ class ClubsViewModelTest {
         testScheduler.triggerActions()
 
         val actual = testObject.clubsLiveData.getOrAwaitValue() as Result.Success
-        assertThat(actual.data, equalTo(clubs))
+        assertThat(actual.data).isEqualTo(clubs)
     }
 
     @Test
@@ -55,7 +53,7 @@ class ClubsViewModelTest {
         testScheduler.triggerActions()
 
         val actual = testObject.clubsLiveData.getOrAwaitValue() as Result.Failure
-        assertThat(actual.error, equalTo(throwable))
+        assertThat(actual.error).isEqualTo(throwable)
     }
 
     @Test
@@ -73,6 +71,6 @@ class ClubsViewModelTest {
         testScheduler.triggerActions()
 
         val actual = testObject.clubsLiveData.getOrAwaitValue()
-        assertThat(actual, instanceOf(Result.Loading::class.java))
+        assertThat(actual).isInstanceOf(Result.Loading::class.java)
     }
 }

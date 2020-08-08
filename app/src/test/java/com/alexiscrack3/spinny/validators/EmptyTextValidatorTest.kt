@@ -1,7 +1,6 @@
 package com.alexiscrack3.spinny.validators
 
-import org.hamcrest.CoreMatchers.instanceOf
-import org.hamcrest.MatcherAssert.assertThat
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class EmptyTextValidatorTest {
@@ -12,7 +11,7 @@ class EmptyTextValidatorTest {
 
         val result = testObject.validate("Not Empty!")
 
-        assertThat(result, instanceOf(ValidatorResult.Valid::class.java))
+        assertThat(result).isInstanceOf(ValidatorResult.Valid::class.java)
     }
 
     @Test
@@ -21,7 +20,7 @@ class EmptyTextValidatorTest {
 
         val result = testObject.validate("")
 
-        assertThat(result, instanceOf(ValidatorResult.Invalid::class.java))
+        assertThat(result).isInstanceOf(ValidatorResult.Invalid::class.java)
     }
 
     @Test
@@ -30,6 +29,6 @@ class EmptyTextValidatorTest {
 
         val result = testObject.validate("   ")
 
-        assertThat(result, instanceOf(ValidatorResult.Invalid::class.java))
+        assertThat(result).isInstanceOf(ValidatorResult.Invalid::class.java)
     }
 }

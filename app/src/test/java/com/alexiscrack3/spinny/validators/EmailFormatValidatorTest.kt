@@ -1,8 +1,7 @@
 package com.alexiscrack3.spinny.validators
 
 import com.alexiscrack3.spinny.SpinnyTest
-import org.hamcrest.CoreMatchers.instanceOf
-import org.junit.Assert.assertThat
+import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.fail
 import org.junit.Test
 
@@ -14,7 +13,7 @@ class EmailFormatValidatorTest : SpinnyTest() {
 
         val result = testObject.validate("example@mail.com")
 
-        assertThat(result, instanceOf(ValidatorResult.Valid::class.java))
+        assertThat(result).isInstanceOf(ValidatorResult.Valid::class.java)
     }
 
     @Test
@@ -23,7 +22,7 @@ class EmailFormatValidatorTest : SpinnyTest() {
 
         val result = testObject.validate("Not An Email!")
 
-        assertThat(result, instanceOf(ValidatorResult.Invalid::class.java))
+        assertThat(result).isInstanceOf(ValidatorResult.Invalid::class.java)
 
         when (result) {
             ValidatorResult.Invalid -> {

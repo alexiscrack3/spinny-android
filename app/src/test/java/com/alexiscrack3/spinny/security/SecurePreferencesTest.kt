@@ -1,12 +1,11 @@
 package com.alexiscrack3.spinny.security
 
 import android.content.SharedPreferences
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class SecurePreferencesTest {
@@ -36,6 +35,6 @@ class SecurePreferencesTest {
 
         val actual = testObject.getAccessToken()
 
-        assertThat(actual, equalTo(accessToken))
+        assertThat(actual).isEqualTo(accessToken)
     }
 }

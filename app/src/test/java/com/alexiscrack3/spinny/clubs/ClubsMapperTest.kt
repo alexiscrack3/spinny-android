@@ -1,8 +1,7 @@
 package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ClubResponse
-import org.hamcrest.CoreMatchers.equalTo
-import org.junit.Assert.*
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class ClubsMapperTest {
@@ -27,13 +26,13 @@ class ClubsMapperTest {
         val actual = testObject.map(data)
 
         with(actual.first()) {
-            assertThat(this.id, equalTo(clubResponseA.id))
-            assertThat(this.name, equalTo(clubResponseA.name))
+            assertThat(this.id).isEqualTo(clubResponseA.id)
+            assertThat(this.name).isEqualTo(clubResponseA.name)
         }
 
         with(actual.last()) {
-            assertThat(this.id, equalTo(clubResponseB.id))
-            assertThat(this.name, equalTo(clubResponseB.name))
+            assertThat(this.id).isEqualTo(clubResponseB.id)
+            assertThat(this.name).isEqualTo(clubResponseB.name)
         }
     }
 }

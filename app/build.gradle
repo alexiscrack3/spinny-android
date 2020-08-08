@@ -69,7 +69,7 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
 
     // Google
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0'
 
     // Security
     implementation "androidx.security:security-crypto:1.0.0-rc02"

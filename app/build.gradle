@@ -120,6 +120,9 @@ dependencies {
     // JUnit 4 framework
     testImplementation 'junit:junit:4.13'
 
+    // Assertions
+    testImplementation "com.google.truth:truth:1.0.1"
+
     // FragmentScenario
     debugImplementation 'androidx.fragment:fragment-testing:1.2.5'
 

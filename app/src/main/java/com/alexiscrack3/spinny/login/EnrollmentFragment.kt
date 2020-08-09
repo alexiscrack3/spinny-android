@@ -5,9 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.alexiscrack3.spinny.MainActivity
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyFragment
+import com.alexiscrack3.spinny.api.Result
 import com.alexiscrack3.spinny.databinding.SignUpFragmentBinding
+import com.alexiscrack3.spinny.validators.ValidatorResult
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.fragment_enrollment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class EnrollmentFragment : SpinnyFragment() {
@@ -15,6 +21,42 @@ class EnrollmentFragment : SpinnyFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val enrollmentObserver = Observer<Result<String>> { result ->
+            when (result) {
+                is Result.Success -> {
+                    val intent = MainActivity.getIntent(requireContext())
+                    startActivity(intent)
+                }
+                is Result.Failure -> showLoginError()
+            }
+        }
+        enrollmentViewModel.enrollmentState.observe(this, enrollmentObserver)
+
+        val emailObserver = Observer<ValidatorResult> { result ->
+            enrollment_email_layout.error = if (result == ValidatorResult.Valid) {
+                null
+            } else {
+                context?.getString(R.string.email_error)
+            }
+        }
+        enrollmentViewModel.emailErrorState.observe(this, emailObserver)
+
+        val passwordObserver = Observer<ValidatorResult> { result ->
+            enrollment_password_layout.error = if (result == ValidatorResult.Valid) {
+                null
+            } else {
+                context?.getString(R.string.password_error)
+            }
+        }
+        enrollmentViewModel.passwordErrorState.observe(this, passwordObserver)
+    }
+
+    private fun showLoginError() {
+        MaterialAlertDialogBuilder(requireContext(), R.style.AppTheme)
+            .setTitle(R.string.enrollment_error_title)
+            .setMessage(R.string.enrollment_error_message)
+            .setPositiveButton(android.R.string.ok) { _, _ -> }
+            .show()
     }
 
     override fun onCreateView(

@@ -11,6 +11,8 @@
     <string name="password_error">Password is invalid</string>
     <string name="login_error_title">Login Failed</string>
     <string name="login_error_message">There was an issue logging in. Please try again.</string>
+    <string name="enrollment_error_title">Enrollment Failed</string>
+    <string name="enrollment_error_message">There was an issue enrolling user. Please try again.</string>
     <string name="please_wait">Please wait…</string>
     <plurals name="number_of_members">
         <item quantity="one">%d member</item>

@@ -3,7 +3,7 @@ package com.alexiscrack3.spinny.login
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.alexiscrack3.spinny.api.PlayerResponse
 import com.alexiscrack3.spinny.api.Response
-import com.alexiscrack3.spinny.api.Result
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.api.SignUpResponse
 import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
@@ -144,7 +144,7 @@ class EnrollmentViewModelTest {
 
         testObject.onSignUpClicked()
 
-        val actual = testObject.enrollmentState.getOrAwaitValue() as Result.Success
+        val actual = testObject.enrollmentState.getOrAwaitValue() as Resource.Success
         assertThat(actual.data).isEqualTo(accessToken)
     }
 
@@ -161,7 +161,7 @@ class EnrollmentViewModelTest {
 
         testObject.onSignUpClicked()
 
-        val actual = testObject.enrollmentState.getOrAwaitValue() as Result.Failure
+        val actual = testObject.enrollmentState.getOrAwaitValue() as Resource.Failure
         assertThat(actual.error).isEqualTo(throwable)
     }
 
@@ -175,7 +175,7 @@ class EnrollmentViewModelTest {
         testObject.onSignUpClicked()
 
         val actual = testObject.enrollmentState.getOrAwaitValue()
-        assertThat(actual).isInstanceOf(Result.Loading::class.java)
+        assertThat(actual).isInstanceOf(Resource.Loading::class.java)
     }
 
     @Test

@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.PlayerResponse
 import com.alexiscrack3.spinny.api.Response
-import com.alexiscrack3.spinny.api.Result
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.api.SignInResponse
 import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
@@ -151,7 +151,7 @@ class LoginViewModelTest {
 
         testObject.onSignInClicked()
 
-        val actual = testObject.authenticationState.getOrAwaitValue() as Result.Success
+        val actual = testObject.authenticationState.getOrAwaitValue() as Resource.Success
         assertThat(actual.data).isEqualTo(accessToken)
     }
 
@@ -168,7 +168,7 @@ class LoginViewModelTest {
 
         testObject.onSignInClicked()
 
-        val actual = testObject.authenticationState.getOrAwaitValue() as Result.Failure
+        val actual = testObject.authenticationState.getOrAwaitValue() as Resource.Failure
         assertThat(actual.error).isEqualTo(throwable)
     }
 
@@ -182,7 +182,7 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         val actual = testObject.authenticationState.getOrAwaitValue()
-        assertThat(actual).isInstanceOf(Result.Loading::class.java)
+        assertThat(actual).isInstanceOf(Resource.Loading::class.java)
     }
 
     @Test

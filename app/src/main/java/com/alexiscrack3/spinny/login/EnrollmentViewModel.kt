@@ -3,7 +3,7 @@ package com.alexiscrack3.spinny.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alexiscrack3.spinny.SpinnyViewModel
-import com.alexiscrack3.spinny.api.Result
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.validators.CompositeValidator
 import com.alexiscrack3.spinny.validators.EmailFormatValidator
@@ -14,7 +14,7 @@ class EnrollmentViewModel(
     private val loginRepository: LoginRepository,
     private val securePreferences: SecurePreferences
 ) : SpinnyViewModel() {
-    private val _enrollmentState = MutableLiveData<Result<String>>()
+    private val _enrollmentState = MutableLiveData<Resource<String>>()
     private val _emailErrorState = MutableLiveData<ValidatorResult>()
     private val _passwordErrorState = MutableLiveData<ValidatorResult>()
 
@@ -22,7 +22,7 @@ class EnrollmentViewModel(
     val passwordState = MutableLiveData<String>()
     val emailErrorState: LiveData<ValidatorResult> = _emailErrorState
     val passwordErrorState: LiveData<ValidatorResult> = _passwordErrorState
-    val enrollmentState: LiveData<Result<String>>
+    val enrollmentState: LiveData<Resource<String>>
         get() = _enrollmentState
 
     fun onSignUpClicked() {
@@ -31,15 +31,15 @@ class EnrollmentViewModel(
         if (isFormValid(email, password)) {
             loginRepository.signUp(emailState.value.orEmpty(), passwordState.value.orEmpty())
                 .doOnSubscribe {
-                    _enrollmentState.postValue(Result.Loading())
+                    _enrollmentState.postValue(Resource.Loading())
                 }
                 .doOnSuccess {
                     securePreferences.setAccessToken(it.data.token)
                 }
                 .subscribe({
-                    _enrollmentState.postValue(Result.Success(it.data.token))
+                    _enrollmentState.postValue(Resource.Success(it.data.token))
                 }, {
-                    _enrollmentState.postValue(Result.Failure(it))
+                    _enrollmentState.postValue(Resource.Failure(it))
                 })
                 .autoDispose()
         }

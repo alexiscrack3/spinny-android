@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import com.alexiscrack3.spinny.MainActivity
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyFragment
-import com.alexiscrack3.spinny.api.Result
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.databinding.SignUpFragmentBinding
 import com.alexiscrack3.spinny.validators.ValidatorResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -21,13 +21,13 @@ class EnrollmentFragment : SpinnyFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val enrollmentObserver = Observer<Result<String>> { result ->
-            when (result) {
-                is Result.Success -> {
+        val enrollmentObserver = Observer<Resource<String>> { resource ->
+            when (resource) {
+                is Resource.Success -> {
                     val intent = MainActivity.getIntent(requireContext())
                     startActivity(intent)
                 }
-                is Result.Failure -> showLoginError()
+                is Resource.Failure -> showLoginError()
             }
         }
         enrollmentViewModel.enrollmentState.observe(this, enrollmentObserver)

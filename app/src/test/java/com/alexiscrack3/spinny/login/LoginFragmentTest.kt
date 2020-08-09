@@ -11,7 +11,7 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import com.alexiscrack3.spinny.MainActivity
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
-import com.alexiscrack3.spinny.api.Result
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.validators.ValidatorResult
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
@@ -26,7 +26,7 @@ import org.robolectric.shadows.ShadowDialog
 
 class LoginFragmentTest : SpinnyTest() {
     private val loginViewModel by inject<LoginViewModel>()
-    private val authenticationState = MutableLiveData<Result<String>>()
+    private val authenticationState = MutableLiveData<Resource<String>>()
     private val emailErrorState = MutableLiveData<ValidatorResult>()
     private val passwordErrorState = MutableLiveData<ValidatorResult>()
 
@@ -57,7 +57,7 @@ class LoginFragmentTest : SpinnyTest() {
 
         val fragmentScenario = launchFragmentInContainer<LoginFragment>()
         fragmentScenario.onFragment {
-            authenticationState.value = Result.Success("")
+            authenticationState.value = Resource.Success("")
 
             intended(hasComponent(MainActivity::class.java.name))
         }
@@ -78,7 +78,7 @@ class LoginFragmentTest : SpinnyTest() {
 //            }
 //        }
 //        fragmentScenario.onFragment {
-//            tokenLiveData.value = Result.Success("")
+//            tokenLiveData.value = Resource.Success("")
 //
 //            assertThat(
 //                navController.currentDestination?.id,
@@ -147,7 +147,7 @@ class LoginFragmentTest : SpinnyTest() {
     fun `show alert dialog when authentication fails`() {
         val fragmentScenario = launchFragmentInContainer<LoginFragment>()
         fragmentScenario.onFragment {
-            authenticationState.value = Result.Failure(Throwable())
+            authenticationState.value = Resource.Failure(Throwable())
 
             val alertDialog = ShadowDialog.getLatestDialog() as? AlertDialog
             assertThat(alertDialog).isNotNull()

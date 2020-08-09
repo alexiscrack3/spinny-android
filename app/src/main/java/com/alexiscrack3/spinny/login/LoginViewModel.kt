@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyViewModel
-import com.alexiscrack3.spinny.api.Result
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.validators.CompositeValidator
 import com.alexiscrack3.spinny.validators.EmailFormatValidator
@@ -17,7 +17,7 @@ class LoginViewModel(
     private val loginRepository: LoginRepository,
     private val securePreferences: SecurePreferences
 ) : SpinnyViewModel() {
-    private val _authenticationState = MutableLiveData<Result<String>>()
+    private val _authenticationState = MutableLiveData<Resource<String>>()
     private val _emailErrorState = MutableLiveData<ValidatorResult>()
     private val _passwordErrorState = MutableLiveData<ValidatorResult>()
 
@@ -25,7 +25,7 @@ class LoginViewModel(
     val passwordState = MutableLiveData<String>()
     val emailErrorState: LiveData<ValidatorResult> = _emailErrorState
     val passwordErrorState: LiveData<ValidatorResult> = _passwordErrorState
-    val authenticationState: LiveData<Result<String>>
+    val authenticationState: LiveData<Resource<String>>
         get() = _authenticationState
 
     fun onSignInClicked() {
@@ -34,15 +34,15 @@ class LoginViewModel(
         if (isFormValid(email, password)) {
             loginRepository.signIn(email, password)
                 .doOnSubscribe {
-                    _authenticationState.postValue(Result.Loading())
+                    _authenticationState.postValue(Resource.Loading())
                 }
                 .doOnSuccess {
                     securePreferences.setAccessToken(it.data.token)
                 }
                 .subscribe({
-                    _authenticationState.postValue(Result.Success(it.data.token))
+                    _authenticationState.postValue(Resource.Success(it.data.token))
                 }, {
-                    _authenticationState.postValue(Result.Failure(it))
+                    _authenticationState.postValue(Resource.Failure(it))
                 })
                 .autoDispose()
         }

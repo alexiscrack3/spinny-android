@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.OrientationHelper
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyFragment
-import com.alexiscrack3.spinny.api.Result
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.databinding.ClubsFragmentBinding
 import com.alexiscrack3.spinny.models.Club
 import kotlinx.android.synthetic.main.fragment_clubs.*
@@ -24,12 +24,12 @@ class ClubsFragment : SpinnyFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val observer = Observer<Result<List<Club>>> { result ->
-            when (result) {
-                is Result.Success -> {
-                    clubsAdapter.swap(result.data.orEmpty())
+        val observer = Observer<Resource<List<Club>>> { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    clubsAdapter.swap(resource.data.orEmpty())
                 }
-                is Result.Failure -> Timber.e(result.error)
+                is Resource.Failure -> Timber.e(resource.error)
             }
         }
         clubsViewModel.clubsLiveData.observe(this, observer)

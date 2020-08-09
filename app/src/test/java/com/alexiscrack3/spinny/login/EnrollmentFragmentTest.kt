@@ -11,7 +11,7 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import com.alexiscrack3.spinny.MainActivity
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
-import com.alexiscrack3.spinny.api.Result
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.validators.ValidatorResult
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
@@ -26,7 +26,7 @@ import org.robolectric.shadows.ShadowDialog
 
 class EnrollmentFragmentTest : SpinnyTest() {
     private val enrollmentViewModel by inject<EnrollmentViewModel>()
-    private val enrollmentState = MutableLiveData<Result<String>>()
+    private val enrollmentState = MutableLiveData<Resource<String>>()
     private val emailErrorState = MutableLiveData<ValidatorResult>()
     private val passwordErrorState = MutableLiveData<ValidatorResult>()
 
@@ -57,7 +57,7 @@ class EnrollmentFragmentTest : SpinnyTest() {
 
         val fragmentScenario = launchFragmentInContainer<EnrollmentFragment>()
         fragmentScenario.onFragment {
-            enrollmentState.value = Result.Success("")
+            enrollmentState.value = Resource.Success("")
 
             intended(hasComponent(MainActivity::class.java.name))
         }
@@ -125,7 +125,7 @@ class EnrollmentFragmentTest : SpinnyTest() {
     fun `show alert dialog when authentication fails`() {
         val fragmentScenario = launchFragmentInContainer<EnrollmentFragment>()
         fragmentScenario.onFragment {
-            enrollmentState.value = Result.Failure(Throwable())
+            enrollmentState.value = Resource.Failure(Throwable())
 
             val alertDialog = ShadowDialog.getLatestDialog() as? AlertDialog
             assertThat(alertDialog).isNotNull()

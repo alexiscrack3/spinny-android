@@ -1,7 +1,7 @@
 package com.alexiscrack3.spinny.clubs
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.alexiscrack3.spinny.api.Result
+import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.models.Club
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.google.common.truth.Truth.assertThat
@@ -18,7 +18,7 @@ class ClubsViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     @Test
-    fun `successful result with clubs is emitted when getting clubs`() {
+    fun `successful resource with clubs is emitted when getting clubs`() {
         val club = Club("1", "name")
         val clubs = listOf(club)
         val clubsRepository = mock<ClubsRepository> {
@@ -33,12 +33,12 @@ class ClubsViewModelTest {
         testObject.getClubs()
         testScheduler.triggerActions()
 
-        val actual = testObject.clubsLiveData.getOrAwaitValue() as Result.Success
+        val actual = testObject.clubsLiveData.getOrAwaitValue() as Resource.Success
         assertThat(actual.data).isEqualTo(clubs)
     }
 
     @Test
-    fun `failing result is emitted when getting clubs`() {
+    fun `failure resource is emitted when getting clubs`() {
         val throwable = Throwable()
         val clubsRepository = mock<ClubsRepository> {
             on { this.getClubs() } doReturn Single.error(throwable)
@@ -52,12 +52,12 @@ class ClubsViewModelTest {
         testObject.getClubs()
         testScheduler.triggerActions()
 
-        val actual = testObject.clubsLiveData.getOrAwaitValue() as Result.Failure
+        val actual = testObject.clubsLiveData.getOrAwaitValue() as Resource.Failure
         assertThat(actual.error).isEqualTo(throwable)
     }
 
     @Test
-    fun `loading result is emitted when getting clubs`() {
+    fun `loading resource is emitted when getting clubs`() {
         val clubsRepository = mock<ClubsRepository> {
             on { this.getClubs() } doReturn Single.never()
         }
@@ -71,6 +71,6 @@ class ClubsViewModelTest {
         testScheduler.triggerActions()
 
         val actual = testObject.clubsLiveData.getOrAwaitValue()
-        assertThat(actual).isInstanceOf(Result.Loading::class.java)
+        assertThat(actual).isInstanceOf(Resource.Loading::class.java)
     }
 }

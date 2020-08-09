@@ -1,6 +1,10 @@
 package com.alexiscrack3.spinny.login
 
+import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.PlayerResponse
 import com.alexiscrack3.spinny.api.Response
 import com.alexiscrack3.spinny.api.Result
@@ -10,6 +14,9 @@ import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.alexiscrack3.spinny.validators.ValidatorResult
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkStatic
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
@@ -202,5 +209,18 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         verify(securePreferences).setAccessToken(accessToken)
+    }
+
+    @Test
+    fun `navigate to enrollment screen when sign up is clicked`() {
+        val testObject = LoginViewModel(loginRepository, securePreferences)
+        val navController = mock<NavController>()
+        val view = mockk<View>()
+        mockkStatic(Navigation::class)
+        every { Navigation.findNavController(view) } returns navController
+
+        testObject.onSignUpClicked(view)
+
+        verify(navController).navigate(R.id.action_loginFragment_to_enrollmentFragment)
     }
 }

@@ -129,6 +129,9 @@ dependencies {
     // Mockito
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 
+    // Mockk
+    testImplementation 'io.mockk:mockk:1.10.0'
+
     // MockWebServer
     testImplementation("com.squareup.okhttp3:mockwebserver:4.8.0")
 

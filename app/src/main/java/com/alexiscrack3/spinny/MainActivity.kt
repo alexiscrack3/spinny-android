@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        fun getIntent(context: Context) : Intent {
+        fun getIntent(context: Context): Intent {
             return Intent(context, MainActivity::class.java)
         }
     }

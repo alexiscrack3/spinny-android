@@ -21,7 +21,7 @@ class LoginFragment : SpinnyFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val tokenObserver = Observer<Result<String>> { result ->
+        val authenticationObserver = Observer<Result<String>> { result ->
             when (result) {
                 is Result.Success -> {
                     val intent = MainActivity.getIntent(requireContext())
@@ -30,25 +30,25 @@ class LoginFragment : SpinnyFragment() {
                 is Result.Failure -> showLoginError()
             }
         }
-        loginViewModel.authenticationState.observe(this, tokenObserver)
+        loginViewModel.authenticationState.observe(this, authenticationObserver)
 
-        val emailObserver = Observer<ValidatorResult> { result ->
+        val emailErrorObserver = Observer<ValidatorResult> { result ->
             login_email_layout.error = if (result == ValidatorResult.Valid) {
                 null
             } else {
                 context?.getString(R.string.email_error)
             }
         }
-        loginViewModel.emailErrorState.observe(this, emailObserver)
+        loginViewModel.emailErrorState.observe(this, emailErrorObserver)
 
-        val passwordObserver = Observer<ValidatorResult> { result ->
+        val passwordErrordObserver = Observer<ValidatorResult> { result ->
             login_password_layout.error = if (result == ValidatorResult.Valid) {
                 null
             } else {
                 context?.getString(R.string.password_error)
             }
         }
-        loginViewModel.passwordErrorState.observe(this, passwordObserver)
+        loginViewModel.passwordErrorState.observe(this, passwordErrordObserver)
     }
 
     private fun showLoginError() {

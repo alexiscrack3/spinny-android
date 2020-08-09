@@ -26,17 +26,17 @@ import org.robolectric.shadows.ShadowDialog
 
 class LoginFragmentTest : SpinnyTest() {
     private val loginViewModel by inject<LoginViewModel>()
-    private val tokenLiveData = MutableLiveData<Result<String>>()
-    private val emailError = MutableLiveData<ValidatorResult>()
-    private val passwordError = MutableLiveData<ValidatorResult>()
+    private val authenticationState = MutableLiveData<Result<String>>()
+    private val emailErrorState = MutableLiveData<ValidatorResult>()
+    private val passwordErrorState = MutableLiveData<ValidatorResult>()
 
     @Before
     override fun setUp() {
         super.setUp()
         declareMock<LoginViewModel>()
-        whenever(loginViewModel.authenticationState).doReturn(tokenLiveData)
-        whenever(loginViewModel.emailErrorState).doReturn(emailError)
-        whenever(loginViewModel.passwordErrorState).doReturn(passwordError)
+        whenever(loginViewModel.authenticationState).doReturn(authenticationState)
+        whenever(loginViewModel.emailErrorState).doReturn(emailErrorState)
+        whenever(loginViewModel.passwordErrorState).doReturn(passwordErrorState)
     }
 
     @Test
@@ -57,7 +57,7 @@ class LoginFragmentTest : SpinnyTest() {
 
         val fragmentScenario = launchFragmentInContainer<LoginFragment>()
         fragmentScenario.onFragment {
-            tokenLiveData.value = Result.Success("")
+            authenticationState.value = Result.Success("")
 
             intended(hasComponent(MainActivity::class.java.name))
         }
@@ -93,7 +93,7 @@ class LoginFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val emailLayout = fragment.view!!.login_email_layout
 
-            emailError.value = ValidatorResult.Invalid
+            emailErrorState.value = ValidatorResult.Invalid
 
             assertThat(emailLayout.error.toString()).isEqualTo("Email is invalid")
         }
@@ -105,11 +105,11 @@ class LoginFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val emailLayout = fragment.view!!.login_email_layout
 
-            emailError.value = ValidatorResult.Invalid
+            emailErrorState.value = ValidatorResult.Invalid
 
             assertThat(emailLayout.error?.isNotEmpty()).isEqualTo(true)
 
-            emailError.value = ValidatorResult.Valid
+            emailErrorState.value = ValidatorResult.Valid
 
             assertThat(emailLayout.error).isNull()
         }
@@ -121,7 +121,7 @@ class LoginFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val passwordLayout = fragment.view!!.login_password_layout
 
-            passwordError.value = ValidatorResult.Invalid
+            passwordErrorState.value = ValidatorResult.Invalid
 
             assertThat(passwordLayout.error.toString()).isEqualTo("Password is invalid")
         }
@@ -133,11 +133,11 @@ class LoginFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val passwordLayout = fragment.view!!.login_password_layout
 
-            passwordError.value = ValidatorResult.Invalid
+            passwordErrorState.value = ValidatorResult.Invalid
 
             assertThat(passwordLayout.error?.isNotEmpty()).isEqualTo(true)
 
-            passwordError.value = ValidatorResult.Valid
+            passwordErrorState.value = ValidatorResult.Valid
 
             assertThat(passwordLayout.error).isNull()
         }
@@ -147,7 +147,7 @@ class LoginFragmentTest : SpinnyTest() {
     fun `show alert dialog when authentication fails`() {
         val fragmentScenario = launchFragmentInContainer<LoginFragment>()
         fragmentScenario.onFragment {
-            tokenLiveData.value = Result.Failure(Throwable())
+            authenticationState.value = Result.Failure(Throwable())
 
             val alertDialog = ShadowDialog.getLatestDialog() as? AlertDialog
             assertThat(alertDialog).isNotNull()

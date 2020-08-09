@@ -1,4 +1,4 @@
-package com.alexiscrack3.spinny.clubs
+package com.alexiscrack3.spinny.clubs.list
 
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController

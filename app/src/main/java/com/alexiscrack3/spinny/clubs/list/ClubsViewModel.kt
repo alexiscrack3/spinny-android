@@ -1,9 +1,10 @@
-package com.alexiscrack3.spinny.clubs
+package com.alexiscrack3.spinny.clubs.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alexiscrack3.spinny.SpinnyViewModel
 import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.clubs.ClubsRepository
 import com.alexiscrack3.spinny.models.Club
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers

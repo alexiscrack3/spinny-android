@@ -1,4 +1,4 @@
-package com.alexiscrack3.spinny.clubs
+package com.alexiscrack3.spinny.clubs.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

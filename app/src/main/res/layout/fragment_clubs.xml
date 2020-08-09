@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.alexiscrack3.spinny.clubs.ClubsViewModel" />
+            type="com.alexiscrack3.spinny.clubs.list.ClubsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

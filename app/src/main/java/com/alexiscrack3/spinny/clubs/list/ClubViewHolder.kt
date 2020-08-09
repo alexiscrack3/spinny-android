@@ -1,4 +1,4 @@
-package com.alexiscrack3.spinny.clubs
+package com.alexiscrack3.spinny.clubs.list
 
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController

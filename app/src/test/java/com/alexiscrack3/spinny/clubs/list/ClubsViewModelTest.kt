@@ -1,7 +1,8 @@
-package com.alexiscrack3.spinny.clubs
+package com.alexiscrack3.spinny.clubs.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.clubs.ClubsRepository
 import com.alexiscrack3.spinny.models.Club
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.google.common.truth.Truth.assertThat

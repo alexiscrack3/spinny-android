@@ -2,6 +2,8 @@ package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ServicesFactory
 import com.alexiscrack3.spinny.clubs.details.ClubViewModel
+import com.alexiscrack3.spinny.clubs.list.ClubsAdapter
+import com.alexiscrack3.spinny.clubs.list.ClubsViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

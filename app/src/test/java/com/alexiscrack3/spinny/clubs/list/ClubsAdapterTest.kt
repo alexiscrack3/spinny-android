@@ -1,4 +1,4 @@
-package com.alexiscrack3.spinny.clubs
+package com.alexiscrack3.spinny.clubs.list
 
 import android.widget.LinearLayout
 import com.alexiscrack3.spinny.SpinnyTest

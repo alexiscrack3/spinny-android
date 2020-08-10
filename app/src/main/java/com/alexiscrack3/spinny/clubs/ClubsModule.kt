@@ -4,6 +4,7 @@ import com.alexiscrack3.spinny.api.ServicesFactory
 import com.alexiscrack3.spinny.clubs.details.ClubViewModel
 import com.alexiscrack3.spinny.clubs.list.ClubsAdapter
 import com.alexiscrack3.spinny.clubs.list.ClubsViewModel
+import com.alexiscrack3.spinny.clubs.create.CreateClubViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -27,5 +28,8 @@ val clubsModule = module {
     }
     viewModel {
         ClubViewModel(clubsRepository = get())
+    }
+    viewModel {
+        CreateClubViewModel(clubsRepository = get())
     }
 }

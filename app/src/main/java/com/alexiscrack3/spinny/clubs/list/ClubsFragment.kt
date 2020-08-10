@@ -40,9 +40,8 @@ class ClubsFragment : SpinnyFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<ClubsFragmentBinding>(
+        val binding = ClubsFragmentBinding.inflate(
             inflater,
-            R.layout.fragment_clubs,
             container,
             false
         ).apply {

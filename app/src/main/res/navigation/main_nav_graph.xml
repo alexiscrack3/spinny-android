@@ -11,9 +11,16 @@
         <action
             android:id="@+id/action_clubsFragment_to_clubFragment"
             app:destination="@id/clubFragment" />
+        <action
+            android:id="@+id/action_clubsFragment_to_createClubFragment"
+            app:destination="@id/createClubFragment" />
     </fragment>
     <fragment
         android:id="@+id/clubFragment"
         android:name="com.alexiscrack3.spinny.clubs.details.ClubFragment"
         android:label="ClubFragment" />
+    <fragment
+        android:id="@+id/createClubFragment"
+        android:name="com.alexiscrack3.spinny.clubs.create.CreateClubFragment"
+        android:label="CreateClubFragment" />
 </navigation>

@@ -174,7 +174,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
             '**/BuildConfig.*',
             '**/Manifest*.*',
             '**/*Test*.*',
-            'android/**/*.*'
+            'android/**/*.*',
+            '**/*ModuleKt*.*' // Koin Modules
     ]
 
     // Define your source and your classes: we want to test the production code

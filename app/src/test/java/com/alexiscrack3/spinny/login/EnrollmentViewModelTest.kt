@@ -42,7 +42,19 @@ class EnrollmentViewModelTest {
     }
 
     @Test
-    fun `authentication should not be attempted when email is not valid`() {
+    fun `authentication should not be attempted when email is null`() {
+        val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
+            emailState.value = null
+            passwordState.value = password
+        }
+
+        testObject.onSignUpClicked()
+
+        verify(loginRepository, never()).signUp(email, password)
+    }
+
+    @Test
+    fun `authentication should not be attempted when email is empty`() {
         val email = ""
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
             emailState.value = email
@@ -55,7 +67,19 @@ class EnrollmentViewModelTest {
     }
 
     @Test
-    fun `authentication should not be attempted when password is not valid`() {
+    fun `authentication should not be attempted when password is null`() {
+        val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = null
+        }
+
+        testObject.onSignUpClicked()
+
+        verify(loginRepository, never()).signUp(email, password)
+    }
+
+    @Test
+    fun `authentication should not be attempted when password is empty`() {
         val password = ""
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
             emailState.value = email

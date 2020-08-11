@@ -36,7 +36,7 @@ class EnrollmentFragment : SpinnyFragment() {
             enrollment_email_layout.error = if (result == ValidatorResult.Valid) {
                 null
             } else {
-                context?.getString(R.string.email_error)
+                requireContext().getString(R.string.email_error)
             }
         }
         enrollmentViewModel.emailErrorState.observe(this, emailObserver)
@@ -45,7 +45,7 @@ class EnrollmentFragment : SpinnyFragment() {
             enrollment_password_layout.error = if (result == ValidatorResult.Valid) {
                 null
             } else {
-                context?.getString(R.string.password_error)
+                requireContext().getString(R.string.password_error)
             }
         }
         enrollmentViewModel.passwordErrorState.observe(this, passwordObserver)
@@ -55,7 +55,7 @@ class EnrollmentFragment : SpinnyFragment() {
         MaterialAlertDialogBuilder(requireContext(), R.style.AppTheme)
             .setTitle(R.string.enrollment_error_title)
             .setMessage(R.string.enrollment_error_message)
-            .setPositiveButton(android.R.string.ok) { _, _ -> }
+            .setPositiveButton(android.R.string.ok, null)
             .show()
     }
 

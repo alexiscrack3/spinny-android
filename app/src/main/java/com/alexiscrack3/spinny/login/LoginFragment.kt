@@ -55,7 +55,7 @@ class LoginFragment : SpinnyFragment() {
         MaterialAlertDialogBuilder(requireContext(), R.style.AppTheme)
             .setTitle(R.string.login_error_title)
             .setMessage(R.string.login_error_message)
-            .setPositiveButton(android.R.string.ok) { _, _ -> }
+            .setPositiveButton(android.R.string.ok, null)
             .show()
     }
 

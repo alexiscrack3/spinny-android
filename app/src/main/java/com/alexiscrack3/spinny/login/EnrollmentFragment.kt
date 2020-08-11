@@ -10,7 +10,7 @@ import com.alexiscrack3.spinny.MainActivity
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyFragment
 import com.alexiscrack3.spinny.api.Resource
-import com.alexiscrack3.spinny.databinding.SignUpFragmentBinding
+import com.alexiscrack3.spinny.databinding.EnrollmentFragmentBinding
 import com.alexiscrack3.spinny.validators.ValidatorResult
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_enrollment.*
@@ -64,7 +64,7 @@ class EnrollmentFragment : SpinnyFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<SignUpFragmentBinding>(
+        val binding = DataBindingUtil.inflate<EnrollmentFragmentBinding>(
             inflater,
             R.layout.fragment_enrollment,
             container,

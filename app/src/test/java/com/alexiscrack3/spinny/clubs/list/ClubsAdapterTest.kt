@@ -12,7 +12,7 @@ import org.junit.Test
 class ClubsAdapterTest : SpinnyTest() {
 
     @Test
-    fun `onCreateViewHolder returns view holder`() {
+    fun `onCreateViewHolder should return view holder`() {
         val testObject = ClubsAdapter()
 
         val viewHolder = testObject.onCreateViewHolder(LinearLayout(context), 0)
@@ -21,7 +21,7 @@ class ClubsAdapterTest : SpinnyTest() {
     }
 
     @Test
-    fun `onBindViewHolder binds correct item`() {
+    fun `onBindViewHolder should bind item with view`() {
         val club = mock<Club>()
         val clubs = listOf(club)
         val viewHolder = mock<ClubViewHolder>()
@@ -33,16 +33,29 @@ class ClubsAdapterTest : SpinnyTest() {
     }
 
     @Test
-    fun `count is initially 0`() {
+    fun `itemCount should be initially 0`() {
         val testObject = ClubsAdapter()
         assertThat(testObject.itemCount).isEqualTo(0)
     }
 
     @Test
-    fun `count is equal to number of items`() {
+    fun `itemCount should be equal to number of items`() {
         val club = mock<Club>()
         val clubs = listOf(club)
         val testObject = ClubsAdapter(clubs)
+
+        assertThat(testObject.itemCount).isEqualTo(clubs.size)
+    }
+
+    @Test
+    fun `swap should replace old items with new items`() {
+        val club = mock<Club>()
+        val clubs = listOf(club)
+        val testObject = ClubsAdapter()
+
+        assertThat(testObject.itemCount).isEqualTo(0)
+
+        testObject.swap(clubs)
 
         assertThat(testObject.itemCount).isEqualTo(clubs.size)
     }

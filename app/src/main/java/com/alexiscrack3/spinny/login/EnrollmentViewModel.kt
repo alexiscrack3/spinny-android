@@ -29,7 +29,7 @@ class EnrollmentViewModel(
         val email = emailState.value.orEmpty()
         val password = passwordState.value.orEmpty()
         if (isFormValid(email, password)) {
-            loginRepository.signUp(emailState.value.orEmpty(), passwordState.value.orEmpty())
+            loginRepository.signUp(email, password)
                 .doOnSubscribe {
                     _enrollmentState.postValue(Resource.Loading())
                 }

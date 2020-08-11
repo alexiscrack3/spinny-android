@@ -36,19 +36,19 @@ class LoginFragment : SpinnyFragment() {
             login_email_layout.error = if (result == ValidatorResult.Valid) {
                 null
             } else {
-                context?.getString(R.string.email_error)
+                requireContext().getString(R.string.email_error)
             }
         }
         loginViewModel.emailErrorState.observe(this, emailErrorObserver)
 
-        val passwordErrordObserver = Observer<ValidatorResult> { result ->
+        val passwordErrorObserver = Observer<ValidatorResult> { result ->
             login_password_layout.error = if (result == ValidatorResult.Valid) {
                 null
             } else {
-                context?.getString(R.string.password_error)
+                requireContext().getString(R.string.password_error)
             }
         }
-        loginViewModel.passwordErrorState.observe(this, passwordErrordObserver)
+        loginViewModel.passwordErrorState.observe(this, passwordErrorObserver)
     }
 
     private fun showLoginError() {

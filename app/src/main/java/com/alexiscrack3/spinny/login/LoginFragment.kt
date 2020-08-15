@@ -21,6 +21,34 @@ class LoginFragment : SpinnyFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setAuthenticationObserver()
+        setEmailErrorObserver()
+        setPasswordErrorObserver()
+    }
+
+    private fun setPasswordErrorObserver() {
+        val passwordErrorObserver = Observer<ValidatorResult> { result ->
+            login_password_layout.error = if (result == ValidatorResult.Valid) {
+                null
+            } else {
+                requireContext().getString(R.string.password_error)
+            }
+        }
+        loginViewModel.passwordErrorState.observe(this, passwordErrorObserver)
+    }
+
+    private fun setEmailErrorObserver() {
+        val emailErrorObserver = Observer<ValidatorResult> { result ->
+            login_email_layout.error = if (result == ValidatorResult.Valid) {
+                null
+            } else {
+                requireContext().getString(R.string.email_error)
+            }
+        }
+        loginViewModel.emailErrorState.observe(this, emailErrorObserver)
+    }
+
+    private fun setAuthenticationObserver() {
         val authenticationObserver = Observer<Resource<String>> { resource ->
             when (resource) {
                 is Resource.Success -> {
@@ -31,24 +59,6 @@ class LoginFragment : SpinnyFragment() {
             }
         }
         loginViewModel.authenticationState.observe(this, authenticationObserver)
-
-        val emailErrorObserver = Observer<ValidatorResult> { result ->
-            login_email_layout.error = if (result == ValidatorResult.Valid) {
-                null
-            } else {
-                requireContext().getString(R.string.email_error)
-            }
-        }
-        loginViewModel.emailErrorState.observe(this, emailErrorObserver)
-
-        val passwordErrorObserver = Observer<ValidatorResult> { result ->
-            login_password_layout.error = if (result == ValidatorResult.Valid) {
-                null
-            } else {
-                requireContext().getString(R.string.password_error)
-            }
-        }
-        loginViewModel.passwordErrorState.observe(this, passwordErrorObserver)
     }
 
     private fun showLoginError() {

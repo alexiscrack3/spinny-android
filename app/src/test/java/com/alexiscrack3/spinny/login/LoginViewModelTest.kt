@@ -153,7 +153,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `successful resource with token is emitted when authenticating user`() {
+    fun `email and password should be cleared when authentication is successful`() {
         val playerResponse = PlayerResponse(
             id = "",
             email = "",
@@ -175,38 +175,10 @@ class LoginViewModelTest {
 
         testObject.onSignInClicked()
 
-        val actual = testObject.authenticationState.getOrAwaitValue() as Resource.Success
-        assertThat(actual.data).isEqualTo(accessToken)
-    }
-
-    @Test
-    fun `failure resource is emitted when authenticating user`() {
-        val throwable = Throwable()
-        val loginRepository = mock<LoginRepository> {
-            on { this.signIn(email, password) } doReturn Single.error(throwable)
-        }
-        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
-        }
-
-        testObject.onSignInClicked()
-
-        val actual = testObject.authenticationState.getOrAwaitValue() as Resource.Failure
-        assertThat(actual.error).isEqualTo(throwable)
-    }
-
-    @Test
-    fun `loading resource is emitted when authenticating user`() {
-        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
-        }
-
-        testObject.onSignInClicked()
-
-        val actual = testObject.authenticationState.getOrAwaitValue()
-        assertThat(actual).isInstanceOf(Resource.Loading::class.java)
+        val actualEmail = testObject.emailState.getOrAwaitValue()
+        val actualPassword = testObject.emailState.getOrAwaitValue()
+        assertThat(actualEmail).isEmpty()
+        assertThat(actualPassword).isEmpty()
     }
 
     @Test
@@ -233,6 +205,63 @@ class LoginViewModelTest {
         testObject.onSignInClicked()
 
         verify(securePreferences).setAccessToken(accessToken)
+    }
+
+    @Test
+    fun `successful resource with token is emitted when authentication is successful`() {
+        val playerResponse = PlayerResponse(
+            id = "",
+            email = "",
+            rating = 0
+        )
+        val accessToken = "accessToken"
+        val signInResponse = SignInResponse(
+            user = playerResponse,
+            token = accessToken
+        )
+        val response = Response(signInResponse)
+        val loginRepository = mock<LoginRepository> {
+            on { this.signIn(email, password) } doReturn Single.just(response)
+        }
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
+        }
+
+        testObject.onSignInClicked()
+
+        val actual = testObject.authenticationState.getOrAwaitValue() as Resource.Success
+        assertThat(actual.data).isEqualTo(accessToken)
+    }
+
+    @Test
+    fun `failure resource is emitted when authentication fails`() {
+        val throwable = Throwable()
+        val loginRepository = mock<LoginRepository> {
+            on { this.signIn(email, password) } doReturn Single.error(throwable)
+        }
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
+        }
+
+        testObject.onSignInClicked()
+
+        val actual = testObject.authenticationState.getOrAwaitValue() as Resource.Failure
+        assertThat(actual.error).isEqualTo(throwable)
+    }
+
+    @Test
+    fun `loading resource is emitted while authenticating user`() {
+        val testObject = LoginViewModel(loginRepository, securePreferences).apply {
+            emailState.value = email
+            passwordState.value = password
+        }
+
+        testObject.onSignInClicked()
+
+        val actual = testObject.authenticationState.getOrAwaitValue()
+        assertThat(actual).isInstanceOf(Resource.Loading::class.java)
     }
 
     @Test

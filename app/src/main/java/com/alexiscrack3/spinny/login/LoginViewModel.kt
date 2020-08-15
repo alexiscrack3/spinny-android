@@ -25,8 +25,7 @@ class LoginViewModel(
     val passwordState = MutableLiveData<String>()
     val emailErrorState: LiveData<ValidatorResult> = _emailErrorState
     val passwordErrorState: LiveData<ValidatorResult> = _passwordErrorState
-    val authenticationState: LiveData<Resource<String>>
-        get() = _authenticationState
+    val authenticationState: LiveData<Resource<String>> = _authenticationState
 
     fun onSignInClicked() {
         val email = emailState.value.orEmpty()
@@ -38,6 +37,10 @@ class LoginViewModel(
                 }
                 .doOnSuccess {
                     securePreferences.setAccessToken(it.data.token)
+                }
+                .doOnSuccess {
+                    emailState.postValue("")
+                    passwordState.postValue("")
                 }
                 .subscribe({
                     _authenticationState.postValue(Resource.Success(it.data.token))

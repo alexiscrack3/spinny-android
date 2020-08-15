@@ -76,10 +76,10 @@ dependencies {
 
     // Lifecycle
     def lifecycle_version = '2.2.0'
+    def arch_version = '2.1.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation "androidx.arch.core:core-testing:$arch_version"
 
     // RxJava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.15'

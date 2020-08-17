@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="Theme"
+        app:iconSpaceReserved="false">
+        <ListPreference
+            android:entries="@array/themesArray"
+            android:entryValues="@array/themesValues"
+            android:key="themes_list"
+            android:title="Choose theme"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

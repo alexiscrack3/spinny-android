@@ -5,7 +5,7 @@
     android:opacity="opaque">
 
     <!-- The background color, preferably the same as your normal theme -->
-    <item android:drawable="@android:color/white" />
+    <item android:drawable="?android:colorBackground" />
 
     <item
         android:drawable="@drawable/ic_ping_pong_paddle"

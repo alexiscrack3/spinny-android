@@ -52,7 +52,7 @@ class EnrollmentFragment : SpinnyFragment() {
     }
 
     private fun showLoginError() {
-        MaterialAlertDialogBuilder(requireContext(), R.style.AppTheme)
+        MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PingPongComponents)
             .setTitle(R.string.enrollment_error_title)
             .setMessage(R.string.enrollment_error_message)
             .setPositiveButton(android.R.string.ok, null)

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.PingPongComponents" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/secondaryColor</item>
+        <item name="colorPrimaryVariant">@color/secondaryLightColor</item>
+        <item name="colorOnPrimary">@color/secondaryTextColor</item>
+
+        <item name="colorSecondary">@color/primaryColor</item>
+        <item name="colorSecondaryVariant">@color/primaryLightColor</item>
+        <item name="colorOnSecondary">@color/primaryTextColor</item>
+
+        <item name="android:colorBackground">@android:color/black</item>
+        <item name="colorError">@color/secondaryColor</item>
+    </style>
+</resources>

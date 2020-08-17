@@ -1,22 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
-        <item name="colorOnPrimary">@color/primaryTextColor</item>
-
-        <item name="colorSecondary">@color/secondaryColor</item>
-        <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
-        <item name="colorOnSecondary">@color/secondaryTextColor</item>
-
-        <item name="colorError">@color/primaryColor</item>
-<!--        <item name="colorOnError">@android:color/holo_blue_bright</item>-->
-<!--        <item name="colorOnSurface">@android:color/holo_blue_bright</item>-->
-    </style>
-
-    <!-- Launcher application theme. -->
-    <style name="AppTheme.Launcher">
-        <item name="android:windowBackground">@drawable/ic_splash_background</item>
-    </style>
 </resources>

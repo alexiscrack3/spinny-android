@@ -6,6 +6,6 @@ class TestApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        setTheme(R.style.AppTheme)
+        setTheme(R.style.Theme_PingPongComponents)
     }
 }

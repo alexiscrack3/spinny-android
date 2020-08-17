@@ -1,11 +1,10 @@
-package com.alexiscrack3.spinny
+package com.alexiscrack3.spinny.db
 
 import androidx.room.Room
-import com.alexiscrack3.spinny.db.SpinnyDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
-val storageModule = module {
+val databaseModule = module {
     single {
         Room.databaseBuilder(
             androidApplication(),

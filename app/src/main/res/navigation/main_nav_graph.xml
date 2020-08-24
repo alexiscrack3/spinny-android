@@ -3,29 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/clubsFragment">
+    app:startDestination="@id/clubs_fragment">
 
     <fragment
-        android:id="@+id/clubsFragment"
+        android:id="@+id/clubs_fragment"
         android:name="com.alexiscrack3.spinny.clubs.list.ClubsFragment"
         android:label="ClubsFragment">
         <action
-            android:id="@+id/action_clubsFragment_to_clubFragment"
-            app:destination="@id/clubFragment" />
+            android:id="@+id/action_clubs_fragment_to_club_fragment"
+            app:destination="@id/club_fragment" />
         <action
             android:id="@+id/action_clubsFragment_to_createClubFragment"
-            app:destination="@id/createClubFragment" />
+            app:destination="@id/create_club_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/clubFragment"
+        android:id="@+id/club_fragment"
         android:name="com.alexiscrack3.spinny.clubs.details.ClubFragment"
         android:label="ClubFragment" />
     <fragment
-        android:id="@+id/createClubFragment"
+        android:id="@+id/create_club_fragment"
         android:name="com.alexiscrack3.spinny.clubs.create.CreateClubFragment"
         android:label="CreateClubFragment" />
     <activity
-        android:id="@+id/settingsActivity"
+        android:id="@+id/settings_activity"
         android:name="com.alexiscrack3.spinny.settings.SettingsActivity"
         android:label="activity_settings"
         tools:layout="@layout/activity_settings" />

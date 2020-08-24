@@ -29,7 +29,7 @@ class ClubViewHolder(
         }
         itemView.setOnClickListener { view ->
             val args = bundleOf(CLUB_ID_KEY to club.id)
-            view.findNavController().navigate(R.id.action_clubsFragment_to_clubFragment, args)
+            view.findNavController().navigate(R.id.action_clubs_fragment_to_club_fragment, args)
         }
     }
 }

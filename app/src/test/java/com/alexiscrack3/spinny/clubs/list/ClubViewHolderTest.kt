@@ -99,7 +99,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
         testObject.itemView.performClick()
 
-        assertThat(navController.currentDestination?.id).isEqualTo(R.id.clubFragment)
+        assertThat(navController.currentDestination?.id).isEqualTo(R.id.club_fragment)
         assertThat(navController.backStack.last().arguments?.getString("CLUB_ID")).isEqualTo(club.id)
     }
 }

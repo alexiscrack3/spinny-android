@@ -31,7 +31,7 @@ class MainActivityTest : SpinnyTest() {
         val activityScenario = ActivityScenario.launch(MainActivity::class.java)
         activityScenario.onActivity { activity ->
             val menuItem = mock<MenuItem> {
-                on { this.itemId } doReturn R.id.settingsActivity
+                on { this.itemId } doReturn R.id.settings_activity
             }
             activity.onOptionsItemSelected(menuItem)
 

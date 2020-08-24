@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Spinny</string>
     <string name="settings">Settings</string>
+    <string name="dark_entry">Dark</string>
+    <string name="light_entry">Light</string>
+    <string name="system_entry">System default</string>
+    <string name="dark_entry_value">2</string>
+    <string name="light_entry_value">1</string>
+    <string name="system_entry_value">-1</string>
+    <string name="themes_preference_key">themes_preference</string>
     <string name="email">Email</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>

@@ -2,13 +2,15 @@ package com.alexiscrack3.spinny
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
-import androidx.preference.PreferenceManager
+import com.alexiscrack3.spinny.settings.ThemesRepository
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class SpinnyApplication : MultiDexApplication() {
+    private val themesRepository by inject<ThemesRepository>()
 
     override fun onCreate() {
         super.onCreate()
@@ -25,8 +27,7 @@ class SpinnyApplication : MultiDexApplication() {
         }
         SpinnyModule.init()
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val mode = prefs.getString("themes_list", "-1")?.toInt() ?: -1
+        val mode = themesRepository.getModeFromPreferences()
         AppCompatDelegate.setDefaultNightMode(mode)
     }
 }

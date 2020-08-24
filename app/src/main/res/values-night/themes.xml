@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
 
-        <item name="android:colorBackground">#2a2a2a</item>
+        <item name="android:colorBackground">@color/backgroundColor</item>
         <item name="colorError">@color/primaryColor</item>
     </style>
 </resources>

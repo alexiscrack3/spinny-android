@@ -1,21 +1,16 @@
 package com.alexiscrack3.spinny.settings
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.alexiscrack3.spinny.R
+import org.koin.android.ext.android.inject
 
 class SettingsFragment : PreferenceFragmentCompat() {
-    private val sharedPreferenceChangeListener: (SharedPreferences, String) -> Unit = { sharedPreferences, key ->
-        when (key) {
-            "themes_list" -> {
-                val mode = sharedPreferences.getString("themes_list", "-1")?.toInt() ?: -1
-                AppCompatDelegate.setDefaultNightMode(mode)
-            }
-        }
-    }
+    private val themesRepository by inject<ThemesRepository>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +23,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onStart() {
         super.onStart()
-        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+        val themesPreferenceKey = requireContext().getString(R.string.themes_preference_key)
+        val themesPreference = findPreference<ListPreference>(themesPreferenceKey)
+        themesPreference?.setOnPreferenceChangeListener { _, newValue ->
+            if (newValue is String) {
+                val mode = themesRepository.getModeForValue(newValue)
+                AppCompatDelegate.setDefaultNightMode(mode)
+            }
+            true
+        }
+        themesPreference?.summaryProvider = getThemesPreferenceSummaryProvider()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
+    private fun getThemesPreferenceSummaryProvider(): Preference.SummaryProvider<ListPreference> {
+        return Preference.SummaryProvider { preference ->
+            themesRepository.getDescriptionForValue(preference.value)
+        }
     }
 }

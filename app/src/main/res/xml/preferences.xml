@@ -6,9 +6,10 @@
         android:title="Theme"
         app:iconSpaceReserved="false">
         <ListPreference
-            android:entries="@array/themesArray"
-            android:entryValues="@array/themesValues"
-            android:key="themes_list"
+            android:defaultValue="-1"
+            android:entries="@array/themes_entries"
+            android:entryValues="@array/themes_values"
+            android:key="themes_preference"
             android:title="Choose theme"
             app:iconSpaceReserved="false"
             app:useSimpleSummaryProvider="true" />

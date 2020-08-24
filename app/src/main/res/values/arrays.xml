@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="themesArray">
-        <item>Dark</item>
-        <item>Light</item>
-        <item>System default</item>
+    <string-array name="themes_entries">
+        <item>@string/dark_entry</item>
+        <item>@string/light_entry</item>
+        <item>@string/system_entry</item>
     </string-array>
-    <string-array name="themesValues">
-        <item>2</item>
-        <item>1</item>
-        <item>-1</item>
+    <string-array name="themes_values">
+        <item>@string/dark_entry_value</item>
+        <item>@string/light_entry_value</item>
+        <item>@string/system_entry_value</item>
     </string-array>
 </resources>

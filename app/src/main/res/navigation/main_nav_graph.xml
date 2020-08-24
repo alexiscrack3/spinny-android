@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/clubsFragment">
 
@@ -23,4 +24,9 @@
         android:id="@+id/createClubFragment"
         android:name="com.alexiscrack3.spinny.clubs.create.CreateClubFragment"
         android:label="CreateClubFragment" />
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.alexiscrack3.spinny.settings.SettingsActivity"
+        android:label="activity_settings"
+        tools:layout="@layout/activity_settings" />
 </navigation>

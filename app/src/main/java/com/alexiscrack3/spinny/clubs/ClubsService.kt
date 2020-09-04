@@ -4,6 +4,7 @@ import com.alexiscrack3.spinny.api.ClubResponse
 import com.alexiscrack3.spinny.api.Response
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ClubsService {
@@ -13,4 +14,7 @@ interface ClubsService {
 
     @GET("clubs/{id}")
     fun getClubById(@Path("id") id: String): Single<Response<ClubResponse>>
+
+    @POST("clubs")
+    fun createClub(): Single<Response<ClubResponse>>
 }

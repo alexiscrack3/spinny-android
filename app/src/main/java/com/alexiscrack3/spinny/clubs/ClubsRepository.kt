@@ -44,6 +44,10 @@ class ClubsRepository(
         return clubsService.getClubById(id)
     }
 
+    fun createClub(): Single<Response<ClubResponse>> {
+        return clubsService.createClub()
+    }
+
     private fun shouldRefresh(transactionLog: TransactionLog): Boolean {
         val now = OffsetDateTime.now().minusSeconds(20)
         return transactionLog.updatedAt.isBefore(now)

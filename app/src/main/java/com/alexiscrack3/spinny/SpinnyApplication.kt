@@ -27,7 +27,7 @@ class SpinnyApplication : MultiDexApplication() {
         }
         SpinnyModule.init()
 
-        val mode = themesRepository.getModeFromPreferences()
+        val mode = themesRepository.getNightModeFromPreferences()
         AppCompatDelegate.setDefaultNightMode(mode)
     }
 }

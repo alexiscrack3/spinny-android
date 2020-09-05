@@ -64,7 +64,7 @@ class SettingsFragmentTest : SpinnyTest() {
     @Test
     fun `night mode should be set to new value`() {
         val newValue = "2"
-        whenever(themesRepository.getModeForValue(newValue)).thenReturn(AppCompatDelegate.MODE_NIGHT_YES)
+        whenever(themesRepository.getNightModeForValue(newValue)).thenReturn(AppCompatDelegate.MODE_NIGHT_YES)
         val fragmentScenario = launchFragmentInContainer<SettingsFragment>()
         fragmentScenario.onFragment { fragment ->
             val themesPreference: ListPreference = fragment.findPreference(themesPreferenceKey)!!
@@ -80,7 +80,7 @@ class SettingsFragmentTest : SpinnyTest() {
     @Test
     fun `night mode should be changed when preference changes`() {
         val newValue = "2"
-        whenever(themesRepository.getModeForValue(newValue)).thenReturn(AppCompatDelegate.MODE_NIGHT_YES)
+        whenever(themesRepository.getNightModeForValue(newValue)).thenReturn(AppCompatDelegate.MODE_NIGHT_YES)
         val fragmentScenario = launchFragmentInContainer<SettingsFragment>()
         fragmentScenario.onFragment { fragment ->
             val themesPreference: ListPreference = fragment.findPreference(themesPreferenceKey)!!

@@ -10,18 +10,18 @@ class ThemesRepository(
     private val context: Context
 ) {
 
-    fun getModeFromPreferences(): Int {
+    fun getNightModeFromPreferences(): Int {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val value = sharedPreferences.getString(
             context.getString(R.string.themes_preference_key),
             null
         )
         return value?.let {
-            getModeForValue(it)
+            getNightModeForValue(it)
         } ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     }
 
-    fun getModeForValue(value: String): Int = when (value) {
+    fun getNightModeForValue(value: String): Int = when (value) {
         context.getString(R.string.dark_entry_value) -> AppCompatDelegate.MODE_NIGHT_YES
         context.getString(R.string.light_entry_value) -> AppCompatDelegate.MODE_NIGHT_NO
         context.getString(R.string.system_entry_value) -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM

@@ -27,7 +27,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val themesPreference = findPreference<ListPreference>(themesPreferenceKey)
         themesPreference?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue is String) {
-                val mode = themesRepository.getModeForValue(newValue)
+                val mode = themesRepository.getNightModeForValue(newValue)
                 AppCompatDelegate.setDefaultNightMode(mode)
             }
             true

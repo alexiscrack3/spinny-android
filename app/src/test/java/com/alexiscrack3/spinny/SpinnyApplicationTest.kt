@@ -66,7 +66,7 @@ class SpinnyApplicationTest : AutoCloseKoinTest() {
     @Test
     fun `default night mode is set when application is create`() {
         val expected = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        whenever(themesRepository.getModeFromPreferences()).thenReturn(expected)
+        whenever(themesRepository.getNightModeFromPreferences()).thenReturn(expected)
 
         val actual = AppCompatDelegate.getDefaultNightMode()
 

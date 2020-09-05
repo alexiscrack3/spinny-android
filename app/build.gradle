@@ -137,7 +137,7 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:4.8.0")
 
     // AndroidJUnitRunner
-    testImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation 'androidx.test.ext:junit:1.1.2'
 
     // Robolectric
     testImplementation 'org.robolectric:robolectric:4.3.1'

@@ -144,9 +144,9 @@ dependencies {
 
     // Espresso
     def espresso_version = '3.3.0'
-    testImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 //    androidTestImplementation 'androidx.test:runner:1.2.0'
 }

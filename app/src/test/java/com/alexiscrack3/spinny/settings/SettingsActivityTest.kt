@@ -1,10 +1,6 @@
 package com.alexiscrack3.spinny.settings
 
-import android.os.Bundle
-import androidx.appcompat.app.ActionBar
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
-import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.utils.isUpButtonEnabled
 import com.google.common.truth.Truth.assertThat

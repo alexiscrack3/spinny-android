@@ -5,9 +5,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
-import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import com.alexiscrack3.spinny.MainActivity
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
@@ -22,6 +19,7 @@ import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
+import org.robolectric.Shadows
 import org.robolectric.shadows.ShadowDialog
 
 class LoginFragmentTest : SpinnyTest() {
@@ -53,16 +51,15 @@ class LoginFragmentTest : SpinnyTest() {
 
     @Test
     fun `main screen is launched on successful authentication`() {
-        Intents.init()
-
         val fragmentScenario = launchFragmentInContainer<LoginFragment>()
-        fragmentScenario.onFragment {
+        fragmentScenario.onFragment { fragment ->
+            val shadowActivity = Shadows.shadowOf(fragment.activity)
             authenticationState.value = Resource.Success("")
 
-            intended(hasComponent(MainActivity::class.java.name))
-        }
+            val actual = shadowActivity.nextStartedActivity
 
-        Intents.release()
+            assertThat(actual.component?.className).isEqualTo(MainActivity::class.java.name)
+        }
     }
 
 //    @Test

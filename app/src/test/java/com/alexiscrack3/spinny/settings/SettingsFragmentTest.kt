@@ -63,30 +63,30 @@ class SettingsFragmentTest : SpinnyTest() {
 
     @Test
     fun `night mode should be set to new value`() {
-        val newValue = "2"
-        whenever(themesRepository.getNightModeForValue(newValue)).thenReturn(AppCompatDelegate.MODE_NIGHT_YES)
+        val expected = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        whenever(themesRepository.getNightModeForValue(expected.toString())).thenReturn(expected)
         val fragmentScenario = launchFragmentInContainer<SettingsFragment>()
         fragmentScenario.onFragment { fragment ->
             val themesPreference: ListPreference = fragment.findPreference(themesPreferenceKey)!!
             val onPreferenceChangeListener = themesPreference.onPreferenceChangeListener
-            onPreferenceChangeListener.onPreferenceChange(themesPreference, newValue)
+            onPreferenceChangeListener.onPreferenceChange(themesPreference, expected.toString())
 
             val actual = AppCompatDelegate.getDefaultNightMode()
 
-            assertThat(actual).isEqualTo(AppCompatDelegate.MODE_NIGHT_YES)
+            assertThat(actual).isEqualTo(expected)
         }
     }
 
     @Test
     fun `night mode should be changed when preference changes`() {
-        val newValue = "2"
-        whenever(themesRepository.getNightModeForValue(newValue)).thenReturn(AppCompatDelegate.MODE_NIGHT_YES)
+        val nightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        whenever(themesRepository.getNightModeForValue(nightMode.toString())).thenReturn(nightMode)
         val fragmentScenario = launchFragmentInContainer<SettingsFragment>()
         fragmentScenario.onFragment { fragment ->
             val themesPreference: ListPreference = fragment.findPreference(themesPreferenceKey)!!
             val onPreferenceChangeListener = themesPreference.onPreferenceChangeListener
 
-            val actual = onPreferenceChangeListener.onPreferenceChange(themesPreference, newValue)
+            val actual = onPreferenceChangeListener.onPreferenceChange(themesPreference, nightMode.toString())
 
             assertThat(actual).isTrue()
         }

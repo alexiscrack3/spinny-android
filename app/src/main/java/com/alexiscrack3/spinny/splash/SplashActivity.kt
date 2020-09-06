@@ -10,6 +10,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val intent = LoginActivity.getIntent(this)
         startActivity(intent)
+    }
+
+    override fun onStart() {
+        super.onStart()
         finish()
     }
 }

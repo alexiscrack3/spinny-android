@@ -13,16 +13,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
     }
 
-    override fun onStart() {
-        super.onStart()
-        supportActionBar?.hide()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        supportActionBar?.show()
-    }
-
     companion object {
         fun getIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)

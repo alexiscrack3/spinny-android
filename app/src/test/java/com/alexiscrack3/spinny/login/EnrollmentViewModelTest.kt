@@ -101,7 +101,7 @@ class EnrollmentViewModelTest {
         testObject.onSignUpClicked()
 
         val actual = testObject.emailErrorState.getOrAwaitValue()
-        assertThat(actual).isInstanceOf(ValidatorResult.Valid::class.java)
+        assertThat(actual).isInstanceOf(ValidatorResult.Success::class.java)
     }
 
     @Test
@@ -115,7 +115,7 @@ class EnrollmentViewModelTest {
         testObject.onSignUpClicked()
 
         val actual = testObject.emailErrorState.getOrAwaitValue()
-        assertThat(actual).isInstanceOf(ValidatorResult.Invalid::class.java)
+        assertThat(actual).isInstanceOf(ValidatorResult.Failure::class.java)
     }
 
     @Test
@@ -128,7 +128,7 @@ class EnrollmentViewModelTest {
         testObject.onSignUpClicked()
 
         val actual = testObject.passwordErrorState.getOrAwaitValue()
-        assertThat(actual).isInstanceOf(ValidatorResult.Valid::class.java)
+        assertThat(actual).isInstanceOf(ValidatorResult.Success::class.java)
     }
 
     @Test
@@ -142,7 +142,7 @@ class EnrollmentViewModelTest {
         testObject.onSignUpClicked()
 
         val actual = testObject.passwordErrorState.getOrAwaitValue()
-        assertThat(actual).isInstanceOf(ValidatorResult.Invalid::class.java)
+        assertThat(actual).isInstanceOf(ValidatorResult.Failure::class.java)
     }
 
     @Test

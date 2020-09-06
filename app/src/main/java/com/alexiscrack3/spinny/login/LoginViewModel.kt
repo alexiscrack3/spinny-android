@@ -59,14 +59,14 @@ class LoginViewModel(
         val validatorResult = CompositeValidator(EmailFormatValidator()).validate(email).also {
             _emailErrorState.value = it
         }
-        return validatorResult == ValidatorResult.Valid
+        return validatorResult == ValidatorResult.Success
     }
 
     private fun isPasswordValid(password: String): Boolean {
         val validatorResult = CompositeValidator(EmptyTextValidator()).validate(password).also {
             _passwordErrorState.value = it
         }
-        return validatorResult == ValidatorResult.Valid
+        return validatorResult == ValidatorResult.Success
     }
 
     private fun isFormValid(email: String, password: String): Boolean {

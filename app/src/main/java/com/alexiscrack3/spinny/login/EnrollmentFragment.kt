@@ -33,7 +33,7 @@ class EnrollmentFragment : SpinnyFragment() {
         enrollmentViewModel.enrollmentState.observe(this, enrollmentObserver)
 
         val emailObserver = Observer<ValidatorResult> { result ->
-            enrollment_email_layout.error = if (result == ValidatorResult.Valid) {
+            enrollment_email_layout.error = if (result == ValidatorResult.Success) {
                 null
             } else {
                 requireContext().getString(R.string.email_error)
@@ -42,7 +42,7 @@ class EnrollmentFragment : SpinnyFragment() {
         enrollmentViewModel.emailErrorState.observe(this, emailObserver)
 
         val passwordObserver = Observer<ValidatorResult> { result ->
-            enrollment_password_layout.error = if (result == ValidatorResult.Valid) {
+            enrollment_password_layout.error = if (result == ValidatorResult.Success) {
                 null
             } else {
                 requireContext().getString(R.string.password_error)

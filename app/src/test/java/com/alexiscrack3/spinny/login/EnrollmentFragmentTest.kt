@@ -68,7 +68,7 @@ class EnrollmentFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val emailLayout = fragment.view!!.enrollment_email_layout
 
-            emailErrorState.value = ValidatorResult.Invalid
+            emailErrorState.value = ValidatorResult.Failure
 
             assertThat(emailLayout.error.toString()).isEqualTo("Email is invalid")
         }
@@ -80,11 +80,11 @@ class EnrollmentFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val emailLayout = fragment.view!!.enrollment_email_layout
 
-            emailErrorState.value = ValidatorResult.Invalid
+            emailErrorState.value = ValidatorResult.Failure
 
             assertThat(emailLayout.error?.isNotEmpty()).isEqualTo(true)
 
-            emailErrorState.value = ValidatorResult.Valid
+            emailErrorState.value = ValidatorResult.Success
 
             assertThat(emailLayout.error).isNull()
         }
@@ -96,7 +96,7 @@ class EnrollmentFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val passwordLayout = fragment.view!!.enrollment_password_layout
 
-            passwordErrorState.value = ValidatorResult.Invalid
+            passwordErrorState.value = ValidatorResult.Failure
 
             assertThat(passwordLayout.error.toString()).isEqualTo("Password is invalid")
         }
@@ -108,11 +108,11 @@ class EnrollmentFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val passwordLayout = fragment.view!!.enrollment_password_layout
 
-            passwordErrorState.value = ValidatorResult.Invalid
+            passwordErrorState.value = ValidatorResult.Failure
 
             assertThat(passwordLayout.error?.isNotEmpty()).isEqualTo(true)
 
-            passwordErrorState.value = ValidatorResult.Valid
+            passwordErrorState.value = ValidatorResult.Success
 
             assertThat(passwordLayout.error).isNull()
         }

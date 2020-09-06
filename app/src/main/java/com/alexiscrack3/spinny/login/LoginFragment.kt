@@ -28,7 +28,7 @@ class LoginFragment : SpinnyFragment() {
 
     private fun setPasswordErrorObserver() {
         val passwordErrorObserver = Observer<ValidatorResult> { result ->
-            login_password_layout.error = if (result == ValidatorResult.Valid) {
+            login_password_layout.error = if (result == ValidatorResult.Success) {
                 null
             } else {
                 requireContext().getString(R.string.password_error)
@@ -39,7 +39,7 @@ class LoginFragment : SpinnyFragment() {
 
     private fun setEmailErrorObserver() {
         val emailErrorObserver = Observer<ValidatorResult> { result ->
-            login_email_layout.error = if (result == ValidatorResult.Valid) {
+            login_email_layout.error = if (result == ValidatorResult.Success) {
                 null
             } else {
                 requireContext().getString(R.string.email_error)

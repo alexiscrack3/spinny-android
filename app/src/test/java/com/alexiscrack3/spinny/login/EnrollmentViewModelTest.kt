@@ -14,6 +14,7 @@ import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.util.*
 
 class EnrollmentViewModelTest {
     private val loginRepository = mock<LoginRepository>()
@@ -150,7 +151,8 @@ class EnrollmentViewModelTest {
         val playerResponse = PlayerResponse(
             id = "",
             email = "",
-            rating = 0
+            rating = 0,
+            createdAt = Date()
         )
         val accessToken = "accessToken"
         val signUpResponse = SignUpResponse(
@@ -207,7 +209,8 @@ class EnrollmentViewModelTest {
         val playerResponse = PlayerResponse(
             id = "",
             email = "",
-            rating = 0
+            rating = 0,
+            createdAt = Date()
         )
         val accessToken = "accessToken"
         val signUpResponse = SignUpResponse(

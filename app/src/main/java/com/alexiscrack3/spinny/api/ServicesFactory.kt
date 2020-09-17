@@ -2,6 +2,7 @@ package com.alexiscrack3.spinny.api
 
 import com.alexiscrack3.spinny.BuildConfig
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,7 +20,11 @@ class ServicesFactory(
 
     init {
         val okHttpClient = buildOkHttpClient()
-        retrofit = buildRetrofit(baseUrl, okHttpClient, Gson())
+        val gson = GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+//            .setPrettyPrinting()
+            .create()
+        retrofit = buildRetrofit(baseUrl, okHttpClient, gson)
     }
 
     private fun buildOkHttpClient(): OkHttpClient {

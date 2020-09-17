@@ -63,12 +63,13 @@ class LoginServiceTests {
 
         val actual = testObject.signIn(SignInRequest(email, "password")).blockingGet()
 
-        val data = actual.data
-        assertThat(data.user.id).isEqualTo(playerId)
-        assertThat(data.user.createdAt).isEqualTo(now)
-        assertThat(data.user.email).isEqualTo(email)
-        assertThat(data.user.rating).isEqualTo(rating)
-        assertThat(data.token).isEqualTo(accessToken)
+        val user = actual.data.user
+        assertThat(user.id).isEqualTo(playerId)
+        assertThat(user.createdAt).isEqualTo(now)
+        assertThat(user.email).isEqualTo(email)
+        assertThat(user.rating).isEqualTo(rating)
+        assertThat(actual.data.token).isEqualTo(accessToken)
+        assertThat(actual.errors).isEmpty()
     }
 
     @Test
@@ -111,11 +112,12 @@ class LoginServiceTests {
 
         val actual = testObject.signUp(SignUpRequest(email, "password")).blockingGet()
 
-        val data = actual.data
-        assertThat(data.user.id).isEqualTo(playerId)
-        assertThat(data.user.createdAt).isEqualTo(now)
-        assertThat(data.user.email).isEqualTo(email)
-        assertThat(data.user.rating).isEqualTo(rating)
-        assertThat(data.token).isEqualTo(accessToken)
+        val user = actual.data.user
+        assertThat(user.id).isEqualTo(playerId)
+        assertThat(user.createdAt).isEqualTo(now)
+        assertThat(user.email).isEqualTo(email)
+        assertThat(user.rating).isEqualTo(rating)
+        assertThat(actual.data.token).isEqualTo(accessToken)
+        assertThat(actual.errors).isEmpty()
     }
 }

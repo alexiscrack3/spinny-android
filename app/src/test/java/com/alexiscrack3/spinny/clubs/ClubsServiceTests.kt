@@ -2,14 +2,15 @@ package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ServicesFactory
 import com.google.common.truth.Truth.assertThat
-import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import okhttp3.mockwebserver.RecordedRequest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import java.net.HttpURLConnection
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ClubsServiceTests {
     private var mockWebServer = MockWebServer()
@@ -28,16 +29,21 @@ class ClubsServiceTests {
     fun `getClubs should return clubs response`() {
         val id = "123"
         val name = "name"
+        val now = Date()
+        val offsetDateTime = now.toInstant().atOffset(ZoneOffset.UTC)
+        val createdAt = offsetDateTime.format(DateTimeFormatter.ISO_INSTANT)
         val jsonData = """
         {
             "data": [{
                 "members": [],
                 "_id": "$id",
                 "name": "$name",
-                "created_at": "2020-07-18T22:20:51.574Z"
-            }]
+                "created_at": "$createdAt",
+                "__v": 0
+            }],
+            "errors": []
         }
-            """.trimIndent()
+        """.trimIndent()
         val mockResponse = MockResponse()
             .addHeader("Content-Type", "application/json; charset=utf-8")
             .setResponseCode(HttpURLConnection.HTTP_OK)
@@ -51,22 +57,29 @@ class ClubsServiceTests {
         val data = actual.data.first()
         assertThat(data.id).isEqualTo(id)
         assertThat(data.name).isEqualTo(name)
+        assertThat(data.createdAt).isEqualTo(now)
+        assertThat(actual.errors).isEmpty()
     }
 
     @Test
     fun `getClubById should return club response`() {
         val id = "123"
         val name = "name"
+        val now = Date()
+        val offsetDateTime = now.toInstant().atOffset(ZoneOffset.UTC)
+        val createdAt = offsetDateTime.format(DateTimeFormatter.ISO_INSTANT)
         val jsonData = """
         {
             "data": {
                 "members": [],
                 "_id": "$id",
                 "name": "$name",
-                "created_at": "2020-07-18T22:20:51.574Z"
-            }
+                "created_at": "$createdAt",
+                "__v": 0
+            },
+            "errors": []
         }
-            """.trimIndent()
+        """.trimIndent()
         val mockResponse = MockResponse()
             .addHeader("Content-Type", "application/json; charset=utf-8")
             .setResponseCode(HttpURLConnection.HTTP_OK)
@@ -80,22 +93,29 @@ class ClubsServiceTests {
         val data = actual.data
         assertThat(data.id).isEqualTo(id)
         assertThat(data.name).isEqualTo(name)
+        assertThat(data.createdAt).isEqualTo(now)
+        assertThat(actual.errors).isEmpty()
     }
 
     @Test
     fun `createClub should return club response`() {
         val id = "123"
         val name = "name"
+        val now = Date()
+        val offsetDateTime = now.toInstant().atOffset(ZoneOffset.UTC)
+        val createdAt = offsetDateTime.format(DateTimeFormatter.ISO_INSTANT)
         val jsonData = """
         {
             "data": {
                 "members": [],
                 "_id": "$id",
                 "name": "$name",
-                "created_at": "2020-07-18T22:20:51.574Z"
-            }
+                "created_at": "$createdAt",
+                "__v": 0
+            },
+            "errors": []
         }
-            """.trimIndent()
+        """.trimIndent()
         val mockResponse = MockResponse()
             .addHeader("Content-Type", "application/json; charset=utf-8")
             .setResponseCode(HttpURLConnection.HTTP_OK)
@@ -109,5 +129,7 @@ class ClubsServiceTests {
         val data = actual.data
         assertThat(data.id).isEqualTo(id)
         assertThat(data.name).isEqualTo(name)
+        assertThat(data.createdAt).isEqualTo(now)
+        assertThat(actual.errors).isEmpty()
     }
 }

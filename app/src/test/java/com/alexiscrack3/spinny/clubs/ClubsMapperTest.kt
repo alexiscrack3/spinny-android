@@ -3,6 +3,7 @@ package com.alexiscrack3.spinny.clubs
 import com.alexiscrack3.spinny.api.ClubResponse
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import java.util.*
 
 class ClubsMapperTest {
 
@@ -12,11 +13,13 @@ class ClubsMapperTest {
 
         val clubResponseA = ClubResponse(
             id = "1",
-            name = "a"
+            name = "a",
+            createdAt = Date()
         )
         val clubResponseB = ClubResponse(
             id = "2",
-            name = "b"
+            name = "b",
+            createdAt = Date()
         )
         val data = arrayOf(
             clubResponseA,

@@ -13,6 +13,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Test
 import java.time.OffsetDateTime
+import java.util.*
 
 class ClubsRepositoryTest {
 
@@ -20,7 +21,11 @@ class ClubsRepositoryTest {
     fun `clubs should be retrieved from service when data is out of date`() {
         val id = "1"
         val name = "a"
-        val clubResponse = ClubResponse(id, name)
+        val clubResponse = ClubResponse(
+            id = id,
+            name = name,
+            createdAt = Date()
+        )
         val club = Club(
             id = id,
             name = name
@@ -53,7 +58,11 @@ class ClubsRepositoryTest {
     fun `clubs should be stored in database after data is retrieved from service`() {
         val id = "1"
         val name = "a"
-        val clubResponse = ClubResponse(id, name)
+        val clubResponse = ClubResponse(
+            id = id,
+            name = name,
+            createdAt = Date()
+        )
         val club = Club(
             id = id,
             name = name
@@ -119,7 +128,11 @@ class ClubsRepositoryTest {
     fun `transaction log should be updated in database after data is retrieved from service`() {
         val id = "1"
         val name = "a"
-        val clubResponse = ClubResponse(id, name)
+        val clubResponse = ClubResponse(
+            id = id,
+            name = name,
+            createdAt = Date()
+        )
         val club = Club(
             id = id,
             name = name

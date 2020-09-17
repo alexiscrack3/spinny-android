@@ -1,7 +1,7 @@
 package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ClubResponse
-import com.alexiscrack3.spinny.api.Response
+import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.db.TransactionLogsDao
 import com.alexiscrack3.spinny.models.Club
 import com.alexiscrack3.spinny.models.TransactionLog
@@ -27,7 +27,7 @@ class ClubsRepositoryTest {
         )
         val clubs = listOf(club)
         val clubsService = mock<ClubsService> {
-            on { this.getClubs() } doReturn Single.just(Response(arrayOf(clubResponse)))
+            on { this.getClubs() } doReturn Single.just(ApiResponse(arrayOf(clubResponse)))
         }
         val clubsDao = mock<ClubsDao> {
             on { this.insertClubs(clubs) } doReturn Completable.complete()
@@ -60,7 +60,7 @@ class ClubsRepositoryTest {
         )
         val clubs = listOf(club)
         val clubsService = mock<ClubsService> {
-            on { this.getClubs() } doReturn Single.just(Response(arrayOf(clubResponse)))
+            on { this.getClubs() } doReturn Single.just(ApiResponse(arrayOf(clubResponse)))
         }
         val clubsDao = mock<ClubsDao>()
         val offsetDateTime = OffsetDateTime.now().minusYears(1)
@@ -126,7 +126,7 @@ class ClubsRepositoryTest {
         )
         val clubs = listOf(club)
         val clubsService = mock<ClubsService> {
-            on { this.getClubs() } doReturn Single.just(Response(arrayOf(clubResponse)))
+            on { this.getClubs() } doReturn Single.just(ApiResponse(arrayOf(clubResponse)))
         }
         val clubsDao = mock<ClubsDao> {
             on { this.insertClubs(clubs) } doReturn Completable.complete()

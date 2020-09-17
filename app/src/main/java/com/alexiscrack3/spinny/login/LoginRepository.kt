@@ -7,11 +7,11 @@ class LoginRepository(
     private val loginService: LoginService
 ) {
 
-    fun signIn(email: String, password: String): Single<Response<SignInResponse>> {
+    fun signIn(email: String, password: String): Single<ApiResponse<SignInResponse>> {
         return loginService.signIn(SignInRequest(email, password))
     }
 
-    fun signUp(email: String, password: String): Single<Response<SignUpResponse>> {
+    fun signUp(email: String, password: String): Single<ApiResponse<SignUpResponse>> {
         return loginService.signUp(SignUpRequest(email, password))
     }
 }

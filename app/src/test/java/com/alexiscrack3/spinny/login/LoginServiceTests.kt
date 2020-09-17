@@ -39,19 +39,19 @@ class LoginServiceTests {
         val createdAt = offsetDateTime.format(DateTimeFormatter.ISO_INSTANT)
         val accessToken = "accessToken"
         val jsonData = """
-            {
-                "data": {
-                    "user": {
-                        "rating": ${rating},
-                        "_id": "$playerId",
-                        "email": "$email",
-                        "created_at": "$createdAt",
-                        "__v": 0
-                    },
-                    "token": "$accessToken"
+        {
+            "data": {
+                "user": {
+                    "rating": ${rating},
+                    "_id": "$playerId",
+                    "email": "$email",
+                    "created_at": "$createdAt",
+                    "__v": 0
                 },
-                "errors": []
-            }
+                "token": "$accessToken"
+            },
+            "errors": []
+        }
         """.trimIndent()
         val mockResponse = MockResponse()
             .addHeader("Content-Type", "application/json; charset=utf-8")
@@ -82,19 +82,19 @@ class LoginServiceTests {
         val createdAt = offsetDateTime.format(DateTimeFormatter.ISO_INSTANT)
         val accessToken = "accessToken"
         val jsonData = """
-            {
-                "data": {
-                    "user": {
-                        "rating": ${rating},
-                        "_id": "$playerId",
-                        "email": "$email",
-                        "created_at": "$createdAt",
-                        "__v": 0
-                    },
-                    "token": "$accessToken"
+        {
+            "data": {
+                "user": {
+                    "rating": ${rating},
+                    "_id": "$playerId",
+                    "email": "$email",
+                    "created_at": "$createdAt",
+                    "__v": 0
                 },
-                "errors": []
-            }
+                "token": "$accessToken"
+            },
+            "errors": []
+        }
         """.trimIndent()
         val mockResponse = MockResponse()
             .addHeader("Content-Type", "application/json; charset=utf-8")

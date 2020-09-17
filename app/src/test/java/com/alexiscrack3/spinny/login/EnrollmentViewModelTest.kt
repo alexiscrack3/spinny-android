@@ -2,7 +2,7 @@ package com.alexiscrack3.spinny.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.alexiscrack3.spinny.api.PlayerResponse
-import com.alexiscrack3.spinny.api.Response
+import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.api.SignUpResponse
 import com.alexiscrack3.spinny.security.SecurePreferences
@@ -159,7 +159,7 @@ class EnrollmentViewModelTest {
             user = playerResponse,
             token = accessToken
         )
-        val response = Response(signUpResponse)
+        val response = ApiResponse(signUpResponse)
         val loginRepository = mock<LoginRepository> {
             on { this.signUp(email, password) } doReturn Single.just(response)
         }
@@ -217,7 +217,7 @@ class EnrollmentViewModelTest {
             user = playerResponse,
             token = accessToken
         )
-        val response = Response(signUpResponse)
+        val response = ApiResponse(signUpResponse)
         val loginRepository = mock<LoginRepository> {
             on { this.signUp(email, password) } doReturn Single.just(response)
         }

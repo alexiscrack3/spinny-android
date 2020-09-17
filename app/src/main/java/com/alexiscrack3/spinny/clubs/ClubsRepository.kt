@@ -1,7 +1,7 @@
 package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ClubResponse
-import com.alexiscrack3.spinny.api.Response
+import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.db.TransactionLogsDao
 import com.alexiscrack3.spinny.models.Club
 import com.alexiscrack3.spinny.models.TransactionLog
@@ -40,11 +40,11 @@ class ClubsRepository(
             }
     }
 
-    fun getClubById(id: String): Single<Response<ClubResponse>> {
+    fun getClubById(id: String): Single<ApiResponse<ClubResponse>> {
         return clubsService.getClubById(id)
     }
 
-    fun createClub(): Single<Response<ClubResponse>> {
+    fun createClub(): Single<ApiResponse<ClubResponse>> {
         return clubsService.createClub()
     }
 

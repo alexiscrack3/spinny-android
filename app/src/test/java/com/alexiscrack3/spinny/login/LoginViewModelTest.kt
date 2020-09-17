@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.PlayerResponse
-import com.alexiscrack3.spinny.api.Response
+import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.api.SignInResponse
 import com.alexiscrack3.spinny.security.SecurePreferences
@@ -166,7 +166,7 @@ class LoginViewModelTest {
             user = playerResponse,
             token = accessToken
         )
-        val response = Response(signInResponse)
+        val response = ApiResponse(signInResponse)
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.just(response)
         }
@@ -196,7 +196,7 @@ class LoginViewModelTest {
             user = playerResponse,
             token = accessToken
         )
-        val response = Response(signInResponse)
+        val response = ApiResponse(signInResponse)
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.just(response)
         }
@@ -223,7 +223,7 @@ class LoginViewModelTest {
             user = playerResponse,
             token = accessToken
         )
-        val response = Response(signInResponse)
+        val response = ApiResponse(signInResponse)
         val loginRepository = mock<LoginRepository> {
             on { this.signIn(email, password) } doReturn Single.just(response)
         }

@@ -8,8 +8,8 @@ import retrofit2.http.POST
 interface LoginService {
 
     @POST("auth/sign_in")
-    fun signIn(@Body signInRequest: SignInRequest): Single<Response<SignInResponse>>
+    fun signIn(@Body signInRequest: SignInRequest): Single<ApiResponse<SignInResponse>>
 
     @POST("auth/sign_up")
-    fun signUp(@Body signUpRequest: SignUpRequest): Single<Response<SignUpResponse>>
+    fun signUp(@Body signUpRequest: SignUpRequest): Single<ApiResponse<SignUpResponse>>
 }

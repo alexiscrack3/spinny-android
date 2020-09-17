@@ -28,5 +28,8 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="Settings" />
+        <activity
+            android:name=".players.PlayersActivity"
+            android:label="Profile" />
     </application>
 </manifest>

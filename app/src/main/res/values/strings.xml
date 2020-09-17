@@ -22,6 +22,7 @@
     <string name="enrollment_error_title">Enrollment Failed</string>
     <string name="enrollment_error_message">There was an issue enrolling user. Please try again.</string>
     <string name="please_wait">Please wait…</string>
+    <string name="profile">Profile</string>
     <plurals name="number_of_members">
         <item quantity="one">%d member</item>
         <item quantity="other">%d members</item>

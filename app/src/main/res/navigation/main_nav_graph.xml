@@ -29,4 +29,9 @@
         android:name="com.alexiscrack3.spinny.settings.SettingsActivity"
         android:label="activity_settings"
         tools:layout="@layout/activity_settings" />
+    <activity
+        android:id="@+id/players_activity"
+        android:name="com.alexiscrack3.spinny.players.PlayersActivity"
+        android:label="activity_profile"
+        tools:layout="@layout/activity_players" />
 </navigation>

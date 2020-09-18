@@ -158,6 +158,8 @@ class LoginViewModelTest {
         val playerResponse = PlayerResponse(
             id = "",
             email = "",
+            firstName = null,
+            lastName = null,
             rating = 0,
             createdAt = Date()
         )
@@ -188,6 +190,8 @@ class LoginViewModelTest {
         val playerResponse = PlayerResponse(
             id = "",
             email = "",
+            firstName = null,
+            lastName = null,
             rating = 0,
             createdAt = Date()
         )
@@ -215,6 +219,8 @@ class LoginViewModelTest {
         val playerResponse = PlayerResponse(
             id = "",
             email = "",
+            firstName = null,
+            lastName = null,
             rating = 0,
             createdAt = Date()
         )

@@ -4,6 +4,9 @@ import com.alexiscrack3.spinny.api.ServicesFactory
 import com.alexiscrack3.spinny.api.SignInRequest
 import com.alexiscrack3.spinny.api.SignUpRequest
 import com.google.common.truth.Truth.assertThat
+import com.nhaarman.mockitokotlin2.mock
+import okhttp3.Interceptor
+import okhttp3.Response
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -18,6 +21,11 @@ import java.util.*
 
 class LoginServiceTests {
     private var mockWebServer = MockWebServer()
+    private val interceptor = object : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            return chain.proceed(chain.request())
+        }
+    }
 
     @Before
     fun setUp() {
@@ -59,7 +67,7 @@ class LoginServiceTests {
             .setBody(jsonData)
         mockWebServer.enqueue(mockResponse)
         val baseUrl = mockWebServer.url("/")
-        val testObject = ServicesFactory(baseUrl.toString()).createService(LoginService::class.java)
+        val testObject = ServicesFactory(interceptor, baseUrl.toString()).createService(LoginService::class.java)
 
         val actual = testObject.signIn(SignInRequest(email, "password")).blockingGet()
 
@@ -108,7 +116,7 @@ class LoginServiceTests {
         }
         mockWebServer.dispatcher = dispatcher
         val baseUrl = mockWebServer.url("/")
-        val testObject = ServicesFactory(baseUrl.toString()).createService(LoginService::class.java)
+        val testObject = ServicesFactory(interceptor, baseUrl.toString()).createService(LoginService::class.java)
 
         val actual = testObject.signUp(SignUpRequest(email, "password")).blockingGet()
 

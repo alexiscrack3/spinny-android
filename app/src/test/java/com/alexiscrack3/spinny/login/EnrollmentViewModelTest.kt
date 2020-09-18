@@ -150,9 +150,11 @@ class EnrollmentViewModelTest {
     fun `successful resource with token is emitted after authenticating user`() {
         val playerResponse = PlayerResponse(
             id = "",
+            createdAt = Date(),
             email = "",
-            rating = 0,
-            createdAt = Date()
+            firstName = null,
+            lastName = null,
+            rating = 0
         )
         val accessToken = "accessToken"
         val signUpResponse = SignUpResponse(
@@ -208,9 +210,11 @@ class EnrollmentViewModelTest {
     fun `access token should be stored when authentication is successful`() {
         val playerResponse = PlayerResponse(
             id = "",
+            createdAt = Date(),
             email = "",
-            rating = 0,
-            createdAt = Date()
+            firstName = null,
+            lastName = null,
+            rating = 0
         )
         val accessToken = "accessToken"
         val signUpResponse = SignUpResponse(

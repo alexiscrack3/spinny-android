@@ -2,6 +2,9 @@ package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ServicesFactory
 import com.google.common.truth.Truth.assertThat
+import com.nhaarman.mockitokotlin2.mock
+import okhttp3.Interceptor
+import okhttp3.Response
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -14,6 +17,11 @@ import java.util.*
 
 class ClubsServiceTests {
     private var mockWebServer = MockWebServer()
+    private val interceptor = object : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            return chain.proceed(chain.request())
+        }
+    }
 
     @Before
     fun setUp() {
@@ -50,7 +58,7 @@ class ClubsServiceTests {
             .setBody(jsonData)
         mockWebServer.enqueue(mockResponse)
         val baseUrl = mockWebServer.url("/")
-        val testObject = ServicesFactory(baseUrl.toString()).createService(ClubsService::class.java)
+        val testObject = ServicesFactory(interceptor, baseUrl.toString()).createService(ClubsService::class.java)
 
         val actual = testObject.getClubs().blockingGet()
 
@@ -86,7 +94,7 @@ class ClubsServiceTests {
             .setBody(jsonData)
         mockWebServer.enqueue(mockResponse)
         val baseUrl = mockWebServer.url("/")
-        val testObject = ServicesFactory(baseUrl.toString()).createService(ClubsService::class.java)
+        val testObject = ServicesFactory(interceptor, baseUrl.toString()).createService(ClubsService::class.java)
 
         val actual = testObject.getClubById(id).blockingGet()
 
@@ -122,7 +130,7 @@ class ClubsServiceTests {
             .setBody(jsonData)
         mockWebServer.enqueue(mockResponse)
         val baseUrl = mockWebServer.url("/")
-        val testObject = ServicesFactory(baseUrl.toString()).createService(ClubsService::class.java)
+        val testObject = ServicesFactory(interceptor, baseUrl.toString()).createService(ClubsService::class.java)
 
         val actual = testObject.createClub().blockingGet()
 

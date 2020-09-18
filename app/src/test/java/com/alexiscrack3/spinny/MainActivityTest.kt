@@ -1,16 +1,28 @@
 package com.alexiscrack3.spinny
 
 import android.view.MenuItem
+import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ActivityScenario
+import com.alexiscrack3.spinny.clubs.list.ClubsViewModel
 import com.alexiscrack3.spinny.settings.SettingsActivity
-import com.alexiscrack3.spinny.splash.SplashActivity
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
+import org.junit.Before
 import org.junit.Test
+import org.koin.test.mock.declareMock
 import org.robolectric.Shadows
 
 class MainActivityTest : SpinnyTest() {
+
+    @Before
+    override fun setUp() {
+        super.setUp()
+        declareMock<ClubsViewModel> {
+            given(this.clubsLiveData).willReturn(MutableLiveData())
+        }
+    }
 
     @Test
     fun `navigate to settings screen when selecting menu item for settings`() {

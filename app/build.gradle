@@ -24,12 +24,12 @@ android {
     buildTypes {
         debug {
             testCoverageEnabled true
-            buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:3000\""
+            buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:3001/api/\""
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", 'BASE_URL', "\"http://localhost:3000\""
+            buildConfigField "String", 'BASE_URL', "\"http://localhost:3001/api/\""
         }
     }
 

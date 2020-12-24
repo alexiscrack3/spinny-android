@@ -105,7 +105,7 @@ dependencies {
     testImplementation "androidx.navigation:navigation-testing:$nav_version"
 
     // Room
-    def room_version = "2.2.5"
+    def room_version = "2.2.6"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"

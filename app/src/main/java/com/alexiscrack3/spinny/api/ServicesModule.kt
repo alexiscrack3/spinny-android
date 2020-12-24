@@ -10,7 +10,7 @@ var servicesModule = module {
     }
     single {
         ServicesFactory(
-            authTokenInterceptor = get()
+            authTokenInterceptor = get<AuthTokenInterceptor>()
         )
     }
 }

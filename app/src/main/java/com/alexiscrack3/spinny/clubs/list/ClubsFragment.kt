@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.OrientationHelper
-import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyFragment
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.databinding.ClubsFragmentBinding
@@ -28,8 +26,12 @@ class ClubsFragment : SpinnyFragment() {
             when (resource) {
                 is Resource.Success -> {
                     clubsAdapter.swap(resource.data.orEmpty())
+                    clubs_swipe_refresh_layout.isRefreshing = false
                 }
-                is Resource.Failure -> Timber.e(resource.error)
+                is Resource.Failure -> {
+                    Timber.e(resource.error)
+                    clubs_swipe_refresh_layout.isRefreshing = false
+                }
             }
         }
         clubsViewModel.clubsLiveData.observe(this, observer)
@@ -56,6 +58,9 @@ class ClubsFragment : SpinnyFragment() {
         val dividerItemDecoration = DividerItemDecoration(
             requireContext(), OrientationHelper.VERTICAL
         )
+        clubs_swipe_refresh_layout.setOnRefreshListener {
+            clubsViewModel.getClubs()
+        }
         clubs_list.addItemDecoration(dividerItemDecoration)
         clubs_list.adapter = clubsAdapter
     }

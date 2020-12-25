@@ -6,6 +6,7 @@ import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.databinding.ClubItemBinding
 import com.alexiscrack3.spinny.models.Club
+import com.alexiscrack3.spinny.models.test
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -18,7 +19,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
     @Test
     fun `club is bound to view`() {
-        val club = Club("1", "name")
+        val club = Club.test()
         val clubItemBinding = mock<ClubItemBinding> {
             on { this.root } doReturn view
         }
@@ -31,7 +32,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
     @Test
     fun `number of members view should display 0 members when list is empty`() {
-        val club = Club("1", "name").apply { members = emptyList() }
+        val club = Club.test(membersCount = 0)
         val clubItemBinding = mock<ClubItemBinding> {
             on { this.root } doReturn view
         }
@@ -45,7 +46,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
     @Test
     fun `number of members view should display 1 member when list contains one player`() {
-        val club = Club("1", "name").apply { members = listOf("") }
+        val club = Club.test(membersCount = 1)
         val clubItemBinding = mock<ClubItemBinding> {
             on { this.root } doReturn view
         }
@@ -59,7 +60,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
     @Test
     fun `number of members view should display 2 members when list contains one player`() {
-        val club = Club("1", "name").apply { members = listOf("", "") }
+        val club = Club.test(membersCount = 2)
         val clubItemBinding = mock<ClubItemBinding> {
             on { this.root } doReturn view
         }
@@ -73,7 +74,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
     @Test
     fun `pending bindings are executed when club is bound to view`() {
-        val club = Club("1", "name")
+        val club = Club.test()
         val clubItemBinding = mock<ClubItemBinding> {
             on { this.root } doReturn view
         }
@@ -86,7 +87,7 @@ class ClubViewHolderTest : SpinnyTest() {
 
     @Test
     fun `navigate to club details screen when clicking on the view`() {
-        val club = Club("1", "name")
+        val club = Club.test()
         val clubItemBinding = mock<ClubItemBinding> {
             on { this.root } doReturn view
         }

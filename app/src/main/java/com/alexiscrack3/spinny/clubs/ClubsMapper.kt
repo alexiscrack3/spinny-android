@@ -6,6 +6,6 @@ import com.alexiscrack3.spinny.models.Club
 class ClubsMapper {
 
     fun map(data: Array<ClubResponse>): List<Club> {
-        return data.map { Club(it.id, it.name) }
+        return data.map { Club(it.id, it.name, it.membersCount) }
     }
 }

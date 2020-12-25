@@ -26,13 +26,10 @@ class ClubsFragmentTest : SpinnyTest() {
     }
 
     @Test
-    fun `clubs are loaded on screen when getting successful result`() {
+    fun `clubs are loaded on the screen when getting successful result`() {
         val fragmentScenario = launchFragmentInContainer<ClubsFragment>()
         fragmentScenario.onFragment {
-            val club = Club(
-                id = "1",
-                name = "name"
-            )
+            val club = Club.test()
             val clubs = listOf(club)
             clubsLiveData.value = Resource.Success(clubs)
 

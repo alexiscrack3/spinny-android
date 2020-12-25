@@ -5,6 +5,7 @@ import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.db.TransactionLogsDao
 import com.alexiscrack3.spinny.models.Club
 import com.alexiscrack3.spinny.models.TransactionLog
+import com.alexiscrack3.spinny.models.test
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -21,14 +22,17 @@ class ClubsRepositoryTest {
     fun `clubs should be retrieved from service when data is out of date`() {
         val id = "1"
         val name = "a"
+        val membersCount = 0
         val clubResponse = ClubResponse(
             id = id,
             name = name,
-            createdAt = Date()
+            createdAt = Date(),
+            membersCount = membersCount
         )
-        val club = Club(
+        val club = Club.test(
             id = id,
-            name = name
+            name = name,
+            membersCount = membersCount
         )
         val clubs = listOf(club)
         val clubsService = mock<ClubsService> {
@@ -58,14 +62,17 @@ class ClubsRepositoryTest {
     fun `clubs should be stored in database after data is retrieved from service`() {
         val id = "1"
         val name = "a"
+        val membersCount = 0
         val clubResponse = ClubResponse(
             id = id,
             name = name,
-            createdAt = Date()
+            createdAt = Date(),
+            membersCount = membersCount
         )
-        val club = Club(
+        val club = Club.test(
             id = id,
-            name = name
+            name = name,
+            membersCount = membersCount
         )
         val clubs = listOf(club)
         val clubsService = mock<ClubsService> {
@@ -90,7 +97,7 @@ class ClubsRepositoryTest {
 
     @Test
     fun `clubs should be retrieved from database when data is not out of date`() {
-        val club = Club("1", "a")
+        val club = Club.test()
         val clubs = listOf(club)
         val clubsService = mock<ClubsService>()
         val clubsDao = mock<ClubsDao> {
@@ -128,14 +135,17 @@ class ClubsRepositoryTest {
     fun `transaction log should be updated in database after data is retrieved from service`() {
         val id = "1"
         val name = "a"
+        val membersCount = 0
         val clubResponse = ClubResponse(
             id = id,
             name = name,
-            createdAt = Date()
+            createdAt = Date(),
+            membersCount = membersCount
         )
         val club = Club(
             id = id,
-            name = name
+            name = name,
+            membersCount = membersCount
         )
         val clubs = listOf(club)
         val clubsService = mock<ClubsService> {

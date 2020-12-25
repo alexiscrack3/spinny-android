@@ -8,5 +8,7 @@ data class ClubResponse(
     val id: String,
     val name: String,
     @SerializedName("created_at")
-    val createdAt: Date
+    val createdAt: Date,
+    @SerializedName("members_count")
+    val membersCount: Int
 )

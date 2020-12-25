@@ -9,6 +9,7 @@ import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.clubs.ClubsRepository
 import com.alexiscrack3.spinny.login.LoginViewModel
 import com.alexiscrack3.spinny.models.Club
+import com.alexiscrack3.spinny.models.test
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
@@ -31,7 +32,7 @@ class ClubsViewModelTest {
 
     @Test
     fun `successful resource with clubs is emitted when getting clubs`() {
-        val club = Club("1", "name")
+        val club = Club.test()
         val clubs = listOf(club)
         whenever(clubsRepository.getClubs()).thenReturn(Single.just(clubs))
         val testScheduler = TestScheduler()

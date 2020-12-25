@@ -4,6 +4,7 @@ import androidx.room.Room
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.db.SpinnyDatabase
 import com.alexiscrack3.spinny.models.Club
+import com.alexiscrack3.spinny.models.test
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -28,10 +29,7 @@ class ClubsDaoTests : SpinnyTest() {
 
     @Test
     fun `clubs are inserted into database`() {
-        val club = Club(
-            id = "1",
-            name = "name"
-        )
+        val club = Club.test()
         val clubs = listOf(club)
         val clubsDao = spinnyDatabase.clubsDao()
 

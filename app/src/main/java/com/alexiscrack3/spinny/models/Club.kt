@@ -8,8 +8,11 @@ import androidx.room.PrimaryKey
 data class Club(
     @PrimaryKey
     val id: String,
-    val name: String
+    val name: String,
+    val membersCount: Int
 ) {
     @Ignore
     var members: List<String> = emptyList()
+
+    companion object
 }

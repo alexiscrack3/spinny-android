@@ -17,11 +17,11 @@ class ClubViewHolder(
         with(clubItemBinding) {
             this.club = club
 
-            val quantity = club.members.size
+            val count = club.membersCount
             itemView.club_number_of_members_text_view.text = itemView.context.resources.getQuantityString(
                 R.plurals.number_of_members,
-                quantity,
-                quantity
+                count,
+                count
             )
 
             // This forces the bindings to run immediately instead of delaying them until the next frame

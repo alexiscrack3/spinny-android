@@ -15,12 +15,14 @@ class ClubsMapperTest {
             id = "1",
             name = "a",
             createdAt = Date(),
+            imageUrl = "urla",
             membersCount = 0
         )
         val clubResponseB = ClubResponse(
             id = "2",
             name = "b",
             createdAt = Date(),
+            imageUrl = "urlb",
             membersCount = 0
         )
         val data = arrayOf(

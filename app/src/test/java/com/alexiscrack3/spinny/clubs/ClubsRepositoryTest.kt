@@ -22,16 +22,19 @@ class ClubsRepositoryTest {
     fun `clubs should be retrieved from service when data is out of date`() {
         val id = "1"
         val name = "a"
+        val url = "url"
         val membersCount = 0
         val clubResponse = ClubResponse(
             id = id,
             name = name,
             createdAt = Date(),
+            imageUrl = url,
             membersCount = membersCount
         )
         val club = Club.test(
             id = id,
             name = name,
+            imageUrl = url,
             membersCount = membersCount
         )
         val clubs = listOf(club)
@@ -62,16 +65,19 @@ class ClubsRepositoryTest {
     fun `clubs should be stored in database after data is retrieved from service`() {
         val id = "1"
         val name = "a"
+        val url = "url"
         val membersCount = 0
         val clubResponse = ClubResponse(
             id = id,
             name = name,
             createdAt = Date(),
+            imageUrl = url,
             membersCount = membersCount
         )
         val club = Club.test(
             id = id,
             name = name,
+            imageUrl = url,
             membersCount = membersCount
         )
         val clubs = listOf(club)
@@ -135,16 +141,19 @@ class ClubsRepositoryTest {
     fun `transaction log should be updated in database after data is retrieved from service`() {
         val id = "1"
         val name = "a"
+        val url = "url"
         val membersCount = 0
         val clubResponse = ClubResponse(
             id = id,
             name = name,
             createdAt = Date(),
+            imageUrl = url,
             membersCount = membersCount
         )
         val club = Club(
             id = id,
             name = name,
+            imageUrl = url,
             membersCount = membersCount
         )
         val clubs = listOf(club)

@@ -9,6 +9,8 @@ data class ClubResponse(
     val name: String,
     @SerializedName("created_at")
     val createdAt: Date,
+    @SerializedName("image_url")
+    val imageUrl: String,
     @SerializedName("members_count")
     val membersCount: Int
 )

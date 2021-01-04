@@ -4,7 +4,6 @@ import android.widget.LinearLayout
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.models.Club
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
@@ -29,7 +28,7 @@ class ClubsAdapterTest : SpinnyTest() {
 
         testObject.onBindViewHolder(viewHolder, 0)
 
-        verify(viewHolder).bind(eq(club))
+        verify(viewHolder).bind(club)
     }
 
     @Test

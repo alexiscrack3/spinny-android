@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.PingPongComponents" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.Spinny" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryLightColor</item>
         <item name="colorOnPrimary">@color/primaryTextColor</item>
@@ -15,10 +15,10 @@
     </style>
 
     <!-- Launcher application theme. -->
-    <style name="Theme.PingPongComponents.Launcher">
+    <style name="Theme.Spinny.Launcher">
         <item name="android:windowBackground">@drawable/ic_splash_background</item>
     </style>
-    <style name="Theme.PingPongComponents.NoActionBar">
+    <style name="Theme.Spinny.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

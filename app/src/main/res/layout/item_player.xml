@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ClubPlayerItemBinding">
+
+        <variable
+            name="player"
+            type="com.alexiscrack3.spinny.models.Player" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/player_rank_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/standard_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/player_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_margin"
+            android:text="@{@string/full_name(player.firstName, player.lastName)}"
+            app:layout_constraintEnd_toStartOf="@id/player_rating_text_view"
+            app:layout_constraintStart_toEndOf="@id/player_rank_text_view"
+            app:layout_constraintTop_toTopOf="@id/player_rank_text_view"
+            tools:text="@sample/players.json/data/name" />
+
+        <TextView
+            android:id="@+id/player_wins_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_margin"
+            android:text="@{@plurals/win(10, 10)}"
+            app:layout_constraintBottom_toBottomOf="@id/player_rank_text_view"
+            app:layout_constraintEnd_toStartOf="@id/player_separator_text_view"
+            app:layout_constraintStart_toEndOf="@id/player_rank_text_view"
+            app:layout_constraintTop_toBottomOf="@id/player_name_text_view"
+            tools:text="10 wins" />
+
+        <TextView
+            android:id="@+id/player_separator_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/player_rank_text_view"
+            app:layout_constraintEnd_toStartOf="@id/player_losses_text_view"
+            app:layout_constraintStart_toEndOf="@id/player_wins_text_view"
+            app:layout_constraintTop_toBottomOf="@id/player_name_text_view"
+            tools:text="·" />
+
+        <TextView
+            android:id="@+id/player_losses_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_margin"
+            android:text="@{@plurals/loss(4, 4)}"
+            app:layout_constraintBottom_toBottomOf="@id/player_rank_text_view"
+            app:layout_constraintStart_toEndOf="@id/player_separator_text_view"
+            app:layout_constraintTop_toBottomOf="@id/player_name_text_view"
+            tools:text="5 losses" />
+
+        <TextView
+            android:id="@+id/player_rating_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_margin"
+            android:text="@{Integer.toString(player.rating)}"
+            app:layout_constraintBottom_toBottomOf="@id/player_rank_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/player_name_text_view"
+            app:layout_constraintTop_toTopOf="@id/player_rank_text_view"
+            tools:text="@sample/players.json/data/rating" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

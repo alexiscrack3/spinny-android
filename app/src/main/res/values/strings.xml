@@ -23,8 +23,17 @@
     <string name="enrollment_error_message">There was an issue enrolling user. Please try again.</string>
     <string name="please_wait">Please wait…</string>
     <string name="profile">Profile</string>
+    <string name="full_name">%1$s %2$s</string>
     <plurals name="number_of_members">
         <item quantity="one">%d member</item>
         <item quantity="other">%d members</item>
+    </plurals>
+    <plurals name="win">
+        <item quantity="one">%d win</item>
+        <item quantity="other">%d wins</item>
+    </plurals>
+    <plurals name="loss">
+        <item quantity="one">%d loss</item>
+        <item quantity="other">%d losses</item>
     </plurals>
 </resources>

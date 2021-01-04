@@ -26,13 +26,6 @@ class ClubViewHolder(
                 .centerCrop()
                 .into(itemView.club_avatar_image_view)
 
-            val count = club.membersCount
-            itemView.club_number_of_members_text_view.text = itemView.context.resources.getQuantityString(
-                R.plurals.number_of_members,
-                count,
-                count
-            )
-
             // This forces the bindings to run immediately instead of delaying them until the next frame
             this.executePendingBindings()
         }

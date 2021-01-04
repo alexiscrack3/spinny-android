@@ -35,11 +35,15 @@ class ClubsMapperTest {
         with(actual.first()) {
             assertThat(this.id).isEqualTo(clubResponseA.id)
             assertThat(this.name).isEqualTo(clubResponseA.name)
+            assertThat(this.imageUrl).isEqualTo(clubResponseA.imageUrl)
+            assertThat(this.membersCount).isEqualTo(clubResponseA.membersCount)
         }
 
         with(actual.last()) {
             assertThat(this.id).isEqualTo(clubResponseB.id)
             assertThat(this.name).isEqualTo(clubResponseB.name)
+            assertThat(this.imageUrl).isEqualTo(clubResponseA.imageUrl)
+            assertThat(this.membersCount).isEqualTo(clubResponseA.membersCount)
         }
     }
 }

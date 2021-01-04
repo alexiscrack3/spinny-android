@@ -1,5 +1,6 @@
 package com.alexiscrack3.spinny.api
 
+import com.alexiscrack3.spinny.models.Player
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -11,6 +12,7 @@ data class ClubResponse(
     val createdAt: Date,
     @SerializedName("image_url")
     val imageUrl: String,
+    val members: List<Player>,
     @SerializedName("members_count")
     val membersCount: Int
 )

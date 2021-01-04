@@ -13,7 +13,7 @@ data class Club(
     val membersCount: Int
 ) {
     @Ignore
-    var members: List<String> = emptyList()
+    var members: List<Player> = emptyList()
 
     companion object
 }

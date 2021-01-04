@@ -22,4 +22,10 @@ class ClubPlayersAdapter(
         val player = players[position]
         holder.bind(player, position + 1)
     }
+
+    fun swap(players: List<Player>) {
+        this.players.clear()
+        this.players.addAll(players)
+        notifyDataSetChanged()
+    }
 }

@@ -13,4 +13,6 @@ data class ClubsResponse(
     val imageUrl: String,
     @SerializedName("members_count")
     val membersCount: Int
-)
+) {
+    companion object
+}

@@ -45,4 +45,17 @@ class ClubPlayersAdapterTest : SpinnyTest() {
 
         assertThat(testObject.itemCount).isEqualTo(players.size)
     }
+
+    @Test
+    fun `swap should replace old items with new items`() {
+        val player = mock<Player>()
+        val players = listOf(player)
+        val testObject = ClubPlayersAdapter()
+
+        assertThat(testObject.itemCount).isEqualTo(0)
+
+        testObject.swap(players)
+
+        assertThat(testObject.itemCount).isEqualTo(players.size)
+    }
 }

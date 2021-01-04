@@ -1,11 +1,13 @@
 package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ApiResponse
+import com.alexiscrack3.spinny.api.ClubResponse
 import com.alexiscrack3.spinny.api.ClubsResponse
 import com.alexiscrack3.spinny.db.TransactionLogsDao
 import com.alexiscrack3.spinny.models.Club
+import com.alexiscrack3.spinny.models.Player
 import com.alexiscrack3.spinny.models.TransactionLog
-import com.alexiscrack3.spinny.models.test
+import com.alexiscrack3.spinny.utils.test
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -14,7 +16,6 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Test
 import java.time.OffsetDateTime
-import java.util.*
 
 class ClubsRepositoryTest {
 
@@ -24,10 +25,9 @@ class ClubsRepositoryTest {
         val name = "a"
         val url = "url"
         val membersCount = 0
-        val clubsResponse = ClubsResponse(
+        val clubsResponse = ClubsResponse.test(
             id = id,
             name = name,
-            createdAt = Date(),
             imageUrl = url,
             membersCount = membersCount
         )
@@ -67,10 +67,9 @@ class ClubsRepositoryTest {
         val name = "a"
         val url = "url"
         val membersCount = 0
-        val clubsResponse = ClubsResponse(
+        val clubsResponse = ClubsResponse.test(
             id = id,
             name = name,
-            createdAt = Date(),
             imageUrl = url,
             membersCount = membersCount
         )
@@ -143,10 +142,9 @@ class ClubsRepositoryTest {
         val name = "a"
         val url = "url"
         val membersCount = 0
-        val clubsResponse = ClubsResponse(
+        val clubsResponse = ClubsResponse.test(
             id = id,
             name = name,
-            createdAt = Date(),
             imageUrl = url,
             membersCount = membersCount
         )
@@ -177,5 +175,39 @@ class ClubsRepositoryTest {
         testObject.getClubs().test()
 
         verify(transactionLogsDao).updateTransactionLog(any())
+    }
+
+    @Test
+    fun `club should be retrieved from service`() {
+        val id = "1"
+        val name = "a"
+        val url = "url"
+        val members = listOf(
+            Player.test()
+        )
+        val membersCount = 0
+        val clubResponse = ClubResponse.test(
+            id = id,
+            name = name,
+            imageUrl = url,
+            members = members,
+            membersCount = membersCount
+        )
+        val club = Club.test(
+            id = id,
+            name = name,
+            imageUrl = url,
+            membersCount = membersCount
+        ).apply {
+            this.members = members
+        }
+        val clubsService = mock<ClubsService> {
+            on { this.getClubById(id) } doReturn Single.just(ApiResponse(clubResponse))
+        }
+        val testObject = ClubsRepository(clubsService, mock(), mock())
+
+        testObject.getClubById(id)
+            .test()
+            .assertValue(club)
     }
 }

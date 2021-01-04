@@ -7,12 +7,10 @@ import androidx.navigation.Navigation
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.clubs.ClubsRepository
-import com.alexiscrack3.spinny.login.LoginViewModel
 import com.alexiscrack3.spinny.models.Club
-import com.alexiscrack3.spinny.models.test
+import com.alexiscrack3.spinny.utils.test
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever

@@ -4,7 +4,7 @@ import androidx.room.Room
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.db.SpinnyDatabase
 import com.alexiscrack3.spinny.models.Club
-import com.alexiscrack3.spinny.models.test
+import com.alexiscrack3.spinny.utils.test
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

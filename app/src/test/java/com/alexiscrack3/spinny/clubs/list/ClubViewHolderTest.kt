@@ -8,7 +8,7 @@ import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.databinding.ClubItemBinding
 import com.alexiscrack3.spinny.models.Club
-import com.alexiscrack3.spinny.models.test
+import com.alexiscrack3.spinny.utils.test
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
 import com.google.common.truth.Truth.assertThat

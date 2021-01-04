@@ -6,7 +6,7 @@ import com.alexiscrack3.spinny.ShadowSwipeRefreshLayout
 import com.alexiscrack3.spinny.SpinnyTest
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.models.Club
-import com.alexiscrack3.spinny.models.test
+import com.alexiscrack3.spinny.utils.test
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify

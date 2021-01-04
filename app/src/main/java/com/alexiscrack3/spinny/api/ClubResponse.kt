@@ -15,4 +15,6 @@ data class ClubResponse(
     val members: List<Player>,
     @SerializedName("members_count")
     val membersCount: Int
-)
+) {
+    companion object
+}

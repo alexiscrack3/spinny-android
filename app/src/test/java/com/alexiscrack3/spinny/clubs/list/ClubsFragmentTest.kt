@@ -34,7 +34,15 @@ class ClubsFragmentTest : SpinnyTest() {
     }
 
     @Test
-    fun `clubs are loaded on the screen when getting successful result`() {
+    fun `clubs are retrieved when screen is resumed`() {
+        val fragmentScenario = launchFragmentInContainer<ClubsFragment>()
+        fragmentScenario.onFragment {
+            verify(clubsViewModel).getClubs()
+        }
+    }
+
+    @Test
+    fun `clubs are loaded on the list when getting successful result`() {
         val fragmentScenario = launchFragmentInContainer<ClubsFragment>()
         fragmentScenario.onFragment {
             val club = Club.test()
@@ -46,7 +54,7 @@ class ClubsFragmentTest : SpinnyTest() {
     }
 
     @Test
-    fun `clubs are reloaded on the screen when getting successful result`() {
+    fun `clubs are reloaded on the list when getting successful result`() {
         val fragmentScenario = launchFragmentInContainer<ClubsFragment>()
         fragmentScenario.onFragment { fragment ->
             val shadowRefreshLayout = Shadow.extract<ShadowSwipeRefreshLayout>(fragment.clubs_swipe_refresh_layout)
@@ -57,7 +65,7 @@ class ClubsFragmentTest : SpinnyTest() {
     }
 
     @Test
-    fun `swipe refresh should be hidden when getting successful result`() {
+    fun `swipe refresh should be hidden on the screen when getting successful result`() {
         val fragmentScenario = launchFragmentInContainer<ClubsFragment>()
         fragmentScenario.onFragment { fragment ->
             clubsLiveData.value = Resource.Success()
@@ -69,7 +77,7 @@ class ClubsFragmentTest : SpinnyTest() {
     }
 
     @Test
-    fun `swipe refresh should be hidden when getting failing result`() {
+    fun `swipe refresh should be hidden on the screen when getting failing result`() {
         val fragmentScenario = launchFragmentInContainer<ClubsFragment>()
         fragmentScenario.onFragment { fragment ->
             clubsLiveData.value = Resource.Failure(Throwable())

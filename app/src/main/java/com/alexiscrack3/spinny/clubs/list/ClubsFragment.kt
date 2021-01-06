@@ -11,12 +11,12 @@ import com.alexiscrack3.spinny.SpinnyFragment
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.databinding.ClubsFragmentBinding
 import com.alexiscrack3.spinny.models.Club
-import kotlinx.android.synthetic.main.fragment_clubs.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class ClubsFragment : SpinnyFragment() {
+    private lateinit var binding: ClubsFragmentBinding
     private val clubsViewModel by viewModel<ClubsViewModel>()
     private val clubsAdapter by inject<ClubsAdapter>()
 
@@ -26,11 +26,11 @@ class ClubsFragment : SpinnyFragment() {
             when (resource) {
                 is Resource.Success -> {
                     clubsAdapter.swap(resource.data.orEmpty())
-                    clubs_swipe_refresh_layout.isRefreshing = false
+                    binding.clubsSwipeRefreshLayout.isRefreshing = false
                 }
                 is Resource.Failure -> {
                     Timber.e(resource.error)
-                    clubs_swipe_refresh_layout.isRefreshing = false
+                    binding.clubsSwipeRefreshLayout.isRefreshing = false
                 }
             }
         }
@@ -42,7 +42,7 @@ class ClubsFragment : SpinnyFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = ClubsFragmentBinding.inflate(
+        binding = ClubsFragmentBinding.inflate(
             inflater,
             container,
             false
@@ -58,11 +58,11 @@ class ClubsFragment : SpinnyFragment() {
         val dividerItemDecoration = DividerItemDecoration(
             requireContext(), OrientationHelper.VERTICAL
         )
-        clubs_swipe_refresh_layout.setOnRefreshListener {
+        binding.clubsSwipeRefreshLayout.setOnRefreshListener {
             clubsViewModel.getClubs()
         }
-        clubs_list.addItemDecoration(dividerItemDecoration)
-        clubs_list.adapter = clubsAdapter
+        binding.clubsList.addItemDecoration(dividerItemDecoration)
+        binding.clubsList.adapter = clubsAdapter
     }
 
     override fun onResume() {

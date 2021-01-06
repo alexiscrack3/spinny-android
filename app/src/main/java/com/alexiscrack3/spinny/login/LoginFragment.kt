@@ -26,6 +26,23 @@ class LoginFragment : SpinnyFragment() {
         setPasswordErrorObserver()
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = DataBindingUtil.inflate<LoginFragmentBinding>(
+            inflater,
+            R.layout.fragment_login,
+            container,
+            false
+        ).apply {
+            lifecycleOwner = this@LoginFragment
+            viewModel = loginViewModel
+        }
+        return binding.root
+    }
+
     private fun setPasswordErrorObserver() {
         val passwordErrorObserver = Observer<ValidatorResult> { result ->
             login_password_layout.error = if (result == ValidatorResult.Success) {
@@ -67,22 +84,5 @@ class LoginFragment : SpinnyFragment() {
             .setMessage(R.string.login_error_message)
             .setPositiveButton(android.R.string.ok, null)
             .show()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = DataBindingUtil.inflate<LoginFragmentBinding>(
-            inflater,
-            R.layout.fragment_login,
-            container,
-            false
-        ).apply {
-            lifecycleOwner = this@LoginFragment
-            viewModel = loginViewModel
-        }
-        return binding.root
     }
 }

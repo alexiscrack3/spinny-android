@@ -3,6 +3,7 @@ package com.alexiscrack3.spinny.login
 import android.content.DialogInterface
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.testing.launchFragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
 import com.alexiscrack3.spinny.MainActivity
@@ -120,25 +121,23 @@ class LoginFragmentTest : SpinnyTest() {
 
     @Test
     fun `show alert dialog when authentication fails`() {
-        val fragmentScenario = launchFragmentInContainer<LoginFragment>()
+        val fragmentScenario = launchFragment<LoginFragment>(themeResId = R.style.Theme_Spinny)
         fragmentScenario.onFragment {
             authenticationState.value = Resource.Failure(Throwable())
 
             val alertDialog = ShadowDialog.getLatestDialog() as? AlertDialog
             assertThat(alertDialog).isNotNull()
 
-            alertDialog as AlertDialog
+            assertThat(alertDialog?.isShowing).isEqualTo(true)
 
-            assertThat(alertDialog.isShowing).isEqualTo(true)
-
-            val alertTitle = alertDialog.findViewById<TextView>(R.id.alertTitle)
+            val alertTitle = alertDialog?.findViewById<TextView>(R.id.alertTitle)
             assertThat(alertTitle?.text.toString()).isEqualTo("Login Failed")
 
-            val alertMessage = alertDialog.findViewById<TextView>(android.R.id.message)
+            val alertMessage = alertDialog?.findViewById<TextView>(android.R.id.message)
             assertThat(alertMessage?.text.toString()).isEqualTo("There was an issue logging in. Please try again.")
 
-            val positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-            assertThat(positiveButton.text.toString()).isEqualTo("OK")
+            val positiveButton = alertDialog?.getButton(DialogInterface.BUTTON_POSITIVE)
+            assertThat(positiveButton?.text.toString()).isEqualTo("OK")
         }
     }
 }

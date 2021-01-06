@@ -79,10 +79,11 @@ class LoginFragment : SpinnyFragment() {
     }
 
     private fun showLoginError() {
-        MaterialAlertDialogBuilder(requireContext(), R.style.Theme_Spinny)
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.login_error_title)
             .setMessage(R.string.login_error_message)
             .setPositiveButton(android.R.string.ok, null)
+            .create()
             .show()
     }
 }

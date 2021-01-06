@@ -13,10 +13,8 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity : AppCompatActivity() {
-    private val navController by lazy { findNavController(R.id.main_content) }
-    private val appBarConfiguration by lazy {
-        AppBarConfiguration(navController.graph)
-    }
+    private val navController by lazy { this.findNavController(R.id.main_content) }
+    private val appBarConfiguration by lazy { AppBarConfiguration(navController.graph) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

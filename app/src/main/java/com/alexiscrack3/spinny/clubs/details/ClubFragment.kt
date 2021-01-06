@@ -2,10 +2,17 @@ package com.alexiscrack3.spinny.clubs.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.OrientationHelper
 import com.alexiscrack3.spinny.R
@@ -16,8 +23,11 @@ import kotlinx.android.synthetic.main.fragment_club.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
+
 class ClubFragment : SpinnyFragment() {
     private val clubViewModel by viewModel<ClubViewModel>()
+    private val navController by lazy { this.findNavController() }
+    private val appBarConfiguration by lazy { AppBarConfiguration(navController.graph) }
 
     companion object {
         const val CLUB_ID_KEY = "CLUB_ID"
@@ -47,6 +57,20 @@ class ClubFragment : SpinnyFragment() {
         return inflater.inflate(R.layout.fragment_club, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        club_collapsing_toolbar_layout.setupWithNavController(club_toolbar, navController, appBarConfiguration)
+//        club_toolbar.inflateMenu(R.menu.main)
+//        club_toolbar.setOnMenuItemClickListener { item ->
+//            val navController = findNavController()
+//            item?.onNavDestinationSelected(navController) ?: false
+//        }
+
+        val supportActionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        supportActionBar?.hide()
+        supportActionBar?.setShowHideAnimationEnabled(false)
+    }
+
     override fun onStart() {
         super.onStart()
         val dividerItemDecoration = DividerItemDecoration(
@@ -54,7 +78,6 @@ class ClubFragment : SpinnyFragment() {
         )
         club_players_list.addItemDecoration(dividerItemDecoration)
         club_players_list.adapter = ClubPlayersAdapter()
-        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
     }
 
     override fun onResume() {
@@ -63,8 +86,8 @@ class ClubFragment : SpinnyFragment() {
         clubViewModel.getClubId(clubId)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         (requireActivity() as AppCompatActivity).supportActionBar?.show()
     }
 }

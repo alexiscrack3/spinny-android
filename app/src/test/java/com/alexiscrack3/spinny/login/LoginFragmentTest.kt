@@ -62,28 +62,6 @@ class LoginFragmentTest : SpinnyTest() {
         }
     }
 
-//    @Test
-//    fun `navigate to clubs screen on successful authentication`() {
-//        val navController = TestNavHostController(context).apply {
-//            setGraph(R.navigation.login_nav_graph)
-//        }
-//        val fragmentScenario = launchFragmentInContainer {
-//            LoginFragment().also { fragment ->
-//                fragment.viewLifecycleOwnerLiveData.observeForever {
-//                    Navigation.setViewNavController(fragment.requireView(), navController)
-//                }
-//            }
-//        }
-//        fragmentScenario.onFragment {
-//            tokenLiveData.value = Resource.Success("")
-//
-//            assertThat(
-//                navController.currentDestination?.id,
-//                equalTo(R.id.clubsFragment)
-//            )
-//        }
-//    }
-
     @Test
     fun `email error should be shown if email is not valid`() {
         val fragmentScenario = launchFragmentInContainer<LoginFragment>()

@@ -2,30 +2,29 @@ package com.alexiscrack3.spinny.clubs.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.OrientationHelper
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyFragment
 import com.alexiscrack3.spinny.api.Resource
+import com.alexiscrack3.spinny.databinding.ClubFragmentBinding
 import com.alexiscrack3.spinny.models.Club
 import kotlinx.android.synthetic.main.fragment_club.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-
 class ClubFragment : SpinnyFragment() {
     private val clubViewModel by viewModel<ClubViewModel>()
+    private val clubPlayersAdapter by inject<ClubPlayersAdapter>()
     private val navController by lazy { this.findNavController() }
     private val appBarConfiguration by lazy { AppBarConfiguration(navController.graph) }
 
@@ -38,8 +37,7 @@ class ClubFragment : SpinnyFragment() {
         val observer = Observer<Resource<Club>> { resource ->
             when (resource) {
                 is Resource.Success -> {
-                    val adapter = club_players_list.adapter as ClubPlayersAdapter
-                    adapter.swap(resource.data?.members.orEmpty())
+                    clubPlayersAdapter.swap(resource.data?.members.orEmpty())
                 }
                 is Resource.Failure -> {
                     Timber.e(resource.error)
@@ -54,19 +52,32 @@ class ClubFragment : SpinnyFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_club, container, false)
+        val binding = DataBindingUtil.inflate<ClubFragmentBinding>(
+            inflater,
+            R.layout.fragment_club,
+            container,
+            false
+        ).apply {
+            lifecycleOwner = this@ClubFragment
+            viewModel = clubViewModel
+        }
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        club_collapsing_toolbar_layout.setupWithNavController(club_toolbar, navController, appBarConfiguration)
+        club_collapsing_toolbar_layout.setupWithNavController(
+            club_toolbar,
+            navController,
+            appBarConfiguration
+        )
 //        club_toolbar.inflateMenu(R.menu.main)
 //        club_toolbar.setOnMenuItemClickListener { item ->
 //            val navController = findNavController()
 //            item?.onNavDestinationSelected(navController) ?: false
 //        }
 
-        val supportActionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        val supportActionBar = (requireActivity() as? AppCompatActivity)?.supportActionBar
         supportActionBar?.hide()
         supportActionBar?.setShowHideAnimationEnabled(false)
     }
@@ -77,7 +88,7 @@ class ClubFragment : SpinnyFragment() {
             requireContext(), OrientationHelper.VERTICAL
         )
         club_players_list.addItemDecoration(dividerItemDecoration)
-        club_players_list.adapter = ClubPlayersAdapter()
+        club_players_list.adapter = clubPlayersAdapter
     }
 
     override fun onResume() {

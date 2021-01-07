@@ -284,6 +284,6 @@ class LoginViewModelTest {
 
         testObject.onSignUpClicked(view)
 
-        verify(navController).navigate(R.id.action_loginFragment_to_enrollmentFragment)
+        verify(navController).navigate(LoginFragmentDirections.actionLoginFragmentToEnrollmentFragment())
     }
 }

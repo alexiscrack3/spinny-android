@@ -91,6 +91,6 @@ class ClubsViewModelTest {
 
         testObject.onCreateClubClicked(view)
 
-        verify(navController).navigate(R.id.action_clubsFragment_to_createClubFragment)
+        verify(navController).navigate(ClubsFragmentDirections.actionClubsFragmentToCreateClubFragment())
     }
 }

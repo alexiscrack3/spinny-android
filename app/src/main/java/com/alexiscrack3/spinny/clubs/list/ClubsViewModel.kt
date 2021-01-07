@@ -4,7 +4,6 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
-import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.SpinnyViewModel
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.clubs.ClubsRepository
@@ -36,6 +35,7 @@ class ClubsViewModel(
     }
 
     fun onCreateClubClicked(view: View) {
-        view.findNavController().navigate(R.id.action_clubsFragment_to_createClubFragment)
+        val directions = ClubsFragmentDirections.actionClubsFragmentToCreateClubFragment()
+        view.findNavController().navigate(directions)
     }
 }

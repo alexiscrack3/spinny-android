@@ -12,3 +12,12 @@ fun setGoneUnless(view: View, resource: Resource<*>?) {
         View.GONE
     }
 }
+
+@BindingAdapter("app:visibleUnless")
+fun setVisibleUnless(view: View, visible: Boolean) {
+    view.visibility = if (visible) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
+}

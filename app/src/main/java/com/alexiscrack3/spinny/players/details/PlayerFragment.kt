@@ -5,15 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.alexiscrack3.spinny.databinding.PlayerFragmentBinding
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class PlayerFragment : Fragment() {
+    private lateinit var binding: PlayerFragmentBinding
     private val playerViewModel by viewModel<PlayerViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setPlayerObserver()
+        setProfileErrorObserver()
     }
 
     override fun onCreateView(
@@ -21,7 +24,7 @@ class PlayerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = PlayerFragmentBinding.inflate(
+        binding = PlayerFragmentBinding.inflate(
             inflater,
             container,
             false
@@ -32,7 +35,17 @@ class PlayerFragment : Fragment() {
         return binding.root
     }
 
-    private fun setPlayerObserver() {
+    override fun onResume() {
+        super.onResume()
         playerViewModel.getPlayer()
+    }
+
+    private fun setProfileErrorObserver() {
+        val profileErrorObserver = Observer<String> { errorMessage ->
+            Snackbar
+                .make(binding.root, errorMessage, Snackbar.LENGTH_SHORT)
+                .show()
+        }
+        playerViewModel.profileErrorState.observe(this, profileErrorObserver)
     }
 }

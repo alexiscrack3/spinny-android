@@ -3,16 +3,19 @@ package com.alexiscrack3.spinny.players
 import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.PlayerResponse
 import com.alexiscrack3.spinny.models.Player
+import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import io.reactivex.Single
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 import java.util.*
 
+@ExperimentalCoroutinesApi
 class PlayersRepositoryTest {
 
     @Test
-    fun `player should be retrieved from service`() {
+    fun `player should be retrieved from service`() = runBlockingTest {
         val id = "1"
         val email = "email@spinny.io"
         val firstName = "a"
@@ -34,12 +37,14 @@ class PlayersRepositoryTest {
             rating = rating
         )
         val playersService = mock<PlayersService> {
-            on { this.getPlayer() } doReturn Single.just(ApiResponse(playerResponse))
+            onBlocking { this.getPlayer() } doReturn ApiResponse(playerResponse)
         }
-        val testObject = PlayersRepository(playersService)
+        val testObject = PlayersRepository(
+            playersService = playersService
+        )
 
-        testObject.getPlayer()
-            .test()
-            .assertValue(player)
+        val actual = testObject.getPlayer()
+
+        assertThat(actual).isEqualTo(player)
     }
 }

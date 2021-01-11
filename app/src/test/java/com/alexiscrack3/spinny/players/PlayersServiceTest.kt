@@ -2,6 +2,8 @@ package com.alexiscrack3.spinny.players
 
 import com.alexiscrack3.spinny.api.ServicesFactory
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.mockwebserver.MockResponse
@@ -33,7 +35,7 @@ class PlayersServiceTest {
     }
 
     @Test
-    fun `getPlayer should return player response`() {
+    fun `getPlayer should return player response`() = runBlocking {
         val rating = 100
         val playerId = "123"
         val email = "foo@spinny.io"
@@ -47,8 +49,8 @@ class PlayersServiceTest {
             "data": {
                 "rating": $rating,
                 "_id": "$playerId",
-                "firstName": "$firstName",
-                "lastName": "$lastName",
+                "first_name": "$firstName",
+                "last_name": "$lastName",
                 "email": "$email",
                 "created_at": "$createdAt",
                 "__v": 0
@@ -64,7 +66,7 @@ class PlayersServiceTest {
         val baseUrl = mockWebServer.url("/")
         val testObject = ServicesFactory(interceptor, baseUrl.toString()).createService(PlayersService::class.java)
 
-        val actual = testObject.getPlayer().blockingGet()
+        val actual = testObject.getPlayer()
 
         val player = actual.data
         assertThat(player.id).isEqualTo(playerId)

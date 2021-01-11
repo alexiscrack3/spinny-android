@@ -7,7 +7,10 @@ import android.widget.TextView
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.utils.DisplayUtil.dp
 
-class LoadingView(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs) {
+class LoadingView(
+    context: Context,
+    attrs: AttributeSet
+) : LinearLayout(context, attrs) {
 
     init {
         inflate(context, R.layout.view_loading, this)
@@ -19,5 +22,4 @@ class LoadingView(context: Context, attrs: AttributeSet) : LinearLayout(context,
         this.elevation = Float.MAX_VALUE.dp
         attributes.recycle()
     }
-
 }

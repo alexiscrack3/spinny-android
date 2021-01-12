@@ -15,34 +15,36 @@ class ClubsRepository(
     private val clubsMapper: ClubsMapper = ClubsMapper()
 ) {
 
-    fun getClubs(): Single<List<Club>> {
-        return transactionLogsDao.getTransactionLogByEntityName("clubs")
-            .onErrorResumeNext {
-                val transactionLog = TransactionLog("clubs")
-                transactionLogsDao.insertTransactionLog(transactionLog).andThen(Single.just(transactionLog))
-            }
-            .flatMap { transactionLog ->
-                if (shouldRefresh(transactionLog)) {
-                    clubsService.getClubs()
-                        .map { clubsMapper.map(it.data) }
-                        .flatMap { clubs ->
-                            clubsDao.insertClubs(clubs).andThen(Single.just(clubs))
-                        }
-                        .flatMap { clubs ->
-                            val transactionLogCopy = transactionLog.copy(updatedAt = OffsetDateTime.now())
-                            transactionLogsDao.updateTransactionLog(transactionLogCopy).flatMap {
-                                Single.just(clubs)
-                            }
-                        }
-                } else {
-                    clubsDao.getClubs()
-                }
-            }
+    suspend fun getClubs(): List<Club> {
+        val response = clubsService.getClubs()
+        return clubsMapper.map(response.data)
+//        return transactionLogsDao.getTransactionLogByEntityName("clubs")
+//            .onErrorResumeNext {
+//                val transactionLog = TransactionLog("clubs")
+//                transactionLogsDao.insertTransactionLog(transactionLog).andThen(Single.just(transactionLog))
+//            }
+//            .flatMap { transactionLog ->
+//                if (shouldRefresh(transactionLog)) {
+//                    clubsService.getClubs()
+//                        .map { clubsMapper.map(it.data) }
+//                        .flatMap { clubs ->
+//                            clubsDao.insertClubs(clubs).andThen(Single.just(clubs))
+//                        }
+//                        .flatMap { clubs ->
+//                            val transactionLogCopy = transactionLog.copy(updatedAt = OffsetDateTime.now())
+//                            transactionLogsDao.updateTransactionLog(transactionLogCopy).flatMap {
+//                                Single.just(clubs)
+//                            }
+//                        }
+//                } else {
+//                    clubsDao.getClubs()
+//                }
+//            }
     }
 
-    fun getClubById(id: String): Single<Club> {
-        return clubsService.getClubById(id)
-            .map { clubsMapper.map(it.data) }
+    suspend fun getClubById(id: String): Club {
+        val response = clubsService.getClubById(id)
+        return clubsMapper.map(response.data)
     }
 
     fun createClub(): Single<ApiResponse<ClubResponse>> {

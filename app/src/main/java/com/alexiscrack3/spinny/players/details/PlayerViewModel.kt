@@ -35,9 +35,9 @@ class PlayerViewModel(
                 val player = playersRepository.getPlayer()
                 _nameState.value = "${player.firstName} ${player.lastName}"
                 _ratingState.value = player.rating
-            } catch (e: Throwable) {
-                Timber.e(e)
-                _profileErrorState.value = e.message
+            } catch (t: Throwable) {
+                Timber.e(t)
+                _profileErrorState.value = t.message
             } finally {
                 _spinnerState.value = false
             }

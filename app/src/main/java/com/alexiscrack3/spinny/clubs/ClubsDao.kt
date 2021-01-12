@@ -5,15 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.alexiscrack3.spinny.models.Club
-import io.reactivex.Completable
-import io.reactivex.Single
 
 @Dao
 interface ClubsDao {
 
     @Query("SELECT * FROM clubs")
-    fun getClubs(): Single<List<Club>>
+    suspend fun getClubs(): List<Club>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertClubs(clubs: List<Club>): Completable
+    suspend fun insertClubs(clubs: List<Club>)
 }

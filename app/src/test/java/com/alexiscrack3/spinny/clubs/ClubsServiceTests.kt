@@ -2,7 +2,7 @@ package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ServicesFactory
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.mock
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.mockwebserver.MockResponse
@@ -34,19 +34,29 @@ class ClubsServiceTests {
     }
 
     @Test
-    fun `getClubs should return clubs response`() {
+    fun `getClubs should return clubs response`() = runBlocking {
         val id = "123"
         val name = "name"
+        val imageUrl = "https://placeimg.com/640/480/null?53682"
         val now = Date()
         val offsetDateTime = now.toInstant().atOffset(ZoneOffset.UTC)
         val createdAt = offsetDateTime.format(DateTimeFormatter.ISO_INSTANT)
+        val updatedAt = offsetDateTime.format(DateTimeFormatter.ISO_INSTANT)
+        val membersCount = 3
         val jsonData = """
         {
             "data": [{
-                "members": [],
+                "members": [
+                    "5fe6d74de8be0fef6c0ac7aa",
+                    "5fe6d74de8be0fef6c0ac7ab",
+                    "5fe6d74de8be0fef6c0ac7ac"
+                ],
                 "_id": "$id",
                 "name": "$name",
+                "image_url": "$imageUrl",
                 "created_at": "$createdAt",
+                "updated_at": "$updatedAt",
+                "members_count": $membersCount,
                 "__v": 0
             }],
             "errors": []
@@ -58,31 +68,49 @@ class ClubsServiceTests {
             .setBody(jsonData)
         mockWebServer.enqueue(mockResponse)
         val baseUrl = mockWebServer.url("/")
-        val testObject = ServicesFactory(interceptor, baseUrl.toString()).createService(ClubsService::class.java)
+        val testObject = ServicesFactory(
+            authTokenInterceptor = interceptor,
+            baseUrl = baseUrl.toString()
+        ).createService(ClubsService::class.java)
 
-        val actual = testObject.getClubs().blockingGet()
+        val actual = testObject.getClubs()
 
         val data = actual.data.first()
         assertThat(data.id).isEqualTo(id)
         assertThat(data.name).isEqualTo(name)
+        assertThat(data.imageUrl).isEqualTo(imageUrl)
         assertThat(data.createdAt).isEqualTo(now)
+        assertThat(data.updatedAt).isEqualTo(now)
+        assertThat(data.membersCount).isEqualTo(membersCount)
         assertThat(actual.errors).isEmpty()
     }
 
     @Test
-    fun `getClubById should return club response`() {
+    fun `getClubById should return club response`() = runBlocking {
         val id = "123"
         val name = "name"
+        val imageUrl = "https://placeimg.com/640/480/null?53682"
         val now = Date()
         val offsetDateTime = now.toInstant().atOffset(ZoneOffset.UTC)
         val createdAt = offsetDateTime.format(DateTimeFormatter.ISO_INSTANT)
+        val updatedAt = offsetDateTime.format(DateTimeFormatter.ISO_INSTANT)
         val jsonData = """
         {
             "data": {
-                "members": [],
+                 "members": [{
+                    "rating": 1000,
+                    "_id": "5fe6d74de8be0fef6c0ac7aa",
+                    "first_name": "Yadira",
+                    "last_name": "O'Reilly",
+                    "email": "florencio37@mailinator.com",
+                    "created_at": "2020-12-26T06:25:17.051Z",
+                    "__v": 0
+                }],
                 "_id": "$id",
                 "name": "$name",
+                "image_url": "$imageUrl",
                 "created_at": "$createdAt",
+                "updated_at": "$updatedAt",
                 "__v": 0
             },
             "errors": []
@@ -94,14 +122,19 @@ class ClubsServiceTests {
             .setBody(jsonData)
         mockWebServer.enqueue(mockResponse)
         val baseUrl = mockWebServer.url("/")
-        val testObject = ServicesFactory(interceptor, baseUrl.toString()).createService(ClubsService::class.java)
+        val testObject = ServicesFactory(
+            authTokenInterceptor = interceptor,
+            baseUrl = baseUrl.toString()
+        ).createService(ClubsService::class.java)
 
-        val actual = testObject.getClubById(id).blockingGet()
+        val actual = testObject.getClubById(id)
 
         val data = actual.data
         assertThat(data.id).isEqualTo(id)
         assertThat(data.name).isEqualTo(name)
+        assertThat(data.imageUrl).isEqualTo(imageUrl)
         assertThat(data.createdAt).isEqualTo(now)
+        assertThat(data.updatedAt).isEqualTo(now)
         assertThat(actual.errors).isEmpty()
     }
 
@@ -130,7 +163,10 @@ class ClubsServiceTests {
             .setBody(jsonData)
         mockWebServer.enqueue(mockResponse)
         val baseUrl = mockWebServer.url("/")
-        val testObject = ServicesFactory(interceptor, baseUrl.toString()).createService(ClubsService::class.java)
+        val testObject = ServicesFactory(
+            authTokenInterceptor = interceptor,
+            baseUrl = baseUrl.toString()
+        ).createService(ClubsService::class.java)
 
         val actual = testObject.createClub().blockingGet()
 

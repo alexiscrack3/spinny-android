@@ -2,18 +2,16 @@ package com.alexiscrack3.spinny.db
 
 import androidx.room.*
 import com.alexiscrack3.spinny.models.TransactionLog
-import io.reactivex.Completable
-import io.reactivex.Single
 
 @Dao
 interface TransactionLogsDao {
 
     @Query("SELECT * FROM transaction_logs WHERE entity_name = :entityName")
-    fun getTransactionLogByEntityName(entityName: String): Single<TransactionLog?>
+    suspend fun getTransactionLogByEntityName(entityName: String): TransactionLog?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTransactionLog(transactionLog: TransactionLog): Completable
+    suspend fun insertTransactionLog(transactionLog: TransactionLog)
 
     @Update
-    fun updateTransactionLog(transactionLog: TransactionLog): Single<Int>
+    suspend fun updateTransactionLog(transactionLog: TransactionLog): Int
 }

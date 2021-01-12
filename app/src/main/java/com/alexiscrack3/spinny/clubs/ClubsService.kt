@@ -11,10 +11,10 @@ import retrofit2.http.Path
 interface ClubsService {
 
     @GET("clubs")
-    fun getClubs(): Single<ApiResponse<Array<ClubsResponse>>>
+    suspend fun getClubs(): ApiResponse<Array<ClubsResponse>>
 
     @GET("clubs/{id}")
-    fun getClubById(@Path("id") id: String): Single<ApiResponse<ClubResponse>>
+    suspend fun getClubById(@Path("id") id: String): ApiResponse<ClubResponse>
 
     @POST("clubs")
     fun createClub(): Single<ApiResponse<ClubResponse>>

@@ -23,15 +23,17 @@ fun Club.Companion.test(
 fun ClubResponse.Companion.test(
     id: String = RandomStringUtils.randomAlphanumeric(10),
     name: String = RandomStringUtils.randomAlphanumeric(10),
-    createdAt: Date = Date(),
     imageUrl: String = RandomStringUtils.randomAlphanumeric(10),
+    createdAt: Date = Date(),
+    updatedAt: Date = Date(),
     members: List<Player> = emptyList(),
     membersCount: Int = 0
 ) = ClubResponse(
     id = id,
     name = name,
-    createdAt = createdAt,
     imageUrl = imageUrl,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
     members = members,
     membersCount = membersCount
 )
@@ -39,13 +41,15 @@ fun ClubResponse.Companion.test(
 fun ClubsResponse.Companion.test(
     id: String = RandomStringUtils.randomAlphanumeric(10),
     name: String = RandomStringUtils.randomAlphanumeric(10),
-    createdAt: Date = Date(),
     imageUrl: String = RandomStringUtils.randomAlphanumeric(10),
+    createdAt: Date = Date(),
+    updatedAt: Date = Date(),
     membersCount: Int = 0
 ) = ClubsResponse(
     id = id,
     name = name,
-    createdAt = createdAt,
     imageUrl = imageUrl,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
     membersCount = membersCount
 )

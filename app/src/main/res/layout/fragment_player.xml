@@ -136,7 +136,7 @@
             android:id="@+id/player_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:visibleUnless="@{viewModel.loadingState}"
+            app:visibleOrGone="@{viewModel.loadingState}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

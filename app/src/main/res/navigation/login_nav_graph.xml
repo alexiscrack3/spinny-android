@@ -9,7 +9,11 @@
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_enrollmentFragment"
-            app:destination="@id/enrollmentFragment" />
+            app:destination="@id/enrollmentFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_open_exit" />
     </fragment>
     <fragment
         android:id="@+id/enrollmentFragment"

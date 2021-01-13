@@ -14,4 +14,6 @@ data class PlayerResponse(
     val rating: Int,
     @SerializedName("created_at")
     val createdAt: Date
-)
+) {
+    companion object
+}

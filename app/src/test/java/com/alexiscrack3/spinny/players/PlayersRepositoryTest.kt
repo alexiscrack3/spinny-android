@@ -3,13 +3,13 @@ package com.alexiscrack3.spinny.players
 import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.PlayerResponse
 import com.alexiscrack3.spinny.models.Player
+import com.alexiscrack3.spinny.utils.test
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
-import java.util.*
 
 @ExperimentalCoroutinesApi
 class PlayersRepositoryTest {
@@ -21,13 +21,12 @@ class PlayersRepositoryTest {
         val firstName = "a"
         val lastName = "a"
         val rating = 1000
-        val playerResponse = PlayerResponse(
+        val playerResponse = PlayerResponse.test(
             id = id,
             email = email,
             firstName = firstName,
             lastName = lastName,
-            rating = rating,
-            createdAt = Date()
+            rating = rating
         )
         val player = Player(
             id = id,

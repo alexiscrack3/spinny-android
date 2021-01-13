@@ -11,6 +11,7 @@ import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.api.SignInResponse
 import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
+import com.alexiscrack3.spinny.utils.test
 import com.alexiscrack3.spinny.validators.ValidatorResult
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.*
@@ -155,14 +156,7 @@ class LoginViewModelTest {
 
     @Test
     fun `email and password should be cleared when authentication is successful`() {
-        val playerResponse = PlayerResponse(
-            id = "",
-            email = "",
-            firstName = null,
-            lastName = null,
-            rating = 0,
-            createdAt = Date()
-        )
+        val playerResponse = PlayerResponse.test()
         val accessToken = "accessToken"
         val signInResponse = SignInResponse(
             user = playerResponse,
@@ -187,14 +181,7 @@ class LoginViewModelTest {
 
     @Test
     fun `access token should be stored when authentication is successful`() {
-        val playerResponse = PlayerResponse(
-            id = "",
-            email = "",
-            firstName = null,
-            lastName = null,
-            rating = 0,
-            createdAt = Date()
-        )
+        val playerResponse = PlayerResponse.test()
         val accessToken = "accessToken"
         val signInResponse = SignInResponse(
             user = playerResponse,
@@ -216,14 +203,7 @@ class LoginViewModelTest {
 
     @Test
     fun `successful resource with token is emitted when authentication is successful`() {
-        val playerResponse = PlayerResponse(
-            id = "",
-            email = "",
-            firstName = null,
-            lastName = null,
-            rating = 0,
-            createdAt = Date()
-        )
+        val playerResponse = PlayerResponse.test()
         val accessToken = "accessToken"
         val signInResponse = SignInResponse(
             user = playerResponse,

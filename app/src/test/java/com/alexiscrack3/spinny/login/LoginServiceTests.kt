@@ -4,7 +4,6 @@ import com.alexiscrack3.spinny.api.ServicesFactory
 import com.alexiscrack3.spinny.api.SignInRequest
 import com.alexiscrack3.spinny.api.SignUpRequest
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.mock
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.mockwebserver.Dispatcher
@@ -40,7 +39,9 @@ class LoginServiceTests {
     @Test
     fun `signIn should return sign in response`() {
         val rating = 100
-        val playerId = "123"
+        val id = "123"
+        val firstName = "foo"
+        val lastName = "bar"
         val email = "foo@spinny.io"
         val now = Date()
         val offsetDateTime = now.toInstant().atOffset(ZoneOffset.UTC)
@@ -51,7 +52,9 @@ class LoginServiceTests {
             "data": {
                 "user": {
                     "rating": ${rating},
-                    "_id": "$playerId",
+                    "_id": "$id",
+                    "first_name": "$firstName",
+                    "last_name": "$lastName",
                     "email": "$email",
                     "created_at": "$createdAt",
                     "__v": 0
@@ -72,10 +75,12 @@ class LoginServiceTests {
         val actual = testObject.signIn(SignInRequest(email, "password")).blockingGet()
 
         val user = actual.data.user
-        assertThat(user.id).isEqualTo(playerId)
-        assertThat(user.createdAt).isEqualTo(now)
-        assertThat(user.email).isEqualTo(email)
         assertThat(user.rating).isEqualTo(rating)
+        assertThat(user.id).isEqualTo(id)
+        assertThat(user.firstName).isEqualTo(firstName)
+        assertThat(user.lastName).isEqualTo(lastName)
+        assertThat(user.email).isEqualTo(email)
+        assertThat(user.createdAt).isEqualTo(now)
         assertThat(actual.data.token).isEqualTo(accessToken)
         assertThat(actual.errors).isEmpty()
     }

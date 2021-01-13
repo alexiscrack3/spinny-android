@@ -7,6 +7,7 @@ import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.api.SignUpResponse
 import com.alexiscrack3.spinny.security.SecurePreferences
 import com.alexiscrack3.spinny.utils.getOrAwaitValue
+import com.alexiscrack3.spinny.utils.test
 import com.alexiscrack3.spinny.validators.ValidatorResult
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.*
@@ -14,7 +15,6 @@ import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.*
 
 class EnrollmentViewModelTest {
     private val loginRepository = mock<LoginRepository>()
@@ -148,14 +148,7 @@ class EnrollmentViewModelTest {
 
     @Test
     fun `successful resource with token is emitted after authenticating user`() {
-        val playerResponse = PlayerResponse(
-            id = "",
-            createdAt = Date(),
-            email = "",
-            firstName = null,
-            lastName = null,
-            rating = 0
-        )
+        val playerResponse = PlayerResponse.test()
         val accessToken = "accessToken"
         val signUpResponse = SignUpResponse(
             user = playerResponse,
@@ -208,14 +201,7 @@ class EnrollmentViewModelTest {
 
     @Test
     fun `access token should be stored when authentication is successful`() {
-        val playerResponse = PlayerResponse(
-            id = "",
-            createdAt = Date(),
-            email = "",
-            firstName = null,
-            lastName = null,
-            rating = 0
-        )
+        val playerResponse = PlayerResponse.test()
         val accessToken = "accessToken"
         val signUpResponse = SignUpResponse(
             user = playerResponse,

@@ -1,7 +1,9 @@
 package com.alexiscrack3.spinny.login
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
 import com.alexiscrack3.spinny.SpinnyViewModel
 import com.alexiscrack3.spinny.api.Resource
 import com.alexiscrack3.spinny.security.SecurePreferences
@@ -9,10 +11,14 @@ import com.alexiscrack3.spinny.validators.CompositeValidator
 import com.alexiscrack3.spinny.validators.EmailFormatValidator
 import com.alexiscrack3.spinny.validators.EmptyTextValidator
 import com.alexiscrack3.spinny.validators.ValidatorResult
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class EnrollmentViewModel(
     private val loginRepository: LoginRepository,
-    private val securePreferences: SecurePreferences
+    private val securePreferences: SecurePreferences,
+    private val scheduler: Scheduler = Schedulers.io()
 ) : SpinnyViewModel() {
     private val _enrollmentLiveData = MutableLiveData<Resource<String>>()
     private val _emailErrorLiveData = MutableLiveData<ValidatorResult>()
@@ -35,6 +41,8 @@ class EnrollmentViewModel(
         val password = passwordLiveData.value.orEmpty()
         if (isFormValid(email, password)) {
             loginRepository.signUp(email, password)
+                .subscribeOn(scheduler)
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
                     _enrollmentLiveData.value = Resource.Loading()
                 }
@@ -48,6 +56,10 @@ class EnrollmentViewModel(
                 })
                 .autoDispose()
         }
+    }
+
+    fun onSignInClicked(view: View) {
+        view.findNavController().popBackStack()
     }
 
     private fun isEmailValid(email: String): Boolean {

@@ -4,7 +4,6 @@ import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.PlayerResponse
 import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.Resource
@@ -22,7 +21,6 @@ import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.*
 
 class LoginViewModelTest {
     private val loginRepository = mock<LoginRepository>()

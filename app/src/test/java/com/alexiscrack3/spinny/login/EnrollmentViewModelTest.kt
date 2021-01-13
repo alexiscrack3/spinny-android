@@ -33,8 +33,8 @@ class EnrollmentViewModelTest {
     @Test
     fun `authentication should be attempted when email and password are valid`() {
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
@@ -45,8 +45,8 @@ class EnrollmentViewModelTest {
     @Test
     fun `authentication should not be attempted when email is null`() {
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = null
-            passwordState.value = password
+            emailLiveData.value = null
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
@@ -58,8 +58,8 @@ class EnrollmentViewModelTest {
     fun `authentication should not be attempted when email is empty`() {
         val email = ""
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
@@ -70,8 +70,8 @@ class EnrollmentViewModelTest {
     @Test
     fun `authentication should not be attempted when password is null`() {
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = null
+            emailLiveData.value = email
+            passwordLiveData.value = null
         }
 
         testObject.onSignUpClicked()
@@ -83,8 +83,8 @@ class EnrollmentViewModelTest {
     fun `authentication should not be attempted when password is empty`() {
         val password = ""
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
@@ -95,13 +95,13 @@ class EnrollmentViewModelTest {
     @Test
     fun `valid object should be emitted when email is valid`() {
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
 
-        val actual = testObject.emailErrorState.getOrAwaitValue()
+        val actual = testObject.emailErrorLiveData.getOrAwaitValue()
         assertThat(actual).isInstanceOf(ValidatorResult.Success::class.java)
     }
 
@@ -109,26 +109,26 @@ class EnrollmentViewModelTest {
     fun `invalid object should be emitted when email is not valid`() {
         val email = ""
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
 
-        val actual = testObject.emailErrorState.getOrAwaitValue()
+        val actual = testObject.emailErrorLiveData.getOrAwaitValue()
         assertThat(actual).isInstanceOf(ValidatorResult.Failure::class.java)
     }
 
     @Test
     fun `valid object should be emitted when password is valid`() {
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
 
-        val actual = testObject.passwordErrorState.getOrAwaitValue()
+        val actual = testObject.passwordErrorLiveData.getOrAwaitValue()
         assertThat(actual).isInstanceOf(ValidatorResult.Success::class.java)
     }
 
@@ -136,13 +136,13 @@ class EnrollmentViewModelTest {
     fun `invalid object should be emitted when password is not valid`() {
         val password = ""
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
 
-        val actual = testObject.passwordErrorState.getOrAwaitValue()
+        val actual = testObject.passwordErrorLiveData.getOrAwaitValue()
         assertThat(actual).isInstanceOf(ValidatorResult.Failure::class.java)
     }
 
@@ -159,13 +159,13 @@ class EnrollmentViewModelTest {
             on { this.signUp(email, password) } doReturn Single.just(response)
         }
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
 
-        val actual = testObject.enrollmentState.getOrAwaitValue() as Resource.Success
+        val actual = testObject.enrollmentLiveData.getOrAwaitValue() as Resource.Success
         assertThat(actual.data).isEqualTo(accessToken)
     }
 
@@ -176,26 +176,26 @@ class EnrollmentViewModelTest {
             on { this.signUp(email, password) } doReturn Single.error(throwable)
         }
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
 
-        val actual = testObject.enrollmentState.getOrAwaitValue() as Resource.Failure
+        val actual = testObject.enrollmentLiveData.getOrAwaitValue() as Resource.Failure
         assertThat(actual.error).isEqualTo(throwable)
     }
 
     @Test
     fun `loading resource should be emitted before authenticating user`() {
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()
 
-        val actual = testObject.enrollmentState.getOrAwaitValue()
+        val actual = testObject.enrollmentLiveData.getOrAwaitValue()
         assertThat(actual).isInstanceOf(Resource.Loading::class.java)
     }
 
@@ -212,8 +212,8 @@ class EnrollmentViewModelTest {
             on { this.signUp(email, password) } doReturn Single.just(response)
         }
         val testObject = EnrollmentViewModel(loginRepository, securePreferences).apply {
-            emailState.value = email
-            passwordState.value = password
+            emailLiveData.value = email
+            passwordLiveData.value = password
         }
 
         testObject.onSignUpClicked()

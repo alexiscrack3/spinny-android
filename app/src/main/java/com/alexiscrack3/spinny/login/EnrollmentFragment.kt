@@ -30,7 +30,7 @@ class EnrollmentFragment : SpinnyFragment() {
                 is Resource.Failure -> showLoginError()
             }
         }
-        enrollmentViewModel.enrollmentState.observe(this, enrollmentObserver)
+        enrollmentViewModel.enrollmentLiveData.observe(this, enrollmentObserver)
 
         val emailObserver = Observer<ValidatorResult> { result ->
             enrollment_email_layout.error = if (result == ValidatorResult.Success) {
@@ -39,7 +39,7 @@ class EnrollmentFragment : SpinnyFragment() {
                 requireContext().getString(R.string.email_error)
             }
         }
-        enrollmentViewModel.emailErrorState.observe(this, emailObserver)
+        enrollmentViewModel.emailErrorLiveData.observe(this, emailObserver)
 
         val passwordObserver = Observer<ValidatorResult> { result ->
             enrollment_password_layout.error = if (result == ValidatorResult.Success) {
@@ -48,7 +48,7 @@ class EnrollmentFragment : SpinnyFragment() {
                 requireContext().getString(R.string.password_error)
             }
         }
-        enrollmentViewModel.passwordErrorState.observe(this, passwordObserver)
+        enrollmentViewModel.passwordErrorLiveData.observe(this, passwordObserver)
     }
 
     private fun showLoginError() {

@@ -24,17 +24,17 @@ import org.robolectric.shadows.ShadowDialog
 
 class EnrollmentFragmentTest : SpinnyTest() {
     private val enrollmentViewModel by inject<EnrollmentViewModel>()
-    private val enrollmentState = MutableLiveData<Resource<String>>()
-    private val emailErrorState = MutableLiveData<ValidatorResult>()
-    private val passwordErrorState = MutableLiveData<ValidatorResult>()
+    private val enrollmentLiveData = MutableLiveData<Resource<String>>()
+    private val emailErrorLiveData = MutableLiveData<ValidatorResult>()
+    private val passwordErrorLiveData = MutableLiveData<ValidatorResult>()
 
     @Before
     override fun setUp() {
         super.setUp()
         declareMock<EnrollmentViewModel>()
-        whenever(enrollmentViewModel.enrollmentState).doReturn(enrollmentState)
-        whenever(enrollmentViewModel.emailErrorState).doReturn(emailErrorState)
-        whenever(enrollmentViewModel.passwordErrorState).doReturn(passwordErrorState)
+        whenever(enrollmentViewModel.enrollmentLiveData).doReturn(enrollmentLiveData)
+        whenever(enrollmentViewModel.emailErrorLiveData).doReturn(emailErrorLiveData)
+        whenever(enrollmentViewModel.passwordErrorLiveData).doReturn(passwordErrorLiveData)
     }
 
     @Test
@@ -54,7 +54,7 @@ class EnrollmentFragmentTest : SpinnyTest() {
         val fragmentScenario = launchFragmentInContainer<EnrollmentFragment>()
         fragmentScenario.onFragment { fragment ->
             val shadowActivity = Shadows.shadowOf(fragment.activity)
-            enrollmentState.value = Resource.Success("")
+            enrollmentLiveData.value = Resource.Success("")
 
             val actual = shadowActivity.nextStartedActivity
 
@@ -68,7 +68,7 @@ class EnrollmentFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val emailLayout = fragment.view!!.enrollment_email_layout
 
-            emailErrorState.value = ValidatorResult.Failure
+            emailErrorLiveData.value = ValidatorResult.Failure
 
             assertThat(emailLayout.error.toString()).isEqualTo("Email is invalid")
         }
@@ -80,11 +80,11 @@ class EnrollmentFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val emailLayout = fragment.view!!.enrollment_email_layout
 
-            emailErrorState.value = ValidatorResult.Failure
+            emailErrorLiveData.value = ValidatorResult.Failure
 
             assertThat(emailLayout.error?.isNotEmpty()).isEqualTo(true)
 
-            emailErrorState.value = ValidatorResult.Success
+            emailErrorLiveData.value = ValidatorResult.Success
 
             assertThat(emailLayout.error).isNull()
         }
@@ -96,7 +96,7 @@ class EnrollmentFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val passwordLayout = fragment.view!!.enrollment_password_layout
 
-            passwordErrorState.value = ValidatorResult.Failure
+            passwordErrorLiveData.value = ValidatorResult.Failure
 
             assertThat(passwordLayout.error.toString()).isEqualTo("Password is invalid")
         }
@@ -108,11 +108,11 @@ class EnrollmentFragmentTest : SpinnyTest() {
         fragmentScenario.onFragment { fragment ->
             val passwordLayout = fragment.view!!.enrollment_password_layout
 
-            passwordErrorState.value = ValidatorResult.Failure
+            passwordErrorLiveData.value = ValidatorResult.Failure
 
             assertThat(passwordLayout.error?.isNotEmpty()).isEqualTo(true)
 
-            passwordErrorState.value = ValidatorResult.Success
+            passwordErrorLiveData.value = ValidatorResult.Success
 
             assertThat(passwordLayout.error).isNull()
         }
@@ -122,7 +122,7 @@ class EnrollmentFragmentTest : SpinnyTest() {
     fun `show alert dialog when authentication fails`() {
         val fragmentScenario = launchFragmentInContainer<EnrollmentFragment>()
         fragmentScenario.onFragment {
-            enrollmentState.value = Resource.Failure(Throwable())
+            enrollmentLiveData.value = Resource.Failure(Throwable())
 
             val alertDialog = ShadowDialog.getLatestDialog() as? AlertDialog
             assertThat(alertDialog).isNotNull()

@@ -3,6 +3,7 @@ package com.alexiscrack3.spinny.login
 import android.content.DialogInterface
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.testing.launchFragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
 import com.alexiscrack3.spinny.MainActivity
@@ -120,7 +121,7 @@ class EnrollmentFragmentTest : SpinnyTest() {
 
     @Test
     fun `show alert dialog when authentication fails`() {
-        val fragmentScenario = launchFragmentInContainer<EnrollmentFragment>()
+        val fragmentScenario = launchFragment<EnrollmentFragment>(themeResId = R.style.Theme_Spinny)
         fragmentScenario.onFragment {
             enrollmentLiveData.value = Resource.Failure(Throwable())
 

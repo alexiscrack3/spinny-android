@@ -12,7 +12,6 @@ import com.alexiscrack3.spinny.databinding.FragmentLoginBinding
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class LoginFragment : Fragment() {
-
     private var _binding: FragmentLoginBinding? = null
 
     // This property is only valid between onCreateView and
@@ -23,16 +22,14 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             findNavController().navigate(R.id.action_LoginFragment_to_SecondFragment)
         }
     }

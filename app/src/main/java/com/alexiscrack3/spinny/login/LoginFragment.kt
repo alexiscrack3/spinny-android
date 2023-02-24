@@ -1,4 +1,4 @@
-package com.alexiscrack3.spinny
+package com.alexiscrack3.spinny.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.databinding.FragmentLoginBinding
 
 /**

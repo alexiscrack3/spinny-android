@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.alexiscrack3.spinny.R
+import com.alexiscrack3.spinny.api.ApiResponse
+import com.alexiscrack3.spinny.api.LoginRequest
+import com.alexiscrack3.spinny.api.LoginResponse
+import com.alexiscrack3.spinny.api.LoginService
 import com.alexiscrack3.spinny.databinding.FragmentLoginBinding
 import com.alexiscrack3.spinny.helpers.RetrofitHelper
-import com.alexiscrack3.spinny.models.LoginResponse
-import com.alexiscrack3.spinny.models.LoginRequest
 import com.alexiscrack3.spinny.models.PlayerRequest
-import com.alexiscrack3.spinny.models.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,18 +45,18 @@ class LoginFragment : Fragment() {
                 password = binding.passwordEditText.text.toString()
             )
             val loginService = RetrofitHelper.getInstance().create(LoginService::class.java)
-            loginService.signIn(LoginRequest(playerRequest))?.enqueue(object : Callback<Result<LoginResponse>?> {
+            loginService.signIn(LoginRequest(playerRequest))?.enqueue(object : Callback<ApiResponse<LoginResponse>?> {
                 override fun onResponse(
-                    call: Call<Result<LoginResponse>?>,
-                    response: Response<Result<LoginResponse>?>
+                    call: Call<ApiResponse<LoginResponse>?>,
+                    apiResponse: Response<ApiResponse<LoginResponse>?>
                 ) {
-                    if (response.isSuccessful) {
-                        val result = response.body()
-                        findNavController().navigate(R.id.action_LoginFragment_to_SecondFragment)
+                    if (apiResponse.isSuccessful) {
+                        val result = apiResponse.body()
+                        findNavController().navigate(R.id.action_LoginFragment_to_clubsFragment)
                     }
                 }
 
-                override fun onFailure(call: Call<Result<LoginResponse>?>, t: Throwable) {
+                override fun onFailure(call: Call<ApiResponse<LoginResponse>?>, t: Throwable) {
                 }
             })
         }

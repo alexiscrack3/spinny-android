@@ -1,4 +1,4 @@
-package com.alexiscrack3.spinny.models
+package com.alexiscrack3.spinny.api
 
 import com.google.gson.annotations.SerializedName
 

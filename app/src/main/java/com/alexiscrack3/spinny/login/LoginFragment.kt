@@ -30,7 +30,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel.loginResponse.observe(viewLifecycleOwner) {
+        loginViewModel.playerState.observe(viewLifecycleOwner) {
             println("ID: ${it?.id}")
             println("First name: ${it?.firstName}")
             println("Last name: ${it?.lastName}")

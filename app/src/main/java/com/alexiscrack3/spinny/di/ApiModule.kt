@@ -1,5 +1,6 @@
 package com.alexiscrack3.spinny.di
 
+import com.alexiscrack3.spinny.api.ClubsService
 import com.alexiscrack3.spinny.api.LoginService
 import dagger.Module
 import dagger.Provides
@@ -14,5 +15,9 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideLoginService(retrofit: Retrofit) = retrofit.create(LoginService::class.java)
+    fun providesLoginService(retrofit: Retrofit) = retrofit.create(LoginService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesClubsService(retrofit: Retrofit) = retrofit.create(ClubsService::class.java)
 }

@@ -13,7 +13,7 @@ class AuthHeaderInterceptor(
             .newBuilder()
             .addHeader(
                 "Authorization",
-                tokenStore.accessToken
+                "Bearer ${tokenStore.accessToken}"
             )
             .build()
 

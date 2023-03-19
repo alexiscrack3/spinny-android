@@ -11,16 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.*
-import com.alexiscrack3.spinny.helpers.RetrofitHelper
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-/**
- * A fragment representing a list of Items.
- */
+@AndroidEntryPoint
 class ClubsFragment : Fragment() {
-
+    @Inject lateinit var clubsService: ClubsService
     private var columnCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +53,6 @@ class ClubsFragment : Fragment() {
     }
 
     private fun fetchClubs() {
-        val clubsService = RetrofitHelper.getInstance().create(ClubsService::class.java)
         clubsService.getClubs()?.enqueue(object :
             Callback<ApiResponse<List<ClubData>>?> {
             override fun onResponse(

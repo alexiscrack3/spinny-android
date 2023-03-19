@@ -1,5 +1,7 @@
 package com.alexiscrack3.spinny.di
 
+import com.alexiscrack3.spinny.api.AuthHeaderInterceptor
+import com.alexiscrack3.spinny.helpers.TokenStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,4 +16,7 @@ object NetworkModule {
         .apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+
+    @Provides
+    fun providesAuthLoggingInterceptor(tokenStore: TokenStore) = AuthHeaderInterceptor(tokenStore)
 }

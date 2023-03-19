@@ -1,10 +1,14 @@
 package com.alexiscrack3.spinny.di
 
+import android.content.Context
+import com.alexiscrack3.spinny.api.AuthHeaderInterceptor
 import com.alexiscrack3.spinny.api.LoginService
+import com.alexiscrack3.spinny.helpers.TokenStore
 import com.alexiscrack3.spinny.login.LoginRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,22 +23,30 @@ object SpinnyModule {
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun providesOkHttpClient(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        authHeaderInterceptor: AuthHeaderInterceptor
+    ): OkHttpClient {
         return OkHttpClient
             .Builder()
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(authHeaderInterceptor)
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun providesTokenStore(@ApplicationContext appContext: Context) = TokenStore(appContext)
 
     @Provides
     @Singleton

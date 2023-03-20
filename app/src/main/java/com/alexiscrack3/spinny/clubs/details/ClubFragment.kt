@@ -33,7 +33,9 @@ class ClubFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         clubViewModel.clubState.observe(viewLifecycleOwner) {
+            binding.idTextView.text = it?.id.toString()
             binding.nameTextView.text = it?.name
+            binding.descriptionTextView.text = it?.description
         }
     }
 

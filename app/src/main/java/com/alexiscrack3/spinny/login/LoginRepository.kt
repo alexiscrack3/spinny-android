@@ -30,10 +30,11 @@ class LoginRepository(
             ) {
                 if (apiResponse.isSuccessful) {
                     val loginResponse = apiResponse.body()?.data
-                    if (loginResponse != null) {
+                    if (loginResponse == null) {
+                        callback(Result.failure(Throwable("Something went wrong")))
+                    } else {
                         val player = loginMapper.map(loginResponse)
-                        val success = Result.success(player)
-                        callback(success)
+                        callback(Result.success(player))
                     }
                 } else {
                     callback(Result.failure(Throwable("Something went wrong")))

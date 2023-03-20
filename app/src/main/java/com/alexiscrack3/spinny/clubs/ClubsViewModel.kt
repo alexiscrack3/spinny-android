@@ -1,5 +1,6 @@
 package com.alexiscrack3.spinny.clubs
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,15 +13,17 @@ import javax.inject.Inject
 class ClubsViewModel @Inject constructor(
     private val clubsRepository: ClubsRepository
 ) : ViewModel() {
-    val clubsState: MutableLiveData<List<Club>> = MutableLiveData()
+    private val _clubsState: MutableLiveData<List<Club>> = MutableLiveData()
+    val clubsState: LiveData<List<Club>>
+        get() = _clubsState
 
     fun getClubs() {
         viewModelScope.launch {
             clubsRepository.getClubs { result: Result<List<Club>> ->
                 if (result.isSuccess) {
-                    clubsState.value = result.getOrDefault(emptyList())
+                    _clubsState.value = result.getOrDefault(emptyList())
                 } else {
-                    clubsState.value = emptyList()
+                    _clubsState.value = emptyList()
                 }
             }
         }

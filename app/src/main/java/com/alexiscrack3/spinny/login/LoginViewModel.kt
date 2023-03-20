@@ -1,5 +1,6 @@
 package com.alexiscrack3.spinny.login
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,15 +13,17 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginRepository: LoginRepository
 ) : ViewModel() {
-    val playerState: MutableLiveData<Player?> = MutableLiveData()
+    private val _playerState: MutableLiveData<Player?> = MutableLiveData()
+    val playerState: LiveData<Player?>
+        get() = _playerState
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
             loginRepository.signIn(email, password) { result: Result<Player> ->
                 if (result.isSuccess) {
-                    playerState.value = result.getOrNull()
+                    _playerState.value = result.getOrNull()
                 } else {
-                    playerState.value = null
+                    _playerState.value = null
                 }
             }
         }

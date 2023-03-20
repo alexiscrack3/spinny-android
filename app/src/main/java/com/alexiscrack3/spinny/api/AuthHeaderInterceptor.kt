@@ -12,8 +12,7 @@ class AuthHeaderInterceptor(
         val response = if (request.method() == "POST" && request.url().uri().path.endsWith("/sign_in")) {
             val loginResponse = chain.proceed(request)
             val authorizationValue = loginResponse.headers().get("Authorization")
-            val components = authorizationValue?.split(" ") ?: emptyList()
-            val accessToken = components.lastOrNull()
+            val accessToken = authorizationValue?.substringAfter("Bearer ")
             if (accessToken != null) {
                 tokenStore.setAccessToken(accessToken)
             }
@@ -27,7 +26,6 @@ class AuthHeaderInterceptor(
                 .build()
             chain.proceed(newRequest)
         }
-
         return response
     }
 }

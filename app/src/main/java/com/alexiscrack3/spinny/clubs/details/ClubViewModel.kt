@@ -18,6 +18,18 @@ class ClubViewModel @Inject constructor(
     val clubState: LiveData<Club?>
         get() = _clubState
 
+    private val _deleteState: MutableLiveData<Boolean> = MutableLiveData()
+    val deleteState: LiveData<Boolean>
+        get() = _deleteState
+
+    fun deleteClubById(id: Int) {
+        viewModelScope.launch {
+            clubsRepository.deleteClubById(id) { result: Result<Club?> ->
+                _deleteState.value = result.isSuccess
+            }
+        }
+    }
+
     fun getClubById(id: Int) {
         viewModelScope.launch {
             clubsRepository.getClubById(id) { result: Result<Club?> ->

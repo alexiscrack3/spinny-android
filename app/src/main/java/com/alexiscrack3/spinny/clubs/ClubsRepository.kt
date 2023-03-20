@@ -40,6 +40,29 @@ class ClubsRepository(
         })
     }
 
+    fun deleteClubById(id: Int, callback: (Result<Club?>) -> Unit) {
+        clubsService.deleteClubById(id).enqueue(object :
+            Callback<ApiResponse<ClubApiModel?>> {
+            override fun onResponse(
+                call: Call<ApiResponse<ClubApiModel?>>,
+                apiResponse: Response<ApiResponse<ClubApiModel?>>
+            ) {
+                if (apiResponse.isSuccessful) {
+                    val clubsResponse = apiResponse.body()?.data
+                    val club = clubsMapper.map(clubsResponse)
+                    callback(Result.success(club))
+                } else {
+                    callback(Result.failure(Throwable("Something went wrong")))
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<ClubApiModel?>>, t: Throwable) {
+                print(t.message)
+                callback(Result.failure(t))
+            }
+        })
+    }
+
     fun getClubById(id: Int, callback: (Result<Club?>) -> Unit) {
         clubsService.getClubById(id).enqueue(object :
             Callback<ApiResponse<ClubApiModel?>> {

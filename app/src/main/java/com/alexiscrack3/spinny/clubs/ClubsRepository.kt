@@ -1,6 +1,7 @@
 package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ApiResponse
+import com.alexiscrack3.spinny.api.ClubRequest
 import com.alexiscrack3.spinny.api.ClubsService
 import com.alexiscrack3.spinny.api.models.ClubApiModel
 import com.alexiscrack3.spinny.models.Club
@@ -12,6 +13,33 @@ class ClubsRepository(
     private val clubsService: ClubsService,
     private val clubsMapper: ClubsMapper = ClubsMapper()
 ) {
+    fun createClub(name: String, description: String?, callback: (Result<Club?>) -> Unit) {
+        val clubRequest = ClubRequest(
+            name = name,
+            description = description
+        )
+        clubsService.createClub(clubRequest).enqueue(object :
+            Callback<ApiResponse<ClubApiModel?>> {
+            override fun onResponse(
+                call: Call<ApiResponse<ClubApiModel?>>,
+                apiResponse: Response<ApiResponse<ClubApiModel?>>
+            ) {
+                if (apiResponse.isSuccessful) {
+                    val clubsResponse = apiResponse.body()?.data
+                    val club = clubsMapper.map(clubsResponse)
+                    callback(Result.success(club))
+                } else {
+                    callback(Result.failure(Throwable("Something went wrong")))
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<ClubApiModel?>>, t: Throwable) {
+                print(t.message)
+                callback(Result.failure(t))
+            }
+        })
+    }
+
     fun getClubById(id: Int, callback: (Result<Club?>) -> Unit) {
         clubsService.getClubById(id).enqueue(object :
             Callback<ApiResponse<ClubApiModel?>> {

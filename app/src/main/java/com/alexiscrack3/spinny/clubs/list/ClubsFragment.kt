@@ -6,16 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.findNavController
 import com.alexiscrack3.spinny.R
+import com.alexiscrack3.spinny.databinding.FragmentClubsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClubsFragment : Fragment() {
+    private var _binding: FragmentClubsBinding? = null
     private val clubsViewModel by viewModels<ClubsViewModel>()
     private var columnCount = 1
+
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,29 +31,30 @@ class ClubsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_clubs, container, false)
+        _binding = FragmentClubsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = ClubsAdapter()
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.clubsList.adapter = ClubsAdapter()
+        binding.createFab.setOnClickListener {
+            it.findNavController().navigate(R.id.action_clubsFragment_to_createClubFragment)
         }
         clubsViewModel.clubsState.observe(viewLifecycleOwner) {
-            val recyclerView = view as RecyclerView
-            val adapter = recyclerView.adapter as ClubsAdapter
+            val adapter = binding.clubsList.adapter as ClubsAdapter
             adapter.swap(it)
         }
-        return view
     }
 
     override fun onResume() {
         super.onResume()
         clubsViewModel.getClubs()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

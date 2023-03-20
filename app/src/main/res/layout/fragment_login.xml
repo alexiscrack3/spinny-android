@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/fab_margin"
         android:layout_marginHorizontal="@dimen/fab_margin"
         android:hint="@string/email"
-        android:text="nestor@harber.co"
+        android:text="alexis@gmail.com"
         app:layout_constraintBottom_toTopOf="@id/password_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

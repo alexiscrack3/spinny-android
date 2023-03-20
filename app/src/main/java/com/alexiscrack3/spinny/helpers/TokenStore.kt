@@ -13,9 +13,8 @@ class TokenStore(context: Context) {
             ACCESS_TOKEN_KEY, "").orEmpty()
 
     companion object {
-        const val ACCESS_TOKEN_KEY = "bearerToken"
+        const val ACCESS_TOKEN_KEY = "accessToken"
         const val AUTH_PREFS = "auth_prefs"
-        private const val PAYLOAD_INDEX = 1
     }
 
     fun setAccessToken(accessToken: String) {

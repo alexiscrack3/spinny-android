@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateClubViewModel @Inject constructor(
+class ClubCreateViewModel @Inject constructor(
     private val clubsRepository: ClubsRepository
 ) : ViewModel() {
     private val _clubState: MutableLiveData<Club?> = MutableLiveData()

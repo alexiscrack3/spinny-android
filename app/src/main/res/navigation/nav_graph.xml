@@ -34,7 +34,7 @@
         tools:layout="@layout/fragment_club_edit" />
     <fragment
         android:id="@+id/testFragment"
-        android:name="com.alexiscrack3.spinny.clubs.create.CreateClubFragment"
+        android:name="com.alexiscrack3.spinny.clubs.create.ClubCreateFragment"
         android:label="fragment_create_club"
-        tools:layout="@layout/fragment_new_club" />
+        tools:layout="@layout/fragment_club_create" />
 </navigation>

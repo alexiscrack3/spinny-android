@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.alexiscrack3.spinny.databinding.FragmentNewClubBinding
+import com.alexiscrack3.spinny.databinding.FragmentClubCreateBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateClubFragment : Fragment() {
-    private var _binding: FragmentNewClubBinding? = null
-    private val createClubViewModel by viewModels<CreateClubViewModel>()
+class ClubCreateFragment : Fragment() {
+    private var _binding: FragmentClubCreateBinding? = null
+    private val clubCreateViewModel by viewModels<ClubCreateViewModel>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,7 +24,7 @@ class CreateClubFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentNewClubBinding.inflate(inflater, container, false)
+        _binding = FragmentClubCreateBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -38,10 +38,10 @@ class CreateClubFragment : Fragment() {
                     .make(binding.root, "Name can't be empty", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
             } else {
-                createClubViewModel.createClub(name, description)
+                clubCreateViewModel.createClub(name, description)
             }
         }
-        createClubViewModel.clubState.observe(viewLifecycleOwner) {
+        clubCreateViewModel.clubState.observe(viewLifecycleOwner) {
             findNavController().popBackStack()
         }
     }

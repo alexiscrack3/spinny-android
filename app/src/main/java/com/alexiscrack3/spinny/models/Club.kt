@@ -2,5 +2,6 @@ package com.alexiscrack3.spinny.models
 
 data class Club(
     val id: Int,
-    val name: String
+    val name: String,
+    val description: String?
 )

@@ -9,7 +9,8 @@ class ClubsMapper {
 
         return Club(
             id = clubApiModel.id,
-            name = clubApiModel.name
+            name = clubApiModel.name,
+            description = clubApiModel.description
         )
     }
 
@@ -19,7 +20,8 @@ class ClubsMapper {
         return clubApiModels.map {
             Club(
                 id = it.id,
-                name = it.name
+                name = it.name,
+                description = it.description
             )
         }
     }

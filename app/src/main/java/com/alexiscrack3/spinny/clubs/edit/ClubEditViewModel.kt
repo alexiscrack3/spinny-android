@@ -1,4 +1,4 @@
-package com.alexiscrack3.spinny.clubs.details
+package com.alexiscrack3.spinny.clubs.edit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ClubViewModel @Inject constructor(
+class ClubEditViewModel @Inject constructor(
     private val clubsRepository: ClubsRepository
 ) : ViewModel() {
     private val _clubState: MutableLiveData<Club?> = MutableLiveData()

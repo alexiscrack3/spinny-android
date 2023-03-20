@@ -29,9 +29,9 @@
     </fragment>
     <fragment
         android:id="@+id/clubFragment"
-        android:name="com.alexiscrack3.spinny.clubs.details.ClubFragment"
+        android:name="com.alexiscrack3.spinny.clubs.edit.ClubEditFragment"
         android:label="fragment_club"
-        tools:layout="@layout/fragment_club" />
+        tools:layout="@layout/fragment_club_edit" />
     <fragment
         android:id="@+id/testFragment"
         android:name="com.alexiscrack3.spinny.clubs.create.CreateClubFragment"

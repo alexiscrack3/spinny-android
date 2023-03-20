@@ -7,7 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.alexiscrack3.spinny.R
-import com.alexiscrack3.spinny.clubs.details.ClubFragment.Companion.CLUB_ID_KEY
+import com.alexiscrack3.spinny.clubs.edit.ClubEditFragment.Companion.CLUB_ID_KEY
 import com.alexiscrack3.spinny.databinding.FragmentClubItemBinding
 import com.alexiscrack3.spinny.models.Club
 

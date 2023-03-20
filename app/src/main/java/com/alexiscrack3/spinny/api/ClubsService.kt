@@ -10,5 +10,5 @@ interface ClubsService {
     fun getClubById(@Path("id") id: Int): Call<ApiResponse<ClubData?>>
 
     @GET("/clubs")
-    fun getClubs(): Call<ApiResponse<List<ClubData>>>?
+    fun getClubs(): Call<ApiResponse<List<ClubData>?>>
 }

@@ -13,8 +13,10 @@ class ClubsMapper {
         )
     }
 
-    fun map(clubsResponse: List<ClubData>): List<Club> {
-        return clubsResponse.map {
+    fun map(data: List<ClubData>?): List<Club> {
+        data ?: return emptyList()
+
+        return data.map {
             Club(
                 id = it.id,
                 name = it.name

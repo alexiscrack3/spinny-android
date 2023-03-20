@@ -37,10 +37,10 @@ class ClubsRepository(
 
     fun getClubs(callback: (Result<List<Club>>) -> Unit) {
         clubsService.getClubs()?.enqueue(object :
-            Callback<ApiResponse<List<ClubData>>?> {
+            Callback<ApiResponse<List<ClubData>?>> {
             override fun onResponse(
-                call: Call<ApiResponse<List<ClubData>>?>,
-                apiResponse: Response<ApiResponse<List<ClubData>>?>
+                call: Call<ApiResponse<List<ClubData>?>>,
+                apiResponse: Response<ApiResponse<List<ClubData>?>>
             ) {
                 if (apiResponse.isSuccessful) {
                     val clubsResponse = apiResponse.body()?.data
@@ -55,7 +55,7 @@ class ClubsRepository(
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<List<ClubData>>?>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<List<ClubData>?>>, t: Throwable) {
                 print(t.message)
                 callback(Result.failure(t))
             }

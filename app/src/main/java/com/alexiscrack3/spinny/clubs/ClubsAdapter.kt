@@ -13,8 +13,9 @@ import com.alexiscrack3.spinny.models.Club
  * TODO: Replace the implementation with code for your data type.
  */
 class ClubsAdapter(
-    private val clubs: MutableList<Club> = mutableListOf()
+    clubs: List<Club> = emptyList()
 ) : RecyclerView.Adapter<ClubsAdapter.ClubViewHolder>() {
+    private val clubs = clubs.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClubViewHolder {
         val view = FragmentClubItemBinding.inflate(
@@ -27,8 +28,7 @@ class ClubsAdapter(
 
     override fun onBindViewHolder(holder: ClubViewHolder, position: Int) {
         val club = clubs[position]
-        holder.idTextView.text = club.id.toString()
-        holder.nameTextView.text = club.name
+        holder.bind(club)
     }
 
     override fun getItemCount(): Int = clubs.size
@@ -41,11 +41,16 @@ class ClubsAdapter(
 
     inner class ClubViewHolder(binding: FragmentClubItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val idTextView: TextView = binding.idTextView
-        val nameTextView: TextView = binding.nameTextView
+        private val idTextView: TextView = binding.idTextView
+        private val nameTextView: TextView = binding.nameTextView
 
         override fun toString(): String {
             return super.toString() + " '" + nameTextView.text + "'"
+        }
+
+        fun bind(club: Club) {
+            idTextView.text = club.id.toString()
+            nameTextView.text = club.name
         }
     }
 }

@@ -1,15 +1,15 @@
 package com.alexiscrack3.spinny
 
-import com.alexiscrack3.spinny.api.models.LoginData
+import com.alexiscrack3.spinny.api.models.PlayerApiModel
 import com.alexiscrack3.spinny.models.Player
 
 class LoginMapper {
-    fun map(loginResponse: LoginData): Player {
+    fun map(playerApiModel: PlayerApiModel): Player {
         return Player(
-            id = loginResponse.id,
-            firstName = loginResponse.firstName,
-            lastName = loginResponse.lastName,
-            email = loginResponse.email
+            id = playerApiModel.id,
+            firstName = playerApiModel.firstName,
+            lastName = playerApiModel.lastName,
+            email = playerApiModel.email
         )
     }
 }

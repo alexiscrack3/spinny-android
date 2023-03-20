@@ -3,10 +3,10 @@ package com.alexiscrack3.spinny.login
 import com.alexiscrack3.spinny.LoginMapper
 import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.LoginRequest
-import com.alexiscrack3.spinny.api.models.LoginData
+import com.alexiscrack3.spinny.api.models.PlayerApiModel
 import com.alexiscrack3.spinny.api.LoginService
 import com.alexiscrack3.spinny.models.Player
-import com.alexiscrack3.spinny.api.models.PlayerData
+import com.alexiscrack3.spinny.api.models.PlayerAccountApiModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,16 +17,16 @@ class LoginRepository(
 ) {
     fun signIn(email: String, password: String, callback: (Result<Player>) -> Unit) {
         val loginRequest = LoginRequest(
-            player = PlayerData(
+            player = PlayerAccountApiModel(
                 email = email,
                 password = password
             )
         )
         loginService.signIn(loginRequest)?.enqueue(object :
-            Callback<ApiResponse<LoginData>?> {
+            Callback<ApiResponse<PlayerApiModel>?> {
             override fun onResponse(
-                call: Call<ApiResponse<LoginData>?>,
-                apiResponse: Response<ApiResponse<LoginData>?>
+                call: Call<ApiResponse<PlayerApiModel>?>,
+                apiResponse: Response<ApiResponse<PlayerApiModel>?>
             ) {
                 if (apiResponse.isSuccessful) {
                     val loginResponse = apiResponse.body()?.data
@@ -41,7 +41,7 @@ class LoginRepository(
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<LoginData>?>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<PlayerApiModel>?>, t: Throwable) {
                 println("error ${t.message}")
                 callback(Result.failure(t))
             }

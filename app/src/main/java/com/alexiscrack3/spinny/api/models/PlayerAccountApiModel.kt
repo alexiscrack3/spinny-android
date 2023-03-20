@@ -1,6 +1,6 @@
 package com.alexiscrack3.spinny.api.models
 
-data class PlayerData(
+data class PlayerAccountApiModel(
     val email: String,
     val password: String
 )

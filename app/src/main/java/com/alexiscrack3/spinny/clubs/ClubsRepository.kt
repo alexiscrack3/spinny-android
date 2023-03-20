@@ -2,7 +2,7 @@ package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.ClubsService
-import com.alexiscrack3.spinny.api.models.ClubData
+import com.alexiscrack3.spinny.api.models.ClubApiModel
 import com.alexiscrack3.spinny.models.Club
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,10 +14,10 @@ class ClubsRepository(
 ) {
     fun getClubById(id: Int, callback: (Result<Club?>) -> Unit) {
         clubsService.getClubById(id).enqueue(object :
-            Callback<ApiResponse<ClubData?>> {
+            Callback<ApiResponse<ClubApiModel?>> {
             override fun onResponse(
-                call: Call<ApiResponse<ClubData?>>,
-                apiResponse: Response<ApiResponse<ClubData?>>
+                call: Call<ApiResponse<ClubApiModel?>>,
+                apiResponse: Response<ApiResponse<ClubApiModel?>>
             ) {
                 if (apiResponse.isSuccessful) {
                     val clubsResponse = apiResponse.body()?.data
@@ -28,7 +28,7 @@ class ClubsRepository(
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<ClubData?>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<ClubApiModel?>>, t: Throwable) {
                 print(t.message)
                 callback(Result.failure(t))
             }
@@ -37,10 +37,10 @@ class ClubsRepository(
 
     fun getClubs(callback: (Result<List<Club>>) -> Unit) {
         clubsService.getClubs()?.enqueue(object :
-            Callback<ApiResponse<List<ClubData>?>> {
+            Callback<ApiResponse<List<ClubApiModel>?>> {
             override fun onResponse(
-                call: Call<ApiResponse<List<ClubData>?>>,
-                apiResponse: Response<ApiResponse<List<ClubData>?>>
+                call: Call<ApiResponse<List<ClubApiModel>?>>,
+                apiResponse: Response<ApiResponse<List<ClubApiModel>?>>
             ) {
                 if (apiResponse.isSuccessful) {
                     val clubsResponse = apiResponse.body()?.data
@@ -55,7 +55,7 @@ class ClubsRepository(
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<List<ClubData>?>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<List<ClubApiModel>?>>, t: Throwable) {
                 print(t.message)
                 callback(Result.failure(t))
             }

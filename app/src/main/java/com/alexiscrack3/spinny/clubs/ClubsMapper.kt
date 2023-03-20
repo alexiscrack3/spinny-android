@@ -1,22 +1,22 @@
 package com.alexiscrack3.spinny.clubs
 
-import com.alexiscrack3.spinny.api.models.ClubData
+import com.alexiscrack3.spinny.api.models.ClubApiModel
 import com.alexiscrack3.spinny.models.Club
 
 class ClubsMapper {
-    fun map(data: ClubData?): Club? {
-        data ?: return null
+    fun map(clubApiModel: ClubApiModel?): Club? {
+        clubApiModel ?: return null
 
         return Club(
-            id = data.id,
-            name = data.name
+            id = clubApiModel.id,
+            name = clubApiModel.name
         )
     }
 
-    fun map(data: List<ClubData>?): List<Club> {
-        data ?: return emptyList()
+    fun map(clubApiModels: List<ClubApiModel>?): List<Club> {
+        clubApiModels ?: return emptyList()
 
-        return data.map {
+        return clubApiModels.map {
             Club(
                 id = it.id,
                 name = it.name

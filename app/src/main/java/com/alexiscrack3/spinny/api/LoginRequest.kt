@@ -1,7 +1,7 @@
 package com.alexiscrack3.spinny.api
 
-import com.alexiscrack3.spinny.api.models.PlayerData
+import com.alexiscrack3.spinny.api.models.PlayerAccountApiModel
 
 data class LoginRequest(
-    val player: PlayerData
+    val player: PlayerAccountApiModel
 )

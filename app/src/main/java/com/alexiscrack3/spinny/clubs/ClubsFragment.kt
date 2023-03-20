@@ -5,21 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.api.*
+import com.alexiscrack3.spinny.login.LoginViewModel
+import com.alexiscrack3.spinny.models.Club
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ClubsFragment : Fragment() {
-    @Inject lateinit var clubsService: ClubsService
+    private val clubsViewModel by viewModels<ClubsViewModel>()
     private var columnCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,33 +43,17 @@ class ClubsFragment : Fragment() {
                 adapter = ClubsAdapter()
             }
         }
+        clubsViewModel.clubsState.observe(viewLifecycleOwner) { it ->
+            val recyclerView = view as RecyclerView
+            val adapter = recyclerView.adapter as ClubsAdapter
+            adapter.swap(it)
+        }
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        fetchClubs()
-    }
-
-    private fun fetchClubs() {
-        clubsService.getClubs()?.enqueue(object :
-            Callback<ApiResponse<List<ClubData>>?> {
-            override fun onResponse(
-                call: Call<ApiResponse<List<ClubData>>?>,
-                apiResponse: Response<ApiResponse<List<ClubData>>?>
-            ) {
-                if (apiResponse.isSuccessful) {
-                    val result = apiResponse.body()
-                    val recyclerView = view as RecyclerView
-                    val adapter = recyclerView.adapter as ClubsAdapter
-                    adapter.swap(result?.data.orEmpty())
-                }
-            }
-
-            override fun onFailure(call: Call<ApiResponse<List<ClubData>>?>, t: Throwable) {
-                print(t.message)
-            }
-        })
+        clubsViewModel.getClubs()
     }
 
     companion object {

@@ -1,10 +1,9 @@
 package com.alexiscrack3.spinny.di
 
 import android.content.Context
+import com.alexiscrack3.spinny.BuildConfig
 import com.alexiscrack3.spinny.api.AuthHeaderInterceptor
-import com.alexiscrack3.spinny.api.LoginService
 import com.alexiscrack3.spinny.helpers.TokenStore
-import com.alexiscrack3.spinny.login.LoginRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,8 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object SpinnyModule {
-    private const val BASE_URL = "http://10.0.2.2:3000"
-
     @Provides
     @Singleton
     fun providesOkHttpClient(
@@ -38,7 +35,7 @@ object SpinnyModule {
     @Singleton
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

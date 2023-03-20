@@ -16,23 +16,10 @@
             app:destination="@id/clubsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.alexiscrack3.spinny.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_LoginFragment"
-            app:destination="@id/LoginFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/clubsFragment"
         android:name="com.alexiscrack3.spinny.clubs.list.ClubsFragment"
         android:label="fragment_clubs"
         tools:layout="@layout/fragment_clubs" >
-        <action
-            android:id="@+id/action_clubsFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
         <action
             android:id="@+id/action_clubsFragment_to_clubFragment"
             app:destination="@id/clubFragment" />

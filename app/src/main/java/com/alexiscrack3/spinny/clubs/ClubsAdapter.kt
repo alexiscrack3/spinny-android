@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.alexiscrack3.spinny.clubs.placeholder.PlaceholderContent.PlaceholderItem
 import com.alexiscrack3.spinny.databinding.FragmentClubItemBinding
 import com.alexiscrack3.spinny.models.Club
 
 /**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
+ * [RecyclerView.Adapter] that can display a [Club].
  * TODO: Replace the implementation with code for your data type.
  */
 class ClubsAdapter(

@@ -47,8 +47,4 @@ object SpinnyModule {
     @Provides
     @Singleton
     fun providesTokenStore(@ApplicationContext appContext: Context) = TokenStore(appContext)
-
-    @Provides
-    @Singleton
-    fun getLoginRepository(loginService: LoginService) = LoginRepository(loginService)
 }

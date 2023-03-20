@@ -3,7 +3,7 @@ package com.alexiscrack3.spinny
 import com.alexiscrack3.spinny.api.LoginResponse
 import com.alexiscrack3.spinny.models.Player
 
-class PlayersMapper {
+class LoginMapper {
     fun map(loginResponse: LoginResponse): Player {
         return Player(
             id = loginResponse.id,

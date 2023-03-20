@@ -1,9 +1,10 @@
-package com.alexiscrack3.spinny.clubs
+package com.alexiscrack3.spinny.clubs.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alexiscrack3.spinny.clubs.ClubsRepository
 import com.alexiscrack3.spinny.models.Club
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

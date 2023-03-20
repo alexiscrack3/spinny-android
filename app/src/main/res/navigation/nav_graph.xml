@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/clubsFragment"
-        android:name="com.alexiscrack3.spinny.clubs.ClubsFragment"
+        android:name="com.alexiscrack3.spinny.clubs.list.ClubsFragment"
         android:label="fragment_clubs"
         tools:layout="@layout/fragment_clubs" >
         <action

@@ -1,7 +1,7 @@
 package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.api.ApiResponse
-import com.alexiscrack3.spinny.api.ClubData
+import com.alexiscrack3.spinny.api.models.ClubData
 import com.alexiscrack3.spinny.api.ClubsService
 import com.alexiscrack3.spinny.models.Club
 import retrofit2.Call

@@ -1,8 +1,8 @@
-package com.alexiscrack3.spinny.api
+package com.alexiscrack3.spinny.api.models
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class LoginData(
     val id: Int,
     @SerializedName("first_name")
     val firstName: String,

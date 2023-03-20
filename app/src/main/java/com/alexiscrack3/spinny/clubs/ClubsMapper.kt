@@ -1,6 +1,6 @@
 package com.alexiscrack3.spinny.clubs
 
-import com.alexiscrack3.spinny.api.ClubData
+import com.alexiscrack3.spinny.api.models.ClubData
 import com.alexiscrack3.spinny.models.Club
 
 class ClubsMapper {

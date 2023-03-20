@@ -3,7 +3,11 @@ package com.alexiscrack3.spinny.clubs.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.alexiscrack3.spinny.R
+import com.alexiscrack3.spinny.clubs.details.ClubFragment.Companion.CLUB_ID_KEY
 import com.alexiscrack3.spinny.databinding.FragmentClubItemBinding
 import com.alexiscrack3.spinny.models.Club
 
@@ -50,6 +54,10 @@ class ClubsAdapter(
         fun bind(club: Club) {
             idTextView.text = club.id.toString()
             nameTextView.text = club.name
+            itemView.setOnClickListener {
+                val args = bundleOf(CLUB_ID_KEY to club.id)
+                it.findNavController().navigate(R.id.action_clubsFragment_to_clubFragment, args)
+            }
         }
     }
 }

@@ -33,5 +33,13 @@
         <action
             android:id="@+id/action_clubsFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_clubsFragment_to_clubFragment"
+            app:destination="@id/clubFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/clubFragment"
+        android:name="com.alexiscrack3.spinny.clubs.details.ClubFragment"
+        android:label="fragment_club"
+        tools:layout="@layout/fragment_club" />
 </navigation>

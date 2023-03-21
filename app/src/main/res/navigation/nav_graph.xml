@@ -31,10 +31,19 @@
         android:id="@+id/clubFragment"
         android:name="com.alexiscrack3.spinny.clubs.edit.ClubEditFragment"
         android:label="fragment_club"
-        tools:layout="@layout/fragment_club_edit" />
+        tools:layout="@layout/fragment_club_edit" >
+        <action
+            android:id="@+id/action_clubFragment_to_clubMembersFragment"
+            app:destination="@id/clubMembersFragment" />
+    </fragment>
     <fragment
         android:id="@+id/testFragment"
         android:name="com.alexiscrack3.spinny.clubs.create.ClubCreateFragment"
         android:label="fragment_create_club"
         tools:layout="@layout/fragment_club_create" />
+    <fragment
+        android:id="@+id/clubMembersFragment"
+        android:name="com.alexiscrack3.spinny.clubs.members.ClubMembersFragment"
+        android:label="fragment_club_members"
+        tools:layout="@layout/fragment_club_members" />
 </navigation>

@@ -29,8 +29,8 @@ class ClubsRepository(
                 apiResponse: Response<ApiResponse<ClubApiModel?>>
             ) {
                 if (apiResponse.isSuccessful) {
-                    val clubsResponse = apiResponse.body()?.data
-                    val club = clubsMapper.map(clubsResponse)
+                    val data = apiResponse.body()?.data
+                    val club = clubsMapper.map(data)
                     callback(Result.success(club))
                 } else {
                     callback(Result.failure(Throwable("Something went wrong")))
@@ -52,8 +52,8 @@ class ClubsRepository(
                 apiResponse: Response<ApiResponse<ClubApiModel?>>
             ) {
                 if (apiResponse.isSuccessful) {
-                    val clubsResponse = apiResponse.body()?.data
-                    val club = clubsMapper.map(clubsResponse)
+                    val data = apiResponse.body()?.data
+                    val club = clubsMapper.map(data)
                     callback(Result.success(club))
                 } else {
                     callback(Result.failure(Throwable("Something went wrong")))
@@ -75,8 +75,8 @@ class ClubsRepository(
                 apiResponse: Response<ApiResponse<ClubApiModel?>>
             ) {
                 if (apiResponse.isSuccessful) {
-                    val clubsResponse = apiResponse.body()?.data
-                    val club = clubsMapper.map(clubsResponse)
+                    val data = apiResponse.body()?.data
+                    val club = clubsMapper.map(data)
                     callback(Result.success(club))
                 } else {
                     callback(Result.failure(Throwable("Something went wrong")))
@@ -98,11 +98,11 @@ class ClubsRepository(
                 apiResponse: Response<ApiResponse<List<ClubApiModel>?>>
             ) {
                 if (apiResponse.isSuccessful) {
-                    val clubsResponse = apiResponse.body()?.data
-                    if (clubsResponse == null) {
+                    val data = apiResponse.body()?.data
+                    if (data == null) {
                         callback(Result.failure(Throwable("Something went wrong")))
                     } else {
-                        val clubs = clubsMapper.map(clubsResponse)
+                        val clubs = clubsMapper.map(data)
                         callback(Result.success(clubs))
                     }
                 } else {

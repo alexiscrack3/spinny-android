@@ -1,12 +1,12 @@
 package com.alexiscrack3.spinny
 
-import com.alexiscrack3.spinny.api.models.ClubApiModel
 import com.alexiscrack3.spinny.api.models.PlayerApiModel
-import com.alexiscrack3.spinny.models.Club
 import com.alexiscrack3.spinny.models.Player
 
-class LoginMapper {
-    fun map(playerApiModel: PlayerApiModel): Player {
+class PlayersMapper {
+    fun map(playerApiModel: PlayerApiModel?): Player? {
+        playerApiModel ?: return null
+
         return Player(
             id = playerApiModel.id,
             firstName = playerApiModel.firstName,

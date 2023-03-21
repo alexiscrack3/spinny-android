@@ -1,6 +1,6 @@
 package com.alexiscrack3.spinny.clubs
 
-import com.alexiscrack3.spinny.LoginMapper
+import com.alexiscrack3.spinny.PlayersMapper
 import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.ClubRequest
 import com.alexiscrack3.spinny.api.ClubsService
@@ -15,7 +15,7 @@ import retrofit2.Response
 class ClubsRepository(
     private val clubsService: ClubsService,
     private val clubsMapper: ClubsMapper = ClubsMapper(),
-    private val loginMapper: LoginMapper = LoginMapper()
+    private val playersMapper: PlayersMapper = PlayersMapper()
 ) {
     fun createClub(name: String, description: String?, callback: (Result<Club?>) -> Unit) {
         val clubRequest = ClubRequest(
@@ -129,7 +129,7 @@ class ClubsRepository(
                     if (data == null) {
                         callback(Result.failure(Throwable("Something went wrong")))
                     } else {
-                        val players = loginMapper.map(data)
+                        val players = playersMapper.map(data)
                         callback(Result.success(players))
                     }
                 } else {

@@ -1,6 +1,6 @@
 package com.alexiscrack3.spinny.login
 
-import com.alexiscrack3.spinny.LoginMapper
+import com.alexiscrack3.spinny.PlayersMapper
 import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.LoginRequest
 import com.alexiscrack3.spinny.api.models.PlayerApiModel
@@ -13,7 +13,7 @@ import retrofit2.Response
 
 class LoginRepository(
     private val loginService: LoginService,
-    private val loginMapper: LoginMapper = LoginMapper()
+    private val playersMapper: PlayersMapper = PlayersMapper()
 ) {
     fun signIn(email: String, password: String, callback: (Result<Player>) -> Unit) {
         val loginRequest = LoginRequest(
@@ -29,11 +29,11 @@ class LoginRepository(
                 apiResponse: Response<ApiResponse<PlayerApiModel>?>
             ) {
                 if (apiResponse.isSuccessful) {
-                    val loginResponse = apiResponse.body()?.data
-                    if (loginResponse == null) {
+                    val data = apiResponse.body()?.data
+                    if (data == null) {
                         callback(Result.failure(Throwable("Something went wrong")))
                     } else {
-                        val player = loginMapper.map(loginResponse)
+                        val player = playersMapper.map(data)!!
                         callback(Result.success(player))
                     }
                 } else {

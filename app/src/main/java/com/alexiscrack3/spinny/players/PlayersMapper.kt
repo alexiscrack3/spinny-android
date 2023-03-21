@@ -1,4 +1,4 @@
-package com.alexiscrack3.spinny
+package com.alexiscrack3.spinny.players
 
 import com.alexiscrack3.spinny.api.models.PlayerApiModel
 import com.alexiscrack3.spinny.models.Player

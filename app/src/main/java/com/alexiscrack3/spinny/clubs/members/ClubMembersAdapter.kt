@@ -3,9 +3,13 @@ package com.alexiscrack3.spinny.clubs.members
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.alexiscrack3.spinny.R
 import com.alexiscrack3.spinny.databinding.FragmentClubMemberItemBinding
 import com.alexiscrack3.spinny.models.Player
+import com.alexiscrack3.spinny.players.edit.PlayerEditFragment
 
 /**
  * [RecyclerView.Adapter] that can display a [Player].
@@ -50,6 +54,11 @@ class ClubMembersAdapter(
         fun bind(player: Player) {
             idTextView.text = player.id.toString()
             emailTextView.text = player.email
+            itemView.setOnClickListener {
+                val args = bundleOf(PlayerEditFragment.PLAYER_ID_KEY to player.id)
+                it.findNavController()
+                    .navigate(R.id.action_clubMembersFragment_to_playerEditFragment, args)
+            }
         }
     }
 }

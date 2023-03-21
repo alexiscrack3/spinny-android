@@ -1,6 +1,6 @@
 package com.alexiscrack3.spinny.clubs
 
-import com.alexiscrack3.spinny.PlayersMapper
+import com.alexiscrack3.spinny.players.PlayersMapper
 import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.ClubRequest
 import com.alexiscrack3.spinny.api.ClubsService

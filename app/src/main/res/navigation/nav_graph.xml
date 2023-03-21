@@ -45,5 +45,13 @@
         android:id="@+id/clubMembersFragment"
         android:name="com.alexiscrack3.spinny.clubs.members.ClubMembersFragment"
         android:label="fragment_club_members"
-        tools:layout="@layout/fragment_club_members" />
+        tools:layout="@layout/fragment_club_members" >
+        <action
+            android:id="@+id/action_clubMembersFragment_to_playerEditFragment"
+            app:destination="@id/playerEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerEditFragment"
+        android:name="com.alexiscrack3.spinny.players.edit.PlayerEditFragment"
+        android:label="PlayerEditFragment" />
 </navigation>

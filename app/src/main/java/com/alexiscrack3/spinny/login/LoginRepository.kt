@@ -1,6 +1,6 @@
 package com.alexiscrack3.spinny.login
 
-import com.alexiscrack3.spinny.PlayersMapper
+import com.alexiscrack3.spinny.players.PlayersMapper
 import com.alexiscrack3.spinny.api.ApiResponse
 import com.alexiscrack3.spinny.api.LoginRequest
 import com.alexiscrack3.spinny.api.models.PlayerApiModel

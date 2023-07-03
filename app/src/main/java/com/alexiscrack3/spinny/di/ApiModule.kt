@@ -13,7 +13,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
-
     @Provides
     @Singleton
     fun providesLoginService(retrofit: Retrofit) = retrofit.create(LoginService::class.java)

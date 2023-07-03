@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object PlayersModule {
-
     @Provides
     fun providesPlayersRepository(playersService: PlayersService): PlayersRepository {
         return PlayersRepository(playersService)

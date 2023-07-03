@@ -5,12 +5,11 @@ import com.alexiscrack3.spinny.login.LoginRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object LoginModule {
-
     @Provides
     fun getLoginRepository(loginService: LoginService): LoginRepository {
         return LoginRepository(loginService)

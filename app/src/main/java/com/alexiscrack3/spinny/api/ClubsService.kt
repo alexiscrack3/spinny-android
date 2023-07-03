@@ -10,16 +10,16 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ClubsService {
-    @POST("/clubs")
+    @POST("clubs")
     fun createClub(@Body clubRequest: ClubRequest): Call<ApiResponse<ClubApiModel?>>
 
-    @GET("/clubs/{id}")
+    @GET("clubs/{id}")
     fun getClubById(@Path("id") id: Int): Call<ApiResponse<ClubApiModel?>>
 
-    @GET("/clubs")
+    @GET("clubs")
     fun getClubs(): Call<ApiResponse<List<ClubApiModel>?>>
 
-    @DELETE("/clubs/{id}")
+    @DELETE("clubs/{id}")
     fun deleteClubById(@Path("id") id: Int): Call<ApiResponse<ClubApiModel?>>
 
     @GET("/clubs/{id}/members")

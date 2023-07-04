@@ -39,13 +39,6 @@ class LoginRepositoryTest {
             lastName = faker.name.lastName(),
             email = email
         )
-        val player = Player(
-            id = playerApiModel.id,
-            firstName = playerApiModel.firstName,
-            lastName = playerApiModel.lastName,
-            email = playerApiModel.email
-        )
-        val expected = Result.success(player)
         val apiDocument = ApiDocument(playerApiModel)
         val response = Response.success(apiDocument)
         val call = mock<Call<ApiDocument<PlayerApiModel>?>>()
@@ -77,19 +70,6 @@ class LoginRepositoryTest {
                 password = password
             )
         )
-        val playerApiModel = PlayerApiModel(
-            id = faker.random.nextInt(),
-            firstName = faker.name.firstName(),
-            lastName = faker.name.lastName(),
-            email = email
-        )
-        val player = Player(
-            id = playerApiModel.id,
-            firstName = playerApiModel.firstName,
-            lastName = playerApiModel.lastName,
-            email = playerApiModel.email
-        )
-        val expected = Result.success(player)
         val apiDocument: ApiDocument<PlayerApiModel> = ApiDocument(null)
         val response = Response.success(apiDocument)
         val call = mock<Call<ApiDocument<PlayerApiModel>?>>()

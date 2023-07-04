@@ -71,9 +71,18 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'io.github.serpro69:kotlin-faker:1.14.0'
+
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+
+    // Coroutines
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2'
+
+    // Mockito
     testImplementation 'org.mockito:mockito-core:5.4.0'
     testImplementation 'org.mockito.kotlin:mockito-kotlin:5.0.0'
-    testImplementation 'io.github.serpro69:kotlin-faker:1.14.0'
+
+    // Assertions
     testImplementation "com.google.truth:truth:1.1.4"
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

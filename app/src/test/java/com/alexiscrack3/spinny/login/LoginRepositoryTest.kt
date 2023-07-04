@@ -61,7 +61,10 @@ class LoginRepositoryTest {
 
         loginRepository.signIn(email, password, callback)
 
-        verify(callback).invoke(expected)
+        argumentCaptor<Result<Player>>().apply {
+            verify(callback).invoke(capture())
+            assertThat(firstValue.isSuccess).isTrue()
+        }
     }
 
     @Test

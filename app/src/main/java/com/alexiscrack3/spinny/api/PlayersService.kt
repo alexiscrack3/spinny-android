@@ -7,5 +7,5 @@ import retrofit2.http.Path
 
 interface PlayersService {
     @GET("players/{id}")
-    fun getPlayerById(@Path("id") id: Int): Call<ApiResponse<PlayerApiModel?>>
+    fun getPlayerById(@Path("id") id: Int): Call<ApiDocument<PlayerApiModel?>>
 }

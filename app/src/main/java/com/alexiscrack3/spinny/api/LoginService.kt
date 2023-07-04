@@ -7,5 +7,5 @@ import retrofit2.http.POST
 
 interface LoginService {
     @POST("players/sign_in")
-    fun signIn(@Body loginRequest: LoginRequest): Call<ApiResponse<PlayerApiModel>>?
+    fun signIn(@Body loginRequest: LoginRequest): Call<ApiDocument<PlayerApiModel>?>
 }

@@ -1,7 +1,7 @@
 package com.alexiscrack3.spinny.clubs
 
 import com.alexiscrack3.spinny.players.PlayersMapper
-import com.alexiscrack3.spinny.api.ApiResponse
+import com.alexiscrack3.spinny.api.ApiDocument
 import com.alexiscrack3.spinny.api.ClubRequest
 import com.alexiscrack3.spinny.api.ClubsService
 import com.alexiscrack3.spinny.api.models.ClubApiModel
@@ -23,13 +23,13 @@ class ClubsRepository(
             description = description
         )
         clubsService.createClub(clubRequest).enqueue(object :
-            Callback<ApiResponse<ClubApiModel?>> {
+            Callback<ApiDocument<ClubApiModel?>> {
             override fun onResponse(
-                call: Call<ApiResponse<ClubApiModel?>>,
-                apiResponse: Response<ApiResponse<ClubApiModel?>>
+                call: Call<ApiDocument<ClubApiModel?>>,
+                response: Response<ApiDocument<ClubApiModel?>>
             ) {
-                if (apiResponse.isSuccessful) {
-                    val data = apiResponse.body()?.data
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
                     val club = clubsMapper.map(data)
                     callback(Result.success(club))
                 } else {
@@ -37,7 +37,7 @@ class ClubsRepository(
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<ClubApiModel?>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiDocument<ClubApiModel?>>, t: Throwable) {
                 print(t.message)
                 callback(Result.failure(t))
             }
@@ -46,13 +46,13 @@ class ClubsRepository(
 
     fun deleteClubById(id: Int, callback: (Result<Club?>) -> Unit) {
         clubsService.deleteClubById(id).enqueue(object :
-            Callback<ApiResponse<ClubApiModel?>> {
+            Callback<ApiDocument<ClubApiModel?>> {
             override fun onResponse(
-                call: Call<ApiResponse<ClubApiModel?>>,
-                apiResponse: Response<ApiResponse<ClubApiModel?>>
+                call: Call<ApiDocument<ClubApiModel?>>,
+                response: Response<ApiDocument<ClubApiModel?>>
             ) {
-                if (apiResponse.isSuccessful) {
-                    val data = apiResponse.body()?.data
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
                     val club = clubsMapper.map(data)
                     callback(Result.success(club))
                 } else {
@@ -60,7 +60,7 @@ class ClubsRepository(
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<ClubApiModel?>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiDocument<ClubApiModel?>>, t: Throwable) {
                 print(t.message)
                 callback(Result.failure(t))
             }
@@ -69,13 +69,13 @@ class ClubsRepository(
 
     fun getClubById(id: Int, callback: (Result<Club?>) -> Unit) {
         clubsService.getClubById(id).enqueue(object :
-            Callback<ApiResponse<ClubApiModel?>> {
+            Callback<ApiDocument<ClubApiModel?>> {
             override fun onResponse(
-                call: Call<ApiResponse<ClubApiModel?>>,
-                apiResponse: Response<ApiResponse<ClubApiModel?>>
+                call: Call<ApiDocument<ClubApiModel?>>,
+                response: Response<ApiDocument<ClubApiModel?>>
             ) {
-                if (apiResponse.isSuccessful) {
-                    val data = apiResponse.body()?.data
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
                     val club = clubsMapper.map(data)
                     callback(Result.success(club))
                 } else {
@@ -83,7 +83,7 @@ class ClubsRepository(
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<ClubApiModel?>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiDocument<ClubApiModel?>>, t: Throwable) {
                 print(t.message)
                 callback(Result.failure(t))
             }
@@ -92,13 +92,13 @@ class ClubsRepository(
 
     fun getClubs(callback: (Result<List<Club>>) -> Unit) {
         clubsService.getClubs()?.enqueue(object :
-            Callback<ApiResponse<List<ClubApiModel>?>> {
+            Callback<ApiDocument<List<ClubApiModel>?>> {
             override fun onResponse(
-                call: Call<ApiResponse<List<ClubApiModel>?>>,
-                apiResponse: Response<ApiResponse<List<ClubApiModel>?>>
+                call: Call<ApiDocument<List<ClubApiModel>?>>,
+                response: Response<ApiDocument<List<ClubApiModel>?>>
             ) {
-                if (apiResponse.isSuccessful) {
-                    val data = apiResponse.body()?.data
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
                     if (data == null) {
                         callback(Result.failure(Throwable("Something went wrong")))
                     } else {
@@ -110,7 +110,7 @@ class ClubsRepository(
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<List<ClubApiModel>?>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiDocument<List<ClubApiModel>?>>, t: Throwable) {
                 print(t.message)
                 callback(Result.failure(t))
             }
@@ -119,13 +119,13 @@ class ClubsRepository(
 
     fun getMembersByClubId(id: Int, callback: (Result<List<Player>>) -> Unit) {
         clubsService.getMembersByClubId(id).enqueue(object :
-            Callback<ApiResponse<List<PlayerApiModel>?>> {
+            Callback<ApiDocument<List<PlayerApiModel>?>> {
             override fun onResponse(
-                call: Call<ApiResponse<List<PlayerApiModel>?>>,
-                apiResponse: Response<ApiResponse<List<PlayerApiModel>?>>
+                call: Call<ApiDocument<List<PlayerApiModel>?>>,
+                response: Response<ApiDocument<List<PlayerApiModel>?>>
             ) {
-                if (apiResponse.isSuccessful) {
-                    val data = apiResponse.body()?.data
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
                     if (data == null) {
                         callback(Result.failure(Throwable("Something went wrong")))
                     } else {
@@ -137,7 +137,7 @@ class ClubsRepository(
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<List<PlayerApiModel>?>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiDocument<List<PlayerApiModel>?>>, t: Throwable) {
                 print(t.message)
                 callback(Result.failure(t))
             }

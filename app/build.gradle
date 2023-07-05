@@ -39,6 +39,13 @@ android {
     buildFeatures {
         viewBinding true
     }
+    testOptions {
+        // If the exceptions thrown are problematic for your tests, you can change the behavior so that methods instead return either null or zero, depending on the return type.
+//        unitTests.returnDefaultValues = true
+
+        // Enables unit tests to use Android resources, assets, and manifests.
+        unitTests.includeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -73,7 +80,10 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'io.github.serpro69:kotlin-faker:1.14.0'
 
-    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    // Android X
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+//    debugImplementation 'androidx.fragment:fragment-testing:1.6.0'
+    testImplementation 'androidx.test.ext:junit-ktx:1.1.5'
 
     // Coroutines
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2'
@@ -81,6 +91,10 @@ dependencies {
     // Mockito
     testImplementation 'org.mockito:mockito-core:5.4.0'
     testImplementation 'org.mockito.kotlin:mockito-kotlin:5.0.0'
+
+    testImplementation 'org.robolectric:robolectric:4.10.3'
+    testImplementation 'androidx.test:runner:1.5.2'
+    testImplementation 'androidx.test:rules:1.5.0'
 
     // Assertions
     testImplementation "com.google.truth:truth:1.1.4"

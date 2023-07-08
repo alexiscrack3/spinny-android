@@ -65,7 +65,7 @@ dependencies {
     def lifecycle_version = '2.6.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
-    //Networking
+    // Networking
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
@@ -89,6 +89,7 @@ dependencies {
     def nav_version = '2.6.0'
     testImplementation "androidx.navigation:navigation-testing:$nav_version"
 
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.7.2'
 
     // Android X
     testImplementation 'androidx.arch.core:core-testing:2.2.0'

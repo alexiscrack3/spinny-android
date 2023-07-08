@@ -1,0 +1,13 @@
+{
+  "data": {
+    "id": 1,
+    "first_name": "Foo",
+    "last_name": "Bar",
+    "created_at": "2023-01-01T01:01:01.100Z",
+    "updated_at": "2023-01-01T01:01:01.100Z",
+    "email": "email@gmail.com",
+    "role": "guest"
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -59,7 +59,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     // Fragment KTX
-    implementation "androidx.fragment:fragment-ktx:1.5.5"
+    implementation "androidx.fragment:fragment-ktx:1.6.0"
 
     // Lifecycle
     def lifecycle_version = '2.6.1'

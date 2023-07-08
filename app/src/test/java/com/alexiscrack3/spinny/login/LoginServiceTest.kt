@@ -1,28 +1,18 @@
 package com.alexiscrack3.spinny.login
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.alexiscrack3.spinny.MockResponseFileReader
 import com.alexiscrack3.spinny.api.LoginRequest
 import com.alexiscrack3.spinny.api.LoginService
 import com.alexiscrack3.spinny.api.models.PlayerAccountApiModel
-import com.alexiscrack3.spinny.models.Player
 import com.google.common.truth.Truth.assertThat
-import com.google.gson.Gson
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.HiltTestApplication
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.annotation.Config
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.HttpURLConnection
-import javax.inject.Inject
 
 class LoginServiceTest {
     private lateinit var mockWebServer: MockWebServer
